@@ -1,0 +1,35 @@
+{
+	"name": "mci",
+	"description": "Agenda do Mês da Cultura Independente",
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/miguelpeixe/mci.git"
+	},
+	"version": "0.0.1",
+	"author": "Miguel Peixe <miguel@cardumea.art.br>",
+	"scripts": {
+		"install": "mkdir -p dist && ./node_modules/.bin/napa",
+		"start": "node server.js"
+	},
+	"dependencies": {
+		"request": "latest",
+		"angular": "latest",
+		"underscore": "latest",
+		"less": "latest",
+		"jquery": "latest",
+		"napa": "latest",
+		"express": "latest",
+		"prerender-node": "latest"
+	},
+	"napa": {
+		"angular-cookies": "angular/bower-angular-cookies",
+		"angular-ui-utils": "angular-ui/ui-utils",
+		"angular-ui-router": "angular-ui/ui-router"
+	},
+	"keywords": [
+		"mci",
+		"angular",
+		"mapasculturais"
+	],
+	"engine": "node >= 0.10"
+}
