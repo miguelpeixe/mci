@@ -6,14 +6,13 @@
 		"url": "git://github.com/miguelpeixe/mci.git"
 	},
 	"version": "0.0.1",
-	"author": "Miguel Peixe <miguel@cardumea.art.br>",
+	"author": "Miguel Peixe <miguel@cardume.art.br>",
 	"scripts": {
-		"install": "mkdir -p dist && ./node_modules/.bin/napa",
+		"install": "mkdir -p dist/data && ./node_modules/.bin/napa",
 		"start": "node server.js"
 	},
 	"dependencies": {
 		"request": "latest",
-		"angular": "latest",
 		"underscore": "latest",
 		"less": "latest",
 		"jquery": "latest",
@@ -21,9 +20,18 @@
 		"express": "latest",
 		"prerender-node": "latest"
 	},
+	"devDependencies": {
+		"grunt": "latest",
+		"grunt-contrib-copy": "latest",
+		"grunt-contrib-less": "latest",
+		"grunt-contrib-jade": "latest",
+		"grunt-browserify": "latest",
+		"grunt-contrib-uglify": "latest",
+		"grunt-contrib-connect": "latest",
+		"grunt-contrib-watch": "latest"
+	},
 	"napa": {
-		"angular-cookies": "angular/bower-angular-cookies",
-		"angular-ui-utils": "angular-ui/ui-utils",
+		"angular": "angular/bower-angular",
 		"angular-ui-router": "angular-ui/ui-router"
 	},
 	"keywords": [
