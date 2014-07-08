@@ -1,7 +1,18 @@
 'use strict';
 
+/*
+ * Modules
+ */
+
+require('./events');
+
+/*
+ * App
+ */
+
 angular.module('mci', [
-	'ui.router'
+	'ui.router',
+	'mci.events'
 ])
 .config([
 	'$stateProvider',

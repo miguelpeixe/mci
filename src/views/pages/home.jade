@@ -1,20 +1,26 @@
-article#featured(style="background-image:url(http://lorempixel.com/900/450)")
+article#featured.feat(style="background-image:url(http://lorempixel.com/900/450)")
 	header
 		h2 In vel mi purus. Donec fringilla eros ut fringilla malesuada.
-article#second(style="background-image:url(http://lorempixel.com/500/500)")
+article#second.feat(style="background-image:url(http://lorempixel.com/500/500)")
 	header
 		h2 Donec fringilla eros ut fringilla.
-section#events
+section#events(ng-controller="EventListController")
 	header
 		h2 Agenda
 		h3 Próximos eventos
 	.event-list
-		article.event-item(style="background-image:url(http://lorempixel.com/300/300?1)")
+		article.event-item
 			header
+				a(href="/eventos/1/")
+					img(src="http://lorempixel.com/300/100?1")
 				h3 Lorem ipsum dolor sit
-		article.event-item(style="background-image:url(http://lorempixel.com/300/300?2)")
+		article.event-item
 			header
+				a(href="/eventos/2/")
+					img(src="http://lorempixel.com/300/100?2")
 				h3 Lorem ipsum dolor sit
-		article.event-item(style="background-image:url(http://lorempixel.com/300/300?3)")
+		article.event-item
 			header
+				a(href="/eventos/3/")
+					img(src="http://lorempixel.com/300/100?3")
 				h3 Lorem ipsum dolor sit

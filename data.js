@@ -64,14 +64,24 @@ function getData() {
 
 					_.each(occurrences, function(occurrence) {
 
-						// Store event id
-						spaceIds.push(occurrence.rule.spaceId);
+						var rule = occurrence.rule;
 
-						// Connect to event (?)
-						// var event = _.find(events, function(e) { return e.id == occurrence.eventId; });
-						// if(!event.occurrences)
-						// 	event.occurrences = [];
-						// event.occurrences.push(occurrence);
+						// Store event id
+						spaceIds.push(rule.spaceId);
+
+						// Connect to event
+						var event = _.find(events, function(e) { return e.id == occurrence.eventId; });
+						
+						event.spaceId = rule.spaceId;
+						event.startsAt = rule.startsAt;
+						event.startsOn = rule.startsOn;
+						event.duration = rule.duration;
+
+						event.acessibilidade = [];
+						if(event.traducaoLibras)
+							event.acessibilidade.push('Tradução para libras');
+						if(event.descricaoSonora)
+							event.acessibilidade.push('Descrição sonora');
 
 					});
 

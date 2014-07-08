@@ -9,9 +9,26 @@ html(lang='pt-BR')
 	body
 		header#masthead
 			h1
-				span Mês da Cultura Independente
-				img(src='/img/logo.png' alt='Mês da Cultura Independente')
-			h2 2014
+				a(href="/")
+					span Mês da Cultura Independente
+					img(src='/img/logo.png' alt='Mês da Cultura Independente')
+			h2
+				span setembro/
+				| 2014
+			nav#mastnav
+				ul
+					li
+						a(href="/" title="Página inicial")
+							span.entypo &#8962;
+					li
+						a(href="/" title="Eventos")
+							span.entypo &#128197;
+					li
+						a(href="/" title="Notícias")
+							span.entypo &#128196;
+					li
+						a(href="/" title="Imprensa")
+							span.entypo &#128240;
 		section#content(ui-view, autoscroll='false')
 		script(type='text/javascript', src='/vendor.js')
 		script(type='text/javascript', src='/app.js')

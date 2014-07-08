@@ -59,29 +59,69 @@
 	filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",@stop,@start));
 }
 
+/*
+ * FONTS
+ */
+
+@font-face {
+	font-family: 'Axis';
+	src: url('../font/axis-webfont.eot');
+	src: url('../font/axis-webfont.eot?#iefix') format('embedded-opentype'),
+		 url('../font/axis-webfont.woff') format('woff'),
+		 url('../font/axis-webfont.ttf') format('truetype'),
+		 url('../font/axis-webfont.svg#axisbold') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'entypo';
+	src: url('../font/entypo.eot');
+	src: url('../font/entypo.eot?#iefix') format('embedded-opentype'),
+		 url('../font/entypo.woff') format('woff'),
+		 url('../font/entypo.ttf') format('truetype'),
+		 url('../font/entypo.svg#entypo') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.entypo {
+	font-family: "entypo";
+}
+
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-	font-family: "Oswald", sans-serif;
+	font-family: "Axis", sans-serif;
+	text-transform: uppercase;
+	line-height: 120%;
 }
+
+@bgcolor: #fff;
+@blue: #3db1b1;
+@yellow: #e2e760;
+@pink: #ec008b;
 
 body,html {
 	width: 100%;
 	height: 100%;
-	background: #222;
+	background: @bgcolor;
 }
 
 #masthead {
 	height: 100%;
-	width: 270px;
+	width: 231px;
 	padding: 40px;
-	background: #3db1b1;
+	background: @bgcolor;
 	.box-sizing(border-box);
-	border-right: 20px solid #e2e670;
+	//border-right: 40px solid @bgcolor;
+	border-right: 1px solid #333;
+	margin-right: 40px;
 	float: left;
+	overflow: auto;
 	h1 {
 		text-indent: -9999px;
 		line-height: 0;
@@ -92,13 +132,47 @@ body,html {
 		}
 	}
 	h2 {
-		font-size: 72px;
-		line-height: 72px;
-		margin: 0 0 40px;
-		color: #fff;
+		font-size: 58px;
+		line-height: 100%;
+		margin: 40px 0;
+		color: #333;
 		text-align: center;
-		border-bottom: 10px solid #ec008b;
-		padding-bottom: 20px;
+		border-bottom: 10px solid @pink;
+		padding-bottom: 0;
+		span {
+			display: block;
+			font-size: 14px;
+			line-height: 100%;
+			text-align: right;
+		}
+	}
+	#mastnav {
+		ul {
+			float: right;
+			width: 100%;
+			margin: 0;
+			li {
+				width: 50%;
+				float:left;
+				text-align: center;
+				margin: 0;
+				a {
+					text-decoration: none;
+					color: #333;
+					.transition(all .2s ease-in-out);
+					display: block;
+					&:hover {
+						background-color: @pink;
+						color: #fff;
+					}
+				}
+				.entypo {
+					display: block;
+					font-size: 80px;
+					line-height: 75px;
+				}
+			}
+		}
 	}
 }
 
@@ -112,35 +186,41 @@ body,html {
 		position: relative;
 		.box-sizing(border-box);
 		float: left;
-		header {
-			padding: 40px;
-			position: absolute;
-			bottom: 0;
-			left: 0;
-			right: 25%;
-			h2,
-			h3 {
-				color: #f0f0f0;
-				display: inline;
-				padding: 2px;
-				line-height: 140%;
-				background: rgba(0,0,0,0.8);
+		&.feat {
+			header {
+				padding: 20px 20px 10px;
+				position: absolute;
+				bottom: 0;
+				left: 30%;
+				right: 10%;
+				background: @bgcolor;
+				text-align: right;
+				h2,
+				h3 {
+					color: #333;
+					display: inline;
+					padding: 2px;
+					line-height: 150%;
+				}
 			}
 		}
 	}
 	article#featured {
 		width: 70%;
 		height: 50%;
-		border-right: 40px solid #222;
+		border-right: 40px solid @bgcolor;
 		header h2 {
-			font-size: 30px;
+			font-size: 16px;
 		}
 	}
 	article#second {
 		width: 30%;
 		height: 50%;
-		header h2 {
-			font-size: 26px;
+		header {
+			padding: 10px 10px 5px;
+			h2 {
+				font-size: 12px;
+			}
 		}
 	}
 	section#events {
@@ -152,19 +232,23 @@ body,html {
 		> header {
 			background: #e2e670;
 			float: left;
-			height: 100%;
 			width: 25%;
+			height: 100%;
 			.box-sizing(border-box);
 			padding: 20px;
 			text-align: center;
+			border: 10px solid #222;
 			h2 {
 				text-transform: uppercase;
-				font-size: 70px;
+				font-size: 20px;
 				line-height: 100%;
+				border-bottom: 1px solid #222;
+				padding-bottom: 20px;
+				margin-bottom: 20px;
 			}
 			h3 {
 				text-transform: uppercase;
-				font-size: 28px;
+				font-size: 22px;
 				line-height: 100%;
 			}
 		}
@@ -175,7 +259,19 @@ body,html {
 				height: 100%;
 				float: left;
 				.box-sizing(border-box);
-				border-left: 20px solid #222;
+				border-left: 20px solid @bgcolor;
+				header {
+					img {
+						width: 100%;
+						height: auto;
+						margin-bottom: 20px;
+						display: block;
+					}
+					h3 {
+						color: #333;
+						font-size: 16px;
+					}
+				}
 			}
 		}
 	}
