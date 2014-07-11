@@ -122,6 +122,10 @@ body,html {
 	margin-right: 40px;
 	float: left;
 	overflow: auto;
+	position:fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
 	h1 {
 		text-indent: -9999px;
 		line-height: 0;
@@ -178,7 +182,7 @@ body,html {
 
 #content {
 	height: 100%;
-	overflow: auto;
+	margin-left: 271px;
 	.box-sizing(border-box);
 	padding: 40px 0;
 	article {
@@ -271,6 +275,47 @@ body,html {
 						color: #333;
 						font-size: 16px;
 					}
+				}
+			}
+		}
+	}
+}
+
+.main-header {
+	margin: 0 40px 0 0;
+	h1 {
+		font-size: 42px;
+		line-height: 120%;
+		margin: 0 0 40px;
+	}
+}
+
+.main-content {
+	margin: 0 40px 0 0;
+	font-size: 20px;
+	line-height: 150%;
+}
+
+#event-list {
+	margin: 0;
+	#spaces {
+		h2 {
+			font-size: 20px;
+		}
+		.space {
+			width: 25%;
+			overflow: auto;
+			height: 200px;
+			padding-right: 40px;
+			.box-sizing(border-box);
+			float: left;
+		}
+		.space-events {
+			margin: 0;
+			padding: 0;
+			.event {
+				h3 {
+					font-size: 12px;
 				}
 			}
 		}

@@ -9,13 +9,15 @@
 	"author": "Miguel Peixe <miguel@cardume.art.br>",
 	"scripts": {
 		"install": "mkdir -p dist/data && ./node_modules/.bin/napa",
-		"start": "node server.js"
+		"start": "node web.js"
 	},
 	"dependencies": {
 		"request": "latest",
 		"underscore": "latest",
 		"less": "latest",
 		"jquery": "latest",
+		"leaflet": "latest",
+		"moment": "latest",
 		"napa": "latest",
 		"express": "latest",
 		"prerender-node": "latest"

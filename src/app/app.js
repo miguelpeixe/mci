@@ -61,5 +61,12 @@ angular.module('mci', [
 ]);
 
 $(document).ready(function() {
-	angular.bootstrap(document, ['mci']);
+	window.events = [];
+	$.get('/data/events.json', function(events) {
+		window.events = events;
+		$.get('/data/spaces.json', function(spaces) {
+			window.spaces = spaces;
+			angular.bootstrap(document, ['mci']);
+		}, 'json');
+	}, 'json');
 });

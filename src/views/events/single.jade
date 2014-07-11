@@ -1,2 +1,5 @@
 section#single-event
-	h1 Lorem ipsum dolor sit
+	header.event-header.main-header
+		h1 {{event.name}}
+	section.event-content.main-content
+		p(ng-show="description") {{description}}

@@ -1,0 +1,19 @@
+section#list-event
+	header.list-header.main-header
+		h1 Eventos
+		div#event-filters.filters
+			a(href="javascript:void(0)" ng-click="futureEvents()") Próximos eventos
+			a(href="javascript:void(0)" ng-click="allEvents()") Todos os eventos
+			input(type="text", ng-model="search" placeholder="Busca")
+	section#event-list.main-content
+		ul#spaces
+			li.space(ng-repeat="space in spaces | orderBy:'_distance'" ng-show="space.filteredEvents.length")
+				h2 {{space.name}}
+				p(ng-show="space._distance && space._distance < 60000")
+					strong {{space.kmDistance}} km 
+					| de você
+				ul.space-events
+					li.event(ng-repeat="event in (space.filteredEvents = (space.events | filter:search))")
+						h3
+							a(href="/eventos/{{event.id}}/") {{event.name}}
+						p(ng-show="showFromNow(event)") {{service.getEventMoment(event).from(service.getToday())}}

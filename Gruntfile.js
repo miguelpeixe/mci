@@ -121,7 +121,7 @@ module.exports = function(grunt) {
 	grunt.registerTask(
 		'default', 
 		'Build, start server and watch.', 
-		['build', 'connect', 'watch']
+		['build', 'watch']
 	);
 
 }

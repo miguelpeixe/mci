@@ -9,18 +9,13 @@ section#events(ng-controller="EventListController")
 		h2 Agenda
 		h3 Próximos eventos
 	.event-list
-		article.event-item
+		article.event-item(ng-repeat="event in service.getCloseEvents(3)")
 			header
-				a(href="/eventos/1/")
-					img(src="http://lorempixel.com/300/100?1")
-				h3 Lorem ipsum dolor sit
-		article.event-item
-			header
-				a(href="/eventos/2/")
-					img(src="http://lorempixel.com/300/100?2")
-				h3 Lorem ipsum dolor sit
-		article.event-item
-			header
-				a(href="/eventos/3/")
-					img(src="http://lorempixel.com/300/100?3")
-				h3 Lorem ipsum dolor sit
+				a(href="/eventos/{{event.id}}/")
+					img(src="{{event['@files:avatar'].url}}")
+				p.space {{service.getEventSpace(event).name}}
+				h3
+					a(href="/eventos/{{event.id}}/") {{event.name}}
+			section.info
+				p.date {{event.startsOn}} {{event.startsAt}}
+				p.fromNow {{service.getEventMoment(event).from(service.getToday())}}

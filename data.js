@@ -3,6 +3,7 @@
 var fs = require('fs'),
 	request = require('request'),
 	_ = require('underscore'),
+	moment = require('moment'),
 	config = require('./config');
 
 function getData() {
@@ -17,7 +18,7 @@ function getData() {
 		url: config.apiUrl + '/event/find',
 		qs: {
 			'@select': 'id,name,shortDescription,description,classificacaoEtaria,terms,traducaoLibras,descricaoSonora',
-			'@files': '(avatar.viradaSmall,avatar.viradaBig):url',
+			'@files': '(avatar,header):url',
 			'project': 'eq(@Project:' + config.projectId + ')'
 		}
 	};
@@ -84,6 +85,10 @@ function getData() {
 							event.acessibilidade.push('Descrição sonora');
 
 					});
+
+					// organize event by time of occurence
+
+					events = _.sortBy(events, function(e) { return moment(e.startsOn + ' ' + e.startsAt, 'YYYY-MM-DD HH:mm').unix(); });
 
 					// remove duplicates
 					spaceIds = _.uniq(spaceIds).join(',');
