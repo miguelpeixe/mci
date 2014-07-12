@@ -10,15 +10,32 @@ module.exports = [
 	'$window',
 	function($http, $q, $window) {
 
+		var today = moment('2014-05-18 10:00', 'YYYY-MM-DD HH:mm');
+
 		var events = $window.events;
 		var spaces = $window.spaces;
+
+		var userCoords = false;
+
+		var getUserCoords = function() {
+			var defer = $q.defer();
+			if(!userCoords && navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(function(pos) {
+					userCoords = pos.coords;
+					defer.resolve(userCoords);
+				});
+			} else if(userCoords) {
+				defer.resolve(userCoords);
+			} else {
+				defer.reject('Not supported');
+			}
+			return defer.promise;
+		};
 
 		// Populate events timestamp
 		_.each(events, function(e) {
 			e._timestamp = moment(e.startsOn + ' ' + e.startsAt, 'YYYY-MM-DD HH:mm').unix();
 		});
-
-		var today = moment('2014-05-18 10:00', 'YYYY-MM-DD HH:mm');
 
 		var getDistance = function(origin, destination) {
 
@@ -28,17 +45,6 @@ module.exports = [
 			return origin.distanceTo(destination);
 
 		}
-
-		var isWithinBounds = function(origin, destination, radius) {
-
-			var distance = getDistance(origin, destination);
-
-			if(distance < radius)
-				return true;
-			else
-				return false;
-
-		};
 
 		return {
 			getToday: function() {
@@ -55,36 +61,10 @@ module.exports = [
 			},
 			getSpaceDistance: function(space) {
 				var distance = $q.defer();
-				if(navigator.geolocation) {
-					navigator.geolocation.getCurrentPosition(function(pos) {
-						distance.resolve(getDistance(pos.coords, space.location));
-					}, function(err) {
-						distance.reject(err);
-					});
-				} else {
-					distance.reject('Not supported');
-				}
+				getUserCoords().then(function(coords) {
+					distance.resolve(getDistance(coords, space.location));
+				});
 				return distance.promise;
-			},
-			getNearSpaces: function() {
-				var spaces = $q.defer();
-				var radius = 3000;
-				if(navigator.geolocation) {
-					navigator.geolocation.getCurrentPosition(function(pos) {
-						var near = _.filter(spaces, function(space) {
-							if(space._distance)
-								return space._distance < radius;
-							else
-								return isWithinBounds(pos.coords, space.location, radius);
-						});
-						spaces.resolve(near);
-					}, function(err) {
-						spaces.reject(err);
-					});
-				} else {
-					spaces.reject('Not supported');
-				}
-				return spaces.promise;
 			},
 			getEvent: function(eventId) {
 				var event = _.find(events, function(e) { return e.id == eventId; });
@@ -108,7 +88,7 @@ module.exports = [
 			getEventMoment: function(e) {
 				return moment(e.startsOn + ' ' + e.startsAt, 'YYYY-MM-DD HH:mm');
 			},
-			getCloseEvents: function(amount, events) {
+			getFutureEvents: function(amount, events) {
 
 				events = events || events;
 				amount = amount || events.length;

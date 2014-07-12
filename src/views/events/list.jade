@@ -1,19 +1,70 @@
 section#list-event
 	header.list-header.main-header
 		h1 Eventos
-		div#event-filters.filters
-			a(href="javascript:void(0)" ng-click="futureEvents()") Próximos eventos
-			a(href="javascript:void(0)" ng-click="allEvents()") Todos os eventos
-			input(type="text", ng-model="search" placeholder="Busca")
+		//
+			div#event-filters.filters
+				a(href="javascript:void(0)" ng-click="futureEvents()") Próximos eventos
+				a(href="javascript:void(0)" ng-click="allEvents()") Todos os eventos
+				input(type="text", ng-model="search" placeholder="Busca")
 	section#event-list.main-content
-		ul#spaces
-			li.space(ng-repeat="space in spaces | orderBy:'_distance'" ng-show="space.filteredEvents.length")
-				h2 {{space.name}}
-				p(ng-show="space._distance && space._distance < 60000")
-					strong {{space.kmDistance}} km 
-					| de você
-				ul.space-events
-					li.event(ng-repeat="event in (space.filteredEvents = (space.events | filter:search))")
-						h3
-							a(href="/eventos/{{event.id}}/") {{event.name}}
-						p(ng-show="showFromNow(event)") {{service.getEventMoment(event).from(service.getToday())}}
+		article#highlight-event(ng-show="featured")
+			h2 Agora na sua região
+			.image(style="background-image:url(http://lorempixum.com/1920/500/)")
+			.highlight-content
+				header
+					h3
+						a(href="/eventos/{{featured.id}}/") {{featured.name}}
+				section.meta.clearfix
+					p.time
+						span.entypo &#128340;
+						| {{featured.fromNow}}
+					p.distance
+						span.entypo &#59172;
+						strong {{featured.space.kmDistance}} km 
+						| de você
+				section.content
+					p.description {{featured.shortDescription}}
+			aside.space
+				h3 {{featured.space.name}}
+		#linguagens
+			h2 Navegue pelas linguagens
+			ul.linguagem-list.clearfix
+				li
+					a(href="#") Teatro
+				li
+					a(href="#") Dança
+				li
+					a(href="#") Música
+				li
+					a(href="#") Performance
+				li
+					a(href="#") Palestra
+				li
+					a(href="#") Encontro
+		#spaces.clearfix
+			header.spaces-header
+				h2 Navegue pelos espaços
+				input(type="text" ng-model="spaceSearch.name" placeholder="Busque por um espaço...")
+				a(ng-click="spaceNav.nextPage()") proxima
+				a(ng-click="spaceNav.prevPage()") anterior
+			ul.space-list
+				li(ng-repeat="space in (filteredSpaces = (spaces | filter:spaceSearch:strict)) | orderBy: '_distance' | offset: spaceNav.perPage * spaceNav.curPage | limitTo: spaceNav.perPage")
+					article.space
+						header
+							h3 {{space.name}}
+							p.distance(ng-show="space._distance && space._distance < 60000")
+								strong {{space.kmDistance}} km 
+								| de você
+
+		//
+			ul#spaces
+				li.space(ng-repeat="space in spaces | orderBy:'_distance'" ng-show="space.filteredEvents.length")
+					h2 {{space.name}}
+					p(ng-show="space._distance && space._distance < 60000")
+						strong {{space.kmDistance}} km 
+						| de você
+					ul.space-events
+						li.event(ng-repeat="event in (space.filteredEvents = (space.events | filter:search))")
+							h3
+								a(href="/eventos/{{event.id}}/") {{event.name}}
+							p(ng-show="showFromNow(event)") {{service.getEventMoment(event).from(service.getToday())}}

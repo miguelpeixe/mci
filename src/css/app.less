@@ -87,6 +87,9 @@
 
 .entypo {
 	font-family: "entypo";
+	font-size: 250%;
+	float: left;
+	margin-right: 5px;
 }
 
 h1,
@@ -174,6 +177,8 @@ body,html {
 					display: block;
 					font-size: 80px;
 					line-height: 75px;
+					float: none;
+					margin: 0;
 				}
 			}
 		}
@@ -298,17 +303,125 @@ body,html {
 
 #event-list {
 	margin: 0;
-	#spaces {
+	#highlight-event {
+		float: none;
+		position: relative;
+		margin-bottom: 40px;
 		h2 {
-			font-size: 20px;
+			font-size: 16px;
+			position: absolute;
+			top: 20px;
+			left: 20px;
+			background: @pink;
+			color: #fff;
+			padding: 4px 8px;
+		}
+		.space {
+			h3 {
+				position: absolute;
+				top: 20px;
+				right: 10%;
+				background: #222;
+				color: #fff;
+				padding: 4px 8px;
+				font-size: 16px;
+			}
+		}
+		.image {
+			width: 100%;
+			height: 300px;
+			background-size: cover;
+		}
+		.highlight-content {
+			width: 35%;
+			padding: 20px;
+			.box-sizing(border-box);
+			margin-top: -150px;
+			margin-right: 10%;
+			background: @bgcolor;
+			float: right;
+			//.box-shadow(-2px -3px 3px rgba(0,0,0,0.05));
+			//border-left: 1px solid rgba(0,0,0,0.08);
+		}
+		a {
+			color: inherit;
+			text-decoration: none;
+		}
+		.meta {
+			font-size: 16px;
+			color: #666;
+			strong {
+				color: inherit;
+			}
+			p {
+				float: left;
+				margin-right: 20px;
+				.entypo {
+					color: @pink;
+				}
+			}
+		}
+		.content {
+			p {
+				margin: 0;
+			}
+		}
+	}
+	#linguagens {
+		.box-sizing(border-box);
+		width: 55%;
+		padding-right: 40px;
+		margin-bottom: 40px;
+		h2 {
+			font-size: 16px;
+		}
+		.linguagem-list {
+			width: 100%;
+			margin: 0;
+			li {
+				width: 50%;
+				float: left;
+				margin: 0;
+				.box-sizing(border-box);
+				border-right: 1px solid @bgcolor;
+				border-bottom: 1px solid @bgcolor;
+				text-transform: uppercase;
+				font-family: "Axis";
+				a {
+					display: block;
+					padding: 20px;
+					background: @blue;
+					color: #fff;
+					.transition(all .2s ease-in-out);
+					&:hover {
+						background: darken(@blue, 10%);
+					}
+				}
+			}
+			a {
+				color: inherit;
+				text-decoration: none;
+			}
+		}
+	}
+	#spaces {
+		padding-top: 40px;
+		border-top: 1px solid #222;
+		h2 {
+			font-size: 16px;
 		}
 		.space {
 			width: 25%;
-			overflow: auto;
 			height: 200px;
 			padding-right: 40px;
 			.box-sizing(border-box);
 			float: left;
+			h3 {
+				font-size: 18px;
+			}
+			p {
+				font-size: 14px;
+			}
 		}
 		.space-events {
 			margin: 0;
