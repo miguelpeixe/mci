@@ -26,7 +26,7 @@ Rode o servidor digitando:
 $ npm start
 ```
 
-Agora acesse: `[http://localhost:8000](http://localhost:8000)`
+Agora acesse: [http://localhost:8000](http://localhost:8000)
 
 ## Configuração
 
