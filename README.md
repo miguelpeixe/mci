@@ -1,8 +1,8 @@
 # Visualização da Cultura Independente
 
-Projeto de visualização de eventos por projeto cadastro no [Mapas Culturais](https://github.com/hacklabr/mapasculturais).
+Projeto de visualização de eventos cadastrados no [Mapas Culturais](https://github.com/hacklabr/mapasculturais).
 
-Criado para Mês da Cultura Independente
+Criado para Mês da Cultura Independente.
 
 ---
 
