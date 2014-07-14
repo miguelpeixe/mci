@@ -4,12 +4,14 @@ Projeto de visualização de eventos por projeto cadastro no [Mapas Culturais](h
 
 Criado para Mês da Cultura Independente
 
+---
+
 ## Instalação
 
 Clone a aplicação:
 
 ```
-$ git clone https://github.com/hacklabr/mapasculturais.git
+$ git clone https://github.com/miguelpeixe/mci.git
 ```
 
 Instale digitando:
