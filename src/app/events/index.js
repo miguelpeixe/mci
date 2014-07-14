@@ -13,6 +13,9 @@ angular.module('mci.events', [
 				controller: 'EventListController',
 				templateUrl: '/views/events/list.html'
 			})
+			.state('events.filter', {
+				url: ':linguagem/:search/:space'
+			})
 			.state('eventsSingle', {
 				url: '/eventos/:eventId/',
 				controller: 'EventSingleController',

@@ -1,0 +1,5 @@
+article.event-list-item
+	header
+		h3
+			a(href="/eventos/{{event.id}}/" title="{{event.name}}") {{event.name}}
+		p(ng-show="showFromNow(event)") {{service.getEventMoment(event).from(service.getToday())}}

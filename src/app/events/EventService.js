@@ -59,6 +59,13 @@ module.exports = [
 			getSpaces: function() {
 				return spaces;
 			},
+			getTaxTerms: function(tax) {
+				var terms = [];
+				_.each(this.getEvents(), function(e) {
+					terms = terms.concat(e.terms[tax]);
+				});
+				return _.sortBy(_.uniq(terms), function(t) { if(t == 'Outros') return 'zzzzzzz'; else return t; });
+			},
 			getSpaceDistance: function(space) {
 				var distance = $q.defer();
 				getUserCoords().then(function(coords) {
@@ -88,14 +95,14 @@ module.exports = [
 			getEventMoment: function(e) {
 				return moment(e.startsOn + ' ' + e.startsAt, 'YYYY-MM-DD HH:mm');
 			},
-			getFutureEvents: function(amount, events) {
+			getFutureEvents: function(amount, src) {
 
-				events = events || events;
+				src = src || events;
 				amount = amount || events.length;
 
 				var i = 0;
 
-				return _.filter(events, function(e) {
+				return _.filter(src, function(e) {
 					if(moment(e.startsOn + ' ' + e.startsAt, 'YYYY-MM-DD HH:mm').isAfter(today) && i < amount) {
 						i++;
 						return true;

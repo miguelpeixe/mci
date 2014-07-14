@@ -121,7 +121,7 @@ body,html {
 	background: @bgcolor;
 	.box-sizing(border-box);
 	//border-right: 40px solid @bgcolor;
-	border-right: 1px solid #333;
+	border-right: 2px solid #333;
 	margin-right: 40px;
 	float: left;
 	overflow: auto;
@@ -194,7 +194,6 @@ body,html {
 		background-size: cover;
 		position: relative;
 		.box-sizing(border-box);
-		float: left;
 		&.feat {
 			header {
 				padding: 20px 20px 10px;
@@ -289,9 +288,124 @@ body,html {
 .main-header {
 	margin: 0 40px 0 0;
 	h1 {
-		font-size: 42px;
-		line-height: 120%;
-		margin: 0 0 40px;
+		font-size: 40px;
+		line-height: 100%;
+		margin: 0 80px 40px 0;
+		float: left;
+	}
+	nav {
+		::-webkit-input-placeholder {
+			color: #444;
+			font-family: "Axis";
+			text-transform: uppercase;
+		}
+
+		:-moz-placeholder {
+			color: #444;
+			font-family: "Axis";
+			text-transform: uppercase;
+		}
+
+		::-moz-placeholder {
+			color: #444;
+			font-family: "Axis";
+			text-transform: uppercase;
+		}
+
+		:-ms-input-placeholder {  
+			color: #444;
+			font-family: "Axis";
+			text-transform: uppercase;
+		}
+		input[type="text"] {
+			display: block;
+			float: left;
+			border: 2px solid #222;
+			line-height: 36px;
+			.box-sizing(border-box);
+			padding: 0 20px;
+			margin: 0 40px 0 0;
+			color: #444;
+		}
+		.filter-list {
+			float: left;
+			margin: 0 40px 0 0;
+			padding: 36px 0 0;
+			height: 40px;
+			.box-sizing(border-box);
+			border: 2px solid #222;
+			position: relative;
+			z-index: 1;
+			min-width: 250px;
+			overflow: hidden;
+			.clear-filter {
+				position: absolute;
+				display: block;
+				top: 0;
+				right: 10px;
+				z-index: 2;
+				text-decoration: none;
+				line-height: 36px;
+				background: #fff;
+				padding: 0 2px;
+			}
+			&:after {
+				content: '\E75C';
+				position: absolute;
+				font-family: "entypo";
+				font-size: 250%;
+				top: 0;
+				line-height: 36px;
+				right: 10px;
+			}
+			&:hover {
+				overflow: visible;
+				li {
+					display: block;
+				}
+			}
+			ul {
+				margin: 0;
+				padding: 0;
+				li {
+					display: none;
+					margin: 0 -2px;
+					cursor: default;
+					font-family: "Axis";
+					font-size: 12px;
+					text-transform: uppercase;
+					a,
+					&.label {
+						display: block;
+						padding: 0 20px;
+						border-left: 2px solid #222;
+						border-right: 2px solid #222;
+						line-height: 36px;
+						background: #fff;
+						text-decoration: none;
+					}
+					&.active {
+						position: absolute;
+						top: 2px;
+						left: 2px;
+						display: block;
+						a,
+						&.label {
+							border: 0;
+						}
+					}
+					&.inactive:last-child {
+						border-bottom: 2px solid #222;
+					}
+				}
+			}
+		}
+		.close {
+			float: right;
+			font-size: 100px;
+			line-height: 40px;
+			text-decoration: none;
+		}
 	}
 }
 
@@ -387,6 +501,7 @@ body,html {
 				border-bottom: 1px solid @bgcolor;
 				text-transform: uppercase;
 				font-family: "Axis";
+				font-size: 14px;
 				a {
 					display: block;
 					padding: 20px;
@@ -430,6 +545,25 @@ body,html {
 				h3 {
 					font-size: 12px;
 				}
+			}
+		}
+	}
+	.event-results {
+		border-bottom: 2px solid #222;
+		margin: 0 0 40px;
+	}
+	.event-list {
+		li {
+			width: 25%;
+			height: 200px;
+			padding-right: 40px;
+			.box-sizing(border-box);
+			float: left;
+			h3 {
+				font-size: 18px;
+			}
+			p {
+				font-size: 14px;
 			}
 		}
 	}

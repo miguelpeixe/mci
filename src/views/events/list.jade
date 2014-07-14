@@ -1,12 +1,23 @@
 section#list-event
-	header.list-header.main-header
+	header.list-header.main-header.clearfix
 		h1 Eventos
-		//
-			div#event-filters.filters
-				a(href="javascript:void(0)" ng-click="futureEvents()") Próximos eventos
-				a(href="javascript:void(0)" ng-click="allEvents()") Todos os eventos
-				input(type="text", ng-model="search" placeholder="Busca")
+		nav
+			.filter-list
+				a.clear-filter(href="javascript:void(0)" ng-click="eventSearch.terms = ''" title="Limpar filtro por linguagem" ng-show="eventSearch.terms") &#10060;
+				ul.linguagem-list
+					li.label(ng-hide="eventSearch.terms" ng-class="{active:!eventSearch.terms}") Selecione por linguagem
+					li(ng-repeat="linguagem in linguagens" ng-class="{active:linguagem==eventSearch.terms,inactive:linguagem!=eventSearch.terms}")
+						a(href="javascript:void(0);" ng-click="eventSearch.terms = linguagem") {{linguagem}}
+			input(type="text" ng-model="eventSearch.$" placeholder="Digite uma busca...")
+			a.close.entypo(href="javascript:void(0)" ng-click="eventSearch = {}" ng-show="isEventFiltering()" title="Fechar") &#10060;
 	section#event-list.main-content
+		section.event-results(ng-show="isEventFiltering()")
+			ul.event-list.clearfix
+				li(ng-repeat="event in (filteredEvents = (events | filter:eventSearch:strict)) | offset: eventNav.perPage * eventNav.curPage | limitTo: eventNav.perPage")
+					include partials/event-list-item
+			nav
+				a(ng-click="eventNav.nextPage()") proxima
+				a(ng-click="eventNav.prevPage()") anterior
 		article#highlight-event(ng-show="featured")
 			h2 Agora na sua região
 			.image(style="background-image:url(http://lorempixum.com/1920/500/)")
@@ -29,25 +40,13 @@ section#list-event
 		#linguagens
 			h2 Navegue pelas linguagens
 			ul.linguagem-list.clearfix
-				li
-					a(href="#") Teatro
-				li
-					a(href="#") Dança
-				li
-					a(href="#") Música
-				li
-					a(href="#") Performance
-				li
-					a(href="#") Palestra
-				li
-					a(href="#") Encontro
+				li(ng-repeat="linguagem in linguagens")
+					a(href="javascript:void(0);" ng-click="eventSearch.terms = linguagem") {{linguagem}}
 		#spaces.clearfix
 			header.spaces-header
 				h2 Navegue pelos espaços
 				input(type="text" ng-model="spaceSearch.name" placeholder="Busque por um espaço...")
-				a(ng-click="spaceNav.nextPage()") proxima
-				a(ng-click="spaceNav.prevPage()") anterior
-			ul.space-list
+			ul.space-list.clearfix
 				li(ng-repeat="space in (filteredSpaces = (spaces | filter:spaceSearch:strict)) | orderBy: '_distance' | offset: spaceNav.perPage * spaceNav.curPage | limitTo: spaceNav.perPage")
 					article.space
 						header
@@ -55,6 +54,9 @@ section#list-event
 							p.distance(ng-show="space._distance && space._distance < 60000")
 								strong {{space.kmDistance}} km 
 								| de você
+			nav
+				a(ng-click="spaceNav.nextPage()") proxima
+				a(ng-click="spaceNav.prevPage()") anterior
 
 		//
 			ul#spaces
