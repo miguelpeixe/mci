@@ -6,6 +6,11 @@ Criado para o Mês da Cultura Independente.
 
 ---
 
+## Pré-requisitos
+
+ - npm 1.4.x
+ - node 0.10.x
+
 ## Instalação
 
 Clone a aplicação:
