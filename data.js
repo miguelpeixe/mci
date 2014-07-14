@@ -6,7 +6,7 @@ var fs = require('fs'),
 	moment = require('moment'),
 	config = require('./config');
 
-function getData() {
+module.exports = function(cb, silent) {
 
 	var storeDir = 'dist/data';
 
@@ -23,7 +23,8 @@ function getData() {
 		}
 	};
 
-	console.log('Baixando eventos...');
+	if(!silent)
+		console.log('Baixando eventos...');
 
 	request(_.extend(defaultReq, eventsReq), function(err, res, body) {
 		if(err) {
@@ -47,7 +48,8 @@ function getData() {
 				}
 			};
 
-			console.log('Baixando ocorrências dos eventos...');
+			if(!silent)
+				console.log('Baixando ocorrências dos eventos...');
 
 			var occursReqUrl = config.apiUrl + '/eventOccurrence/find?@select=id,eventId,rule&event=in(' + eventIds + ')&@order=_startsAt';
 
@@ -103,7 +105,8 @@ function getData() {
 						}
 					};
 
-					console.log('Baixando espaços das ocorrências...');
+					if(!silent)
+						console.log('Baixando espaços das ocorrências...');
 
 					request(_.extend(defaultReq, spacesReq), function(err, res, body) {
 
@@ -117,7 +120,8 @@ function getData() {
 								if(err) {
 									console.log(err);
 								} else {
-									console.log('Eventos atualizados');
+									if(!silent)
+										console.log('Eventos atualizados');
 								}
 							});
 
@@ -125,7 +129,8 @@ function getData() {
 								if(err) {
 									console.log(err);
 								} else {
-									console.log('Ocorrências atualizadas');
+									if(!silent)
+										console.log('Ocorrências atualizadas');
 								}
 							});
 
@@ -133,9 +138,13 @@ function getData() {
 								if(err) {
 									console.log(err);
 								} else {
-									console.log('Espaços atualizados');
+									if(!silent)
+										console.log('Espaços atualizados');
 								}
 							});
+
+							if(typeof cb == 'function')
+								cb();
 
 						}
 
@@ -145,6 +154,8 @@ function getData() {
 		}
 	});
 
-}
+};
 
-getData();
+if(!module.parent) {
+	module.exports();
+}
