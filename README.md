@@ -2,7 +2,7 @@
 
 Projeto de visualização de eventos cadastrados no [Mapas Culturais](https://github.com/hacklabr/mapasculturais).
 
-Criado para Mês da Cultura Independente.
+Criado para o Mês da Cultura Independente.
 
 ---
 
