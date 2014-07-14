@@ -12,6 +12,7 @@
 		"start": "node web.js"
 	},
 	"dependencies": {
+		"dotenv": "latest",
 		"request": "latest",
 		"underscore": "latest",
 		"less": "latest",

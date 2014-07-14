@@ -1,5 +1,5 @@
 design
 dist
-config.js
 node_modules
 npm-debug.log
+.env
