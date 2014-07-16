@@ -18,9 +18,10 @@
 		"underscore": "latest",
 		"less": "latest",
 		"jquery": "latest",
+		"angular": "latest",
+		"ui-router": "latest",
 		"leaflet": "latest",
 		"moment": "latest",
-		"napa": "latest",
 		"express": "latest",
 		"prerender-node": "latest",
 		"grunt": "latest",
@@ -31,11 +32,12 @@
 		"grunt-browserify": "latest",
 		"grunt-contrib-uglify": "latest",
 		"grunt-contrib-connect": "latest",
-		"grunt-contrib-watch": "latest"
+		"grunt-contrib-watch": "latest",
+		"napa": "latest"
 	},
 	"napa": {
-		"angular": "angular/bower-angular",
-		"angular-ui-router": "angular-ui/ui-router"
+		"angular-i18n": "angular/bower-angular-i18n",
+		"angular-pickadate": "miguelpeixe/angular-pickadate"
 	},
 	"keywords": [
 		"mci",

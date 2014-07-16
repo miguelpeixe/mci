@@ -1,5 +1,9 @@
 'use strict';
 
+var moment = require('moment');
+require('moment/lang/pt-br');
+moment.lang('pt-BR');
+
 module.exports = [
 	'$q',
 	'$interval',
@@ -17,13 +21,35 @@ module.exports = [
 
 		$scope.linguagens = Event.getTaxTerms('linguagem');
 
+		$scope.accessEvent = function(e) {
+			$state.go('eventsSingle', {eventId: e.id});
+		}
+
+		/*
+		 * Init search (filter) vals with state params
+		 */
+
+		$scope.eventSearch = {
+			$: $state.params.search || '',
+			terms: $state.params.linguagem || '',
+			startDate: $state.params.startDate || '',
+			endDate: $state.params.endDate || '',
+			isFuture: $state.params.future || ''
+		};
+
+		$scope.eventFilter = {
+			$: $scope.eventSearch.$,
+			terms: $scope.eventSearch.terms
+		};
+
 		/*
 		 * NAVIGATION
 		 */
 
-		var nav = function(list, perPage) {
+		var nav = function(list, perPage, listContainer) {
 
 			return {
+				list: list,
 				perPage: perPage,
 				curPage: 0,
 				offset: 0,
@@ -31,12 +57,26 @@ module.exports = [
 					return Math.ceil($scope.$eval(list).length/this.perPage)-1;
 				},
 				nextPage: function() {
-					if(this.curPage < this.pageCount())
+					var self = this;
+					if(this.curPage < this.pageCount()) {
+						if(typeof listContainer !== 'undefined' && $(listContainer).length)
+							$('html,body').animate({
+								scrollTop: $(listContainer).position().top - 40
+							}, 300);
 						this.curPage++;
+						$scope.$broadcast('mci.page.next', self);
+					}
 				},
 				prevPage: function() {
-					if(this.curPage > 0)
+					var self = this;
+					if(this.curPage > 0) {
+						if(typeof listContainer !== 'undefined' && $(listContainer).length)
+							$('html,body').animate({
+								scrollTop: $(listContainer).position().top - 40
+							}, 300);
 						this.curPage--;
+						$scope.$broadcast('mci.page.prev', self);
+					}
 				}
 			};
 
@@ -57,11 +97,39 @@ module.exports = [
 		 * Event nav
 		 */
 
-		$scope.eventNav = nav('filteredEvents', 12);
+		$scope.eventNav = nav('filteredEvents', 12, '#event-list');
 
-		$scope.$watch('eventSearch.terms', function(terms, prevTerms) {
+		// Not working
+		if($state.params.page) {
+			$scope.eventNav.curPage = $state.params.page-1;
+		}
+
+		// update pagination state
+		$scope.$on('mci.page.next', function(ev, nav) {
+			console.log(nav);
+			if(nav.list == 'filteredEvents') {
+				$state.go('events.filter', _.extend($stateParams, {
+					page: nav.curPage + 1
+				}));
+			}
+		});
+		$scope.$on('mci.page.prev', function(ev, nav) {
+			if(nav.list == 'filteredEvents') {
+				$state.go('events.filter', _.extend($stateParams, {
+					page: nav.curPage + 1
+				}));
+			}
+		});
+
+		// clear pagination when search changes
+		$scope.$watch('eventSearch', function() {
 			$scope.eventNav.curPage = 0;
 			$scope.eventNav.offset = 0;
+		}, true);
+
+		// update terms filter and state
+		$scope.$watch('eventSearch.terms', function(terms, prevTerms) {
+			$scope.eventFilter.terms = terms;
 			if(terms || prevTerms) {
 				$state.go('events.filter', _.extend($stateParams, {
 					linguagem: terms
@@ -69,9 +137,15 @@ module.exports = [
 			}
 		}, true);
 
-		$scope.$watch('eventSearch.$', _.debounce(function(text, prevText) {
+		// update text search filter and clear pagination (parent object watch doesnt get search text changes)
+		$scope.$watch('eventSearch.$', function(text) {
 			$scope.eventNav.curPage = 0;
 			$scope.eventNav.offset = 0;
+			$scope.eventFilter.$ = text;
+		});
+
+		// update text search state
+		$scope.$watch('eventSearch.$', _.debounce(function(text, prevText) {
 			if(text || prevText) {
 				$state.go('events.filter', _.extend($stateParams, {
 					search: text,
@@ -79,18 +153,17 @@ module.exports = [
 			}
 		}, 600));
 
-		/*
-		 * Init search (filter) vals with state params
-		 */
-
-		$scope.eventSearch = {
-			$: $state.params.search || '',
-			terms: $state.params.linguagem || ''
-		};
-
 		$scope.isEventFiltering = function() {
-			return $scope.eventSearch && ($scope.eventSearch.$ || $scope.eventSearch.terms);
+			return $scope.eventSearch && (
+				$scope.eventSearch.$ ||
+				$scope.eventSearch.terms ||
+				$scope.eventSearch.startDate ||
+				$scope.eventSearch.endDate ||
+				$scope.eventSearch.isFuture
+			);
 		};
+
+		$scope.isFutureEvents = false;
 
 		$scope.futureEvents = function() {
 			// clear navigation
@@ -102,6 +175,7 @@ module.exports = [
 			_.each($scope.spaces, function(space) {
 				space.events = angular.copy(_.filter($scope.events, function(e) { return e.spaceId == space.id; }));
 			});
+			$scope.isFutureEvents = true;
 		};
 
 		$scope.allEvents = function() {
@@ -114,16 +188,94 @@ module.exports = [
 			_.each($scope.spaces, function(space) {
 				space.events = angular.copy(_.filter($scope.events, function(e) { return e.spaceId == space.id; }));
 			});
+			$scope.isFutureEvents = false;
 		};
 
 		// Init with next events
 		$scope.futureEvents();
+
+		$scope.toggleFutureEvents = function() {
+
+			if(!$scope.isFutureEvents) {
+				$scope.futureEvents();
+			} else {
+				$scope.allEvents();
+			}
+
+		};
 
 		// notworking
 		$scope.showFromNow = function(event) {
 			var limit = 1000 * 60 * 60 * 4; // Four hours in milliseconds
 			return event._timestamp <= Event.getToday().unix() + limit;
 		};
+
+		/*
+		 * Datepicker
+		 */
+
+		$scope.datepicker = {
+			format: 'dd/MM/yyyy',
+			clear: function() {
+				$scope.eventSearch.startDate = '';
+				$scope.eventSearch.endDate = '';
+			},
+			start: {
+				minDate: Event.getEventMoment($scope.events[0]).format('YYYY-MM-DD'),
+				maxDate: Event.getEventMoment($scope.events[$scope.events.length-1]).format('YYYY-MM-DD'),
+				toggle: function(off) {
+					$scope.datepicker.end.opened = false;
+					if($scope.datepicker.start.opened || off)
+						$scope.datepicker.start.opened = false;
+					else
+						$scope.datepicker.start.opened = true;
+				},
+				opened: false
+			},
+			end: {
+				maxDate: Event.getEventMoment($scope.events[$scope.events.length-1]).format('YYYY-MM-DD'),
+				setMinDate: function() {
+					$scope.datepicker.end.minDate = moment($scope.eventSearch.startDate).add('days', 1).format('YYYY-MM-DD');
+				},
+				toggle: function(off) {
+					$scope.datepicker.start.opened = false;
+					if($scope.datepicker.end.opened || off)
+						$scope.datepicker.end.opened = false;
+					else
+						$scope.datepicker.end.opened = true;
+				},
+				opened: false
+			}
+		};
+
+		//tests
+		// $scope.datepicker.start.minDate = '2014-05-15';
+		// $scope.datepicker.start.maxDate = '2014-06-23';
+		// $scope.datepicker.end.maxDate = '2014-06-23';
+
+		$scope.$watch('eventSearch.startDate', function(date, prevDate) {
+			$scope.datepicker.start.toggle(true);
+			$scope.datepicker.start.view = moment(date).format('DD/MM');
+			if($scope.eventSearch.endDate && date > $scope.eventSearch.endDate) {
+				$scope.eventSearch.endDate = '';
+			}
+			$scope.datepicker.end.setMinDate();
+			if(date || prevDate) {
+				$state.go('events.filter', _.extend($stateParams, {
+					startDate: date
+				}));
+			}
+		});
+
+		$scope.$watch('eventSearch.endDate', function(date, prevDate) {
+			$scope.datepicker.end.toggle(true);
+			$scope.datepicker.end.view = moment(date).format('DD/MM');
+			if(date || prevDate) {
+				$state.go('events.filter', _.extend($stateParams, {
+					endDate: date
+				}));
+			}
+		});
 
 		/*
 		 * Load space distances

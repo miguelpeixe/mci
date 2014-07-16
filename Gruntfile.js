@@ -49,8 +49,7 @@ module.exports = function(grunt) {
 						src: ['**', '!app/**', '!**/*.less', '!**/*.jade', '!**/*.js'],
 						dest: 'dist',
 						expand: true
-					},
-					{ src: 'dist/views/index.html', dest: 'dist/index.html' }
+					}
 				]
 			}
 		},
@@ -76,11 +75,11 @@ module.exports = function(grunt) {
 				tasks: ['jade']
 			},
 			scripts: {
-				files: 'src/app/**/*.js',
+				files: ['src/app/**/*.js', '../angular-pickadate/**/*.js'],
 				tasks: ['browserify']
 			},
 			copy: {
-				files: ['src/**', '!src/**/*.less', '!src/**/*.jade', '!src/**/*.js', 'src/views/index.jade'],
+				files: ['src/**', '!src/**/*.less', '!src/**/*.jade', '!src/**/*.js'],
 				tasks: ['copy']
 			}
 		}

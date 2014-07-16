@@ -192,7 +192,6 @@ body,html {
 	padding: 40px 0;
 	article {
 		background-size: cover;
-		position: relative;
 		.box-sizing(border-box);
 		&.feat {
 			header {
@@ -286,14 +285,15 @@ body,html {
 }
 
 .main-header {
-	margin: 0 40px 0 0;
+	margin: 0;
 	h1 {
 		font-size: 40px;
 		line-height: 100%;
-		margin: 0 80px 40px 0;
+		margin: 0 40px 40px 0;
 		float: left;
 	}
 	nav {
+		float: left;
 		::-webkit-input-placeholder {
 			color: #444;
 			font-family: "Axis";
@@ -312,32 +312,38 @@ body,html {
 			text-transform: uppercase;
 		}
 
-		:-ms-input-placeholder {  
+		:-ms-input-placeholder {
 			color: #444;
 			font-family: "Axis";
 			text-transform: uppercase;
 		}
-		input[type="text"] {
-			display: block;
+		.filter-item {
 			float: left;
-			border: 2px solid #222;
-			line-height: 36px;
+			margin: 0 20px 40px 0;
 			.box-sizing(border-box);
-			padding: 0 20px;
-			margin: 0 40px 0 0;
-			color: #444;
-		}
-		.filter-list {
-			float: left;
-			margin: 0 40px 0 0;
-			padding: 36px 0 0;
 			height: 40px;
-			.box-sizing(border-box);
 			border: 2px solid #222;
+			padding: 0 10px;
 			position: relative;
-			z-index: 1;
-			min-width: 250px;
-			overflow: hidden;
+			line-height: 36px;
+			font-family: "Axis";
+			font-size: 14px;
+			text-transform: uppercase;
+			&.filled {
+				padding: 0 30px 0 10px;
+			}
+			a {
+				text-decoration: none;
+			}
+			input[type="text"] {
+				display: block;
+				color: #444;
+				border: 0;
+				outline: none;
+				margin: 10px 0;
+				padding: 0 5px;
+				width: 100%;
+			}
 			.clear-filter {
 				position: absolute;
 				display: block;
@@ -348,6 +354,17 @@ body,html {
 				line-height: 36px;
 				background: #fff;
 				padding: 0 2px;
+			}
+		}
+		.list-filter {
+			padding: 36px 0 0;
+			border: 2px solid #222;
+			position: relative;
+			z-index: 1;
+			min-width: 240px;
+			overflow: hidden;
+			&.filled {
+				padding: 36px 0 0;
 			}
 			&:after {
 				content: '\E75C';
@@ -377,7 +394,7 @@ body,html {
 					a,
 					&.label {
 						display: block;
-						padding: 0 20px;
+						padding: 0 15px;
 						border-left: 2px solid #222;
 						border-right: 2px solid #222;
 						line-height: 36px;
@@ -400,8 +417,105 @@ body,html {
 				}
 			}
 		}
+		.date-filter {
+			position: relative;
+			z-index: 3;
+			text-align: center;
+			.box-sizing(border-box);
+			font-family: "Axis";
+			line-height: 36px;
+			font-size: 14px;
+			&.filled {
+				padding: 0 30px 0 10px;
+			}
+			a {
+				text-decoration: none;
+			}
+			.the-date {
+				margin-left: 5px;
+			}
+			.entypo {
+				margin: 0;
+				font-size: 45px;
+				line-height: 36px;
+			}
+			.datepicker-container {
+				position: relative;
+				float: left;
+				text-transform: none;
+				.datepicker {
+					position: absolute;
+					border: 2px solid #222;
+					width: 250px;
+					padding: 0 20px 20px;
+					top: 54px;
+					left: -135px;
+					background: #fff;
+					&:before {
+						content: '';
+						position: absolute;
+						top: -5px;
+						left: 50%;
+						margin-left: -5px;
+						width: 10px;
+						height: 10px;
+						.transform(rotate(45deg));
+						background: #fff;
+						border: 2px solid #222;
+					}
+					&:after {
+						content: '';
+						position: absolute;
+						top: 0;
+						left: 50%;
+						margin-left: -10px;
+						width: 30px;
+						height: 12px;
+						background: #fff;
+					}
+					li {
+						margin: 0;
+						line-height: auto;
+					}
+					a {
+						text-transform: lowercase;
+					}
+					.pickadate-prev {
+						float: left;
+					}
+				}
+				&.date-end {
+					margin-left: 5px;
+				}
+			}
+		}
+		.tick-filter {
+			background: #fff;
+			color: #333;
+			font-size: 13px;
+			cursor: pointer;
+			&.enabled {
+				background: #222;
+				color: #fff;
+				&:before {
+					color: #fff;
+				}
+			}
+			&:hover {
+				background: rgba(0,0,0,0.6);
+			}
+			&:before {
+				content: '\2713';
+				font-family: "entypo";
+				font-size: 250%;
+				line-height: 36px;
+				float: left;
+				margin-right: 5px;
+				color: #ccc;
+			}
+		}
 		.close {
-			float: right;
+			float: left;
 			font-size: 100px;
 			line-height: 40px;
 			text-decoration: none;
@@ -445,6 +559,8 @@ body,html {
 			width: 100%;
 			height: 300px;
 			background-size: cover;
+			background-position: center;
+			background-color: @pink;
 		}
 		.highlight-content {
 			width: 35%;
@@ -501,10 +617,11 @@ body,html {
 				border-bottom: 1px solid @bgcolor;
 				text-transform: uppercase;
 				font-family: "Axis";
-				font-size: 14px;
+				font-size: 13px;
 				a {
 					display: block;
-					padding: 20px;
+					line-height: 40px;
+					padding: 0 10px;
 					background: @blue;
 					color: #fff;
 					.transition(all .2s ease-in-out);
@@ -553,17 +670,120 @@ body,html {
 		margin: 0 0 40px;
 	}
 	.event-list {
+		border-top: 1px solid rgba(0,0,0,0.2);
+		margin-bottom: 40px;
 		li {
-			width: 25%;
-			height: 200px;
-			padding-right: 40px;
-			.box-sizing(border-box);
-			float: left;
-			h3 {
-				font-size: 18px;
+			margin: 0;
+			width: 100%;
+			opacity: 0.8;
+			height: 62px;
+			cursor: pointer;
+			&:hover {
+				opacity: 1;
+				article {
+					z-index: 3;
+					border-top: 2px solid #222;
+					border-bottom: 2px solid #222;
+					.transform(translate(0, -42px));
+					padding: 40px 40px 40px 0;
+					.box-shadow(0 0 120px 40px @bgcolor);
+				}
+				header {
+					.main-info {
+						h3 {
+							white-space: normal;
+							overflow: visible;
+							text-overflow: clip;
+						}
+						.description {
+							display: block;
+						}
+					}
+				}
+				.info {
+					p {
+						white-space: normal;
+						overflow: visible;
+						text-overflow: clip;
+					}
+					.date-info {
+						.date {
+							display: block;
+						}
+					}
+				}
 			}
-			p {
-				font-size: 14px;
+			article {
+				background: #fff;
+				padding: 20px 40px 20px 0;
+				border-bottom: 1px solid rgba(0,0,0,0.2);
+				position: relative;
+				pointer-events: none;
+				.transition(all .1s linear);
+			}
+			header {
+				width: 70%;
+				float: left;
+				&.no-image {
+					.main-info {
+						width: 100%;
+						margin: 0;
+					}
+				}
+				.main-info {
+					width: 50%;
+					float: left;
+					padding-right: 40px;
+					.box-sizing(border-box);
+					margin: 0 0 0 50%;
+					h3 {
+						font-size: 16px;
+						white-space: nowrap;
+						overflow: hidden;
+						text-overflow: ellipsis;
+						margin: 0;
+						a {
+							color: #222;
+							text-decoration: none;
+						}
+					}
+					.description {
+						font-size: 14px;
+						display: none;
+						margin: 10px 0 0;
+					}
+				}
+				.image {
+					position: absolute;
+					top: 0;
+					bottom: 0;
+					left: 0;
+					right: 70%;
+					background-size: cover;
+					background-position: center;
+				}
+			}
+			.info {
+				width: 30%;
+				float: left;
+				p {
+					font-size: 14px;
+					margin: 0;
+					white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
+				}
+				.date-info {
+					width: 50%;
+					float: left;
+					.date {
+						display: none;
+					}
+				}
+				p.space {
+					width: 50%;
+					float: left;
+				}
 			}
 		}
 	}

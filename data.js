@@ -19,7 +19,7 @@ module.exports = function(cb, silent) {
 		qs: {
 			'@select': 'id,name,shortDescription,description,classificacaoEtaria,terms,traducaoLibras,descricaoSonora',
 			'@files': '(avatar,header):url',
-			'project': 'eq(@Project:' + config.projectId + ')'
+			'project': 'in(@Project:' + config.projectId + ')'
 		}
 	};
 

@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('mci.events', [
-	'ui.router'
+	'ui.router',
+	'pickadate'
 ])
 .config([
 	'$stateProvider',
@@ -14,7 +15,7 @@ angular.module('mci.events', [
 				templateUrl: '/views/events/list.html'
 			})
 			.state('events.filter', {
-				url: ':linguagem/:search/:space'
+				url: ':startDate/:endDate/:linguagem/:search/:space/:future/:page'
 			})
 			.state('eventsSingle', {
 				url: '/eventos/:eventId/',

@@ -17,5 +17,5 @@ section#events(ng-controller="EventListController")
 				h3
 					a(href="/eventos/{{event.id}}/") {{event.name}}
 			section.info
-				p.date {{event.startsOn}} {{event.startsAt}}
 				p.fromNow {{service.getEventMoment(event).from(service.getToday())}}
+				p.date {{event.startsOn}} {{event.startsAt}}

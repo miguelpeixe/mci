@@ -97,13 +97,15 @@ module.exports = [
 			},
 			getFutureEvents: function(amount, src) {
 
+				var self = this;
+
 				src = src || events;
 				amount = amount || events.length;
 
 				var i = 0;
 
 				return _.filter(src, function(e) {
-					if(moment(e.startsOn + ' ' + e.startsAt, 'YYYY-MM-DD HH:mm').isAfter(today) && i < amount) {
+					if(self.getEventMoment(e).isAfter(today) && i < amount) {
 						i++;
 						return true;
 					}

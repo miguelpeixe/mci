@@ -105,7 +105,7 @@ function init() {
 	});
 
 	app.get('/*', function(req, res) {
-		res.sendfile('dist/index.html');
+		res.sendfile('dist/views/index.html');
 	});
 
 	var port = process.env.PORT || 8000;

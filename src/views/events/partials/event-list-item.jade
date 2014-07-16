@@ -1,5 +1,13 @@
-article.event-list-item
-	header
-		h3
-			a(href="/eventos/{{event.id}}/" title="{{event.name}}") {{event.name}}
-		p(ng-show="showFromNow(event)") {{service.getEventMoment(event).from(service.getToday())}}
+article.event-list-item(ng-controller="EventSingleController")
+	.clearfix
+		header(ng-class="{'no-image':!event['@files:avatar']}")
+			.image(style="background-image:url({{event['@files:avatar'].url}});")
+			.main-info
+				h3
+					a(href="/eventos/{{event.id}}/") {{event.name}}
+				p.description(ng-show="event.shortDescription") {{event.shortDescription}}
+		section.info
+			.date-info
+				p.fromNow {{service.getEventMoment(event).from(service.getToday())}}
+				p.date {{event.startsOn}} {{event.startsAt}}
+			p.space {{service.getEventSpace(event).name}}
