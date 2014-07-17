@@ -8,6 +8,12 @@ article.event-list-item(ng-controller="EventSingleController")
 				p.description(ng-show="event.shortDescription") {{event.shortDescription}}
 		section.info
 			.date-info
-				p.fromNow {{service.getEventMoment(event).from(service.getToday())}}
-				p.date {{event.startsOn}} {{event.startsAt}}
-			p.space {{service.getEventSpace(event).name}}
+				p.fromNow
+					span.entypo &#128340;
+					| {{service.getEventMoment(event).from(service.getToday())}}
+				p.date
+					span.entypo &#128197;
+					| {{event.startsOn}} {{event.startsAt}}
+			p.space
+				span.entypo &#59172;
+				| {{service.getEventSpace(event).name}}
