@@ -77,6 +77,12 @@ module.exports = [
 						this.curPage--;
 						$scope.$broadcast('mci.page.prev', self);
 					}
+				},
+				hasNextPage: function() {
+					return this.curPage !== this.pageCount();
+				},
+				hasPrevPage: function() {
+					return this.curPage !== 0;
 				}
 			};
 

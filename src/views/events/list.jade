@@ -8,9 +8,13 @@ section#list-event
 			ul.event-list
 				li.clearfix(ng-repeat="event in (filteredEvents = (events | filter:eventFilter:strict)) | offset: eventNav.perPage * eventNav.curPage | limitTo: eventNav.perPage" ng-click="accessEvent(event)")
 					include partials/event-list-item
-			nav
-				a(ng-click="eventNav.nextPage()") proxima
-				a(ng-click="eventNav.prevPage()") anterior
+			nav#pagination.clearfix
+				a.prev(ng-click="eventNav.prevPage()" ng-show="eventNav.hasPrevPage()" href="javascript:void(0);")
+					| página anterior
+					.entypo &#59233;
+				a.next(ng-click="eventNav.nextPage()" ng-show="eventNav.hasNextPage()" href="javascript:void(0);")
+					| próxima página
+					.entypo &#59234;
 
 		include partials/featured
 
@@ -19,7 +23,7 @@ section#list-event
 			ul.linguagem-list.clearfix
 				li(ng-repeat="linguagem in linguagens")
 					a(href="javascript:void(0);" ng-click="eventSearch.terms = linguagem") {{linguagem}}
-					
+
 		#spaces.clearfix
 			header.spaces-header
 				h2 Navegue pelos espaços
@@ -32,6 +36,6 @@ section#list-event
 							p.distance(ng-show="space._distance && space._distance < 60000")
 								strong {{space.kmDistance}} km 
 								| de você
-			nav
-				a(ng-click="spaceNav.nextPage()") proxima
-				a(ng-click="spaceNav.prevPage()") anterior
+			nav#pagination.clearfix
+				a.prev(ng-click="spaceNav.prevPage()" ng-show="spaceNav.hasPrevPage()" href="javascript:void(0);") página anterior
+				a.next(ng-click="spaceNav.nextPage()" ng-show="spaceNav.hasNextPage()" href="javascript:void(0);") próxima página

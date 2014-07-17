@@ -103,6 +103,10 @@ h6 {
 	line-height: 120%;
 }
 
+a {
+	.transition(all .2s linear);
+}
+
 @bgcolor: #fff;
 @blue: #3db1b1;
 @yellow: #e2e760;
@@ -689,8 +693,8 @@ body,html {
 				opacity: 1;
 				article {
 					z-index: 3;
-					border-top: 2px solid #222;
-					border-bottom: 2px solid #222;
+					border-top: 2px solid @blue;
+					border-bottom: 2px solid @blue;
 					.transform(translate(0, -42px));
 					padding: 40px 40px 40px 0;
 					.box-shadow(0 0 120px 40px @bgcolor);
@@ -792,6 +796,32 @@ body,html {
 					float: left;
 				}
 			}
+		}
+	}
+}
+
+#pagination {
+	a {
+		padding: 20px;
+		background: @blue;
+		color: #fff;
+		text-decoration: none;
+		&:hover {
+			background: darken(@blue, 10%);
+		}
+	}
+	.next {
+		float: right;
+		.entypo {
+			float: right;
+			margin: 0 0 0 10px;
+		}
+	}
+	.prev {
+		float: left;
+		.entypo {
+			float: left;
+			margin: 0 10px 0 0;
 		}
 	}
 }
