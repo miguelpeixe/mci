@@ -1,0 +1,19 @@
+article#highlight-event(ng-show="featured")
+	h2 {{featured.label}}
+	.image(style="background-image:url(http://lorempixum.com/1920/500/)")
+	.highlight-content
+		header
+			h3
+				a(href="/eventos/{{featured.event.id}}/") {{featured.event.name}}
+		section.meta.clearfix
+			p.time(ng-show="featured.event.fromNow")
+				span.entypo &#128340;
+				| {{featured.event.fromNow}}
+			p.distance(ng-show="featured.type == 'near'")
+				span.entypo &#59172;
+				strong {{featured.event.space.kmDistance}} km 
+				| de você
+		section.content
+			p.description {{featured.event.shortDescription}}
+	aside.space
+		h3 {{featured.space.name}}
