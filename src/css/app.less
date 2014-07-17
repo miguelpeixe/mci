@@ -212,21 +212,28 @@ body,html {
 			}
 		}
 	}
-	article#featured {
-		width: 70%;
+	#news {
 		height: 50%;
-		border-right: 40px solid @bgcolor;
-		header h2 {
-			font-size: 16px;
-		}
-	}
-	article#second {
-		width: 30%;
-		height: 50%;
-		header {
-			padding: 10px 10px 5px;
-			h2 {
-				font-size: 12px;
+		article {
+			float: left;
+			position: relative;
+			&#featured {
+				width: 70%;
+				height: 100%;
+				border-right: 40px solid @bgcolor;
+				header h2 {
+					font-size: 16px;
+				}
+			}
+			&#second {
+				width: 30%;
+				height: 100%;
+				header {
+					padding: 10px 10px 5px;
+					h2 {
+						font-size: 12px;
+					}
+				}
 			}
 		}
 	}

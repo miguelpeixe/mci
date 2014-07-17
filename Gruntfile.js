@@ -75,7 +75,7 @@ module.exports = function(grunt) {
 				tasks: ['jade']
 			},
 			scripts: {
-				files: ['src/app/**/*.js', '../angular-pickadate/**/*.js'],
+				files: 'src/app/**/*.js',
 				tasks: ['browserify']
 			},
 			copy: {

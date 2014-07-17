@@ -106,7 +106,6 @@ module.exports = [
 
 		// update pagination state
 		$scope.$on('mci.page.next', function(ev, nav) {
-			console.log(nav);
 			if(nav.list == 'filteredEvents') {
 				$state.go('events.filter', _.extend($stateParams, {
 					page: nav.curPage + 1
@@ -297,30 +296,57 @@ module.exports = [
 
 		$scope.featuredEvent = function(offset) {
 
-			var spaceOffset = _.random(0, 2);
+			var getRandomCloseSpace = function() {
 
-			var orderedSpaces = _.sortBy($scope.spaces, function(s) { return s._distance; });
+				var orderedSpaces = _.sortBy($scope.spaces, function(s) { return s._distance; });
 
-			orderedSpaces = _.filter(orderedSpaces, function(s) { return s.events.length; });
+				orderedSpaces = _.filter(orderedSpaces, function(s) { return s.events.length; });
 
-			var closestSpace = orderedSpaces[spaceOffset] || orderedSpaces[orderedSpaces.length-1];
+				return orderedSpaces[_.random(0, 2)] || orderedSpaces[orderedSpaces.length-1];
 
-			if(closestSpace._distance > 10 * 1000)
-				return false;
+			};
 
-			var events = Event.getFutureEvents(null, _.filter(closestSpace.events, function(e) { return e.spaceId == closestSpace.id; }));
+			var closestSpace = getRandomCloseSpace();
 
-			var eventOffset = _.random(0, 3);
+			var featuredEvent = false;
 
-			var event = events[eventOffset] || events[events.length-1];
+			if(!closestSpace._distance || closestSpace._distance > 10 * 1000) {
 
-			event.space = closestSpace;
+				var event = Event.getFutureEvents()[_.random(0,3)];
 
-			event.fromNow = Event.getEventMoment(event).from(Event.getToday());
+				event.fromNow = Event.getEventMoment(event).from(Event.getToday());
 
-			return event;
+				featuredEvent = {
+					type: 'far',
+					label: 'Acontecendo agora',
+					event: event,
+					space: Event.getEventSpace(event)
+				};
+
+			} else {
+
+				var events = Event.getFutureEvents(null, _.filter(closestSpace.events, function(e) { return e.spaceId == closestSpace.id; }));
+
+				var event = events[_.random(0, 3)] || events[events.length-1];
+
+				event.space = closestSpace;
+
+				event.fromNow = Event.getEventMoment(event).from(Event.getToday());
+
+				featuredEvent = {
+					type: 'near',
+					label: 'Agora na sua região',
+					event: event,
+					space: closestSpace
+				};
+
+			}
+
+			return featuredEvent;
 
 		};
+
+		$scope.featured = $scope.featuredEvent();
 
 		$q.all(distancePromises).then(function() {
 			$scope.featured = $scope.featuredEvent();

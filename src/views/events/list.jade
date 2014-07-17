@@ -54,22 +54,22 @@ section#list-event
 				a(ng-click="eventNav.nextPage()") proxima
 				a(ng-click="eventNav.prevPage()") anterior
 		article#highlight-event(ng-show="featured")
-			h2 Agora na sua região
+			h2 {{featured.label}}
 			.image(style="background-image:url(http://lorempixum.com/1920/500/)")
 			.highlight-content
 				header
 					h3
-						a(href="/eventos/{{featured.id}}/") {{featured.name}}
+						a(href="/eventos/{{featured.event.id}}/") {{featured.event.name}}
 				section.meta.clearfix
-					p.time
+					p.time(ng-show="featured.event.fromNow")
 						span.entypo &#128340;
-						| {{featured.fromNow}}
-					p.distance
+						| {{featured.event.fromNow}}
+					p.distance(ng-show="featured.type == 'near'")
 						span.entypo &#59172;
-						strong {{featured.space.kmDistance}} km 
+						strong {{featured.event.space.kmDistance}} km 
 						| de você
 				section.content
-					p.description {{featured.shortDescription}}
+					p.description {{featured.event.shortDescription}}
 			aside.space
 				h3 {{featured.space.name}}
 		#linguagens

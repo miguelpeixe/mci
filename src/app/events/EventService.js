@@ -22,6 +22,7 @@ module.exports = [
 			if(!userCoords && navigator.geolocation) {
 				navigator.geolocation.getCurrentPosition(function(pos) {
 					userCoords = pos.coords;
+					//userCoords = { latitude: 2, longitude: 2 };
 					defer.resolve(userCoords);
 				});
 			} else if(userCoords) {
