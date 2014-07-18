@@ -13,6 +13,15 @@ module.exports = [
 		var today = moment('2014-05-18 10:00', 'YYYY-MM-DD HH:mm');
 
 		var events = $window.events;
+
+		// Populate events occurences with timestamp and moment
+		_.each(events, function(e) {
+			_.each(e.occurrences, function(occur) {
+				occur.moment = moment(occur.startsOn + ' ' + occur.startsAt, 'YYYY-MM-DD HH:mm');
+				occur.timestamp = occur.moment.unix();
+			});
+		});
+
 		var spaces = $window.spaces;
 
 		var userCoords = false;
@@ -32,11 +41,6 @@ module.exports = [
 			}
 			return defer.promise;
 		};
-
-		// Populate events timestamp
-		_.each(events, function(e) {
-			e._timestamp = moment(e.startsOn + ' ' + e.startsAt, 'YYYY-MM-DD HH:mm').unix();
-		});
 
 		var getDistance = function(origin, destination) {
 
@@ -90,11 +94,8 @@ module.exports = [
 				}
 				return deferred.promise;
 			},
-			getEventSpace: function(event) {
-				return _.find(spaces, function(s) { return s.id == event.spaceId; });	
-			},
-			getEventMoment: function(e) {
-				return moment(e.startsOn + ' ' + e.startsAt, 'YYYY-MM-DD HH:mm');
+			getOccurrenceSpace: function(occur) {
+				return _.find(spaces, function(s) { return s.id == occur.spaceId; });	
 			},
 			getFutureEvents: function(amount, src) {
 
@@ -106,7 +107,7 @@ module.exports = [
 				var i = 0;
 
 				return _.filter(src, function(e) {
-					if(self.getEventMoment(e).isAfter(today) && i < amount) {
+					if(e.occurrences[e.occurrences.length-1].moment.isAfter(today) && i < amount) {
 						i++;
 						return true;
 					}

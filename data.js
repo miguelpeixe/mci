@@ -67,18 +67,17 @@ module.exports = function(cb, silent) {
 
 					_.each(occurrences, function(occurrence) {
 
-						var rule = occurrence.rule;
+						// Store space id for following spaces request
+						spaceIds.push(occurrence.rule.spaceId);
 
-						// Store event id
-						spaceIds.push(rule.spaceId);
-
-						// Connect to event
+						// Find event
 						var event = _.find(events, function(e) { return e.id == occurrence.eventId; });
-						
-						event.spaceId = rule.spaceId;
-						event.startsAt = rule.startsAt;
-						event.startsOn = rule.startsOn;
-						event.duration = rule.duration;
+
+						// Push occurrence to event
+						if(!event.occurrences)
+							event.occurrences = [];
+
+						event.occurrences.push(occurrence.rule);
 
 						event.acessibilidade = [];
 						if(event.traducaoLibras)
@@ -88,11 +87,15 @@ module.exports = function(cb, silent) {
 
 					});
 
-					// organize event by time of occurence
+					// Remove events without occurrence
+					events = _.filter(events, function(e) { return e.occurrences && e.occurrences.length; });
 
-					events = _.sortBy(events, function(e) { return moment(e.startsOn + ' ' + e.startsAt, 'YYYY-MM-DD HH:mm').unix(); });
+					// Organize event by time of first occurrence
+					events = _.sortBy(events, function(e) {
+						return moment(e.occurrences[0].startsOn + ' ' + e.occurrences[0].startsAt, 'YYYY-MM-DD HH:mm').unix();
+					});
 
-					// remove duplicates
+					// Remove duplicate spaces
 					spaceIds = _.uniq(spaceIds).join(',');
 
 					var spacesReq = {
