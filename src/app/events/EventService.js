@@ -87,12 +87,24 @@ module.exports = [
 				});
 				return _.sortBy(_.uniq(terms), function(t) { if(t == 'Outros') return 'zzzzzzz'; else return t; });
 			},
-			getSpaceDistance: function(space) {
-				var distance = $q.defer();
+			initUserLocation: function() {
+				var deferred = $q.defer();
 				getUserCoords().then(function(coords) {
-					distance.resolve(getDistance(coords, space.location));
+					deferred.resolve(coords);
 				});
-				return distance.promise;
+				return deferred.promise;
+			},
+			getSpaceDistance: function(space) {
+				// var distance = $q.defer();
+				// getUserCoords().then(function(coords) {
+				// 	distance.resolve(getDistance(coords, space.location));
+				// });
+				// return distance.promise;
+				if(userCoords) {
+					return getDistance(userCoords, space.location);
+				} else {
+					return false;
+				}
 			},
 			getEvent: function(eventId) {
 				var event = _.find(events, function(e) { return e.id == eventId; });

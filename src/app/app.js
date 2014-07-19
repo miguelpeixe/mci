@@ -68,7 +68,50 @@ angular.module('mci', [
 		start = parseInt(start, 10);
 		return input.slice(start);
 	};
-});
+})
+
+.controller('NavCtrl', [
+	'$scope',
+	'$sce',
+	function($scope, $sce) {
+
+		$scope.nav = [
+			{
+				title: 'Página inicial',
+				href: '/',
+				icon: $sce.trustAsHtml('&#8962;')
+			},
+			{
+				title: 'Eventos',
+				href: '/agenda/',
+				icon: $sce.trustAsHtml('&#128197;')
+			},
+			{
+				title: 'Notícias',
+				href: '/',
+				icon: $sce.trustAsHtml('&#128196;')
+			},
+			{
+				title: 'Na rede',
+				href: '/',
+				icon: $sce.trustAsHtml('&#127748;')
+			},
+			{
+				title: 'Imprensa',
+				href: '/',
+				icon: $sce.trustAsHtml('&#127908;')
+			},
+			{
+				title: 'Sobre',
+				href: '/sobre/',
+				icon: $sce.trustAsHtml('&#8505;')
+			}
+		];
+
+		$scope.currentHover = '';
+
+	}
+]);
 
 $(document).ready(function() {
 	window.events = [];

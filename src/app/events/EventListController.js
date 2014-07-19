@@ -7,11 +7,12 @@ moment.lang('pt-BR');
 module.exports = [
 	'$q',
 	'$interval',
+	'$timeout',
 	'$state',
 	'$stateParams',
 	'EventService',
 	'$scope',
-	function($q, $interval, $state, $stateParams, Event, $scope) {
+	function($q, $interval, $timeout, $state, $stateParams, Event, $scope) {
 
 		$scope.service = Event;
 
@@ -290,20 +291,6 @@ module.exports = [
 		});
 
 		/*
-		 * Load space distances
-		 */
-		var distancePromises = [];
-		_.each($scope.spaces, function(space) {
-			var ready = $q.defer();
-			distancePromises.push(ready.promise);
-			Event.getSpaceDistance(space).then(function(d) {
-				ready.resolve();
-				space._distance = d;
-				space.kmDistance = Math.round(d/10)/100;
-			});
-		});
-
-		/*
 		 * Featured event
 		 */
 
@@ -323,6 +310,7 @@ module.exports = [
 
 			var featuredEvent = false;
 
+			// geolocation is broken or couldnt find close space or 
 			if(!closestSpace._distance || closestSpace._distance > 10 * 1000) {
 
 				var event = Event.getFutureEvents()[_.random(0,3)];
@@ -372,7 +360,15 @@ module.exports = [
 
 		$scope.featured = $scope.featuredEvent();
 
-		$q.all(distancePromises).then(function() {
+		/*
+		 * Load space distances and rerender featured event
+		 */
+		Event.initUserLocation().then(function() {
+			_.each($scope.spaces, function(space) {
+				var d = Event.getSpaceDistance(space);
+				space._distance = d;
+				space.kmDistance = Math.round(d/10)/100;
+			});
 			$scope.featured = $scope.featuredEvent();
 		});
 
