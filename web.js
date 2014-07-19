@@ -104,6 +104,15 @@ function init() {
 
 	});
 
+	app.get('/atualizar', function(req, res) {
+
+		loadedEvents = [];
+		loadData(function() {
+			res.send('<h1>Dados atualizados</h1><p>' + new Date().toString() + '</p>');
+		}, true);
+
+	});
+
 	app.get('/*', function(req, res) {
 		res.sendfile('dist/views/index.html');
 	});

@@ -21,6 +21,9 @@ module.exports = [
 
 		$scope.linguagens = Event.getTaxTerms('linguagem');
 
+		var occurrences = Event.getOccurrences();
+
+		// Change state to single event
 		$scope.accessEvent = function(e) {
 			$state.go('eventsSingle', {eventId: e.id});
 		}
@@ -176,7 +179,6 @@ module.exports = [
 			$scope.eventNav.offset = 0;
 			// get events
 			$scope.events = Event.getFutureEvents();
-			console.log('Eventos futuros: ' + $scope.events.length);
 			// update space data (?)
 			_.each($scope.spaces, function(space) {
 				space.events = angular.copy(_.filter($scope.events, function(e) {
@@ -224,9 +226,6 @@ module.exports = [
 		 * Datepicker
 		 */
 
-		var lastEvent = $scope.events[$scope.events.length-1];
-		var lastOccurrence = lastEvent.occurrences[lastEvent.occurrences.length-1];
-
 		$scope.datepicker = {
 			format: 'dd/MM/yyyy',
 			clear: function() {
@@ -234,8 +233,8 @@ module.exports = [
 				$scope.eventSearch.endDate = '';
 			},
 			start: {
-				minDate: $scope.events[0].occurrences[0].moment.format('YYYY-MM-DD'),
-				maxDate: lastOccurrence.moment.format('YYYY-MM-DD'),
+				minDate: occurrences[0].moment.format('YYYY-MM-DD'),
+				maxDate: occurrences[occurrences.length-1].moment.format('YYYY-MM-DD'),
 				toggle: function(off) {
 					$scope.datepicker.end.opened = false;
 					if($scope.datepicker.start.opened || off)
@@ -246,7 +245,7 @@ module.exports = [
 				opened: false
 			},
 			end: {
-				maxDate: lastOccurrence.moment.format('YYYY-MM-DD'),
+				maxDate: occurrences[occurrences.length-1].moment.format('YYYY-MM-DD'),
 				setMinDate: function() {
 					$scope.datepicker.end.minDate = moment($scope.eventSearch.startDate).add('days', 1).format('YYYY-MM-DD');
 				},
@@ -314,7 +313,7 @@ module.exports = [
 
 				var orderedSpaces = _.sortBy($scope.spaces, function(s) { return s._distance; });
 
-				orderedSpaces = _.filter(orderedSpaces, function(s) { return s.events.length; });
+				orderedSpaces = _.filter(orderedSpaces, function(s) { return s.events.length && Event.getFutureEvents(null, s.events); });
 
 				return orderedSpaces[_.random(0, 2)] || orderedSpaces[0];
 
@@ -339,11 +338,17 @@ module.exports = [
 
 			} else {
 
-				var events = Event.getFutureEvents(null, _.filter(closestSpace.events, function(e) {
+				var occurrence;
+				var events = _.filter(closestSpace.events, function(e) {
 					return _.find(e.occurrences, function(occur) {
-						return occur.spaceId == closestSpace.id;
-					});					
-				}));
+						if(occur.spaceId == closestSpace.id && occur.moment.isAfter(Event.getToday())) {
+							occurrence = occur;
+							return true;
+						} else {
+							return false;
+						}
+					});
+				});
 
 				var event = events[_.random(0, 3)] || events[events.length-1];
 
@@ -353,8 +358,9 @@ module.exports = [
 
 				featuredEvent = {
 					type: 'near',
-					label: 'Agora na sua região',
+					label: 'Agora perto de você',
 					event: event,
+					occurrence: occurrence,
 					space: closestSpace
 				};
 

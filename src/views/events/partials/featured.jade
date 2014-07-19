@@ -6,12 +6,12 @@ article#highlight-event(ng-show="featured")
 			h3
 				a(href="/eventos/{{featured.event.id}}/") {{featured.event.name}}
 		section.meta.clearfix
-			p.time(ng-show="featured.event.fromNow")
+			p.time
 				span.entypo &#128340;
-				| {{featured.event.fromNow}}
+				| {{featured.occurrence.moment.from(service.getToday())}}
 			p.distance(ng-show="featured.type == 'near'")
 				span.entypo &#59172;
-				strong {{featured.event.space.kmDistance}} km 
+				strong {{featured.space.kmDistance}} km 
 				| de você
 		section.content
 			p.description {{featured.event.shortDescription}}

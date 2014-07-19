@@ -112,7 +112,7 @@ a {
 	.transition(all .2s linear);
 }
 
-@bgcolor: #fff;
+@bgcolor: #f7f7f7;
 @blue: #3db1b1;
 @yellow: #e2e760;
 @pink: #ec008b;
@@ -123,14 +123,31 @@ body,html {
 	background: @bgcolor;
 }
 
+body {
+	&:before {
+		content: '';
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		//height: 2px;
+		background: #222;
+		z-index: 9999;
+	}
+}
+
 #masthead {
 	height: 100%;
 	width: 231px;
 	padding: 40px;
-	background: @bgcolor;
+	//background: @bgcolor;
+	background-image: url(../img/bg.png);
+	background-position: top left;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
 	.box-sizing(border-box);
 	//border-right: 40px solid @bgcolor;
-	border-right: 2px solid #333;
+	border-right: 1px solid rgba(0,0,0,0.2);
 	margin-right: 40px;
 	float: left;
 	overflow: auto;
@@ -138,9 +155,11 @@ body,html {
 	top: 0;
 	bottom: 0;
 	left: 0;
+	z-index: 10;
 	h1 {
 		text-indent: -9999px;
 		line-height: 0;
+		margin-bottom: 40px;
 		img {
 			display: block;
 			width: 100%;
@@ -148,13 +167,18 @@ body,html {
 		}
 	}
 	h2 {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		background: rgba(255,255,255,0.5);
 		font-size: 58px;
 		line-height: 100%;
-		margin: 40px 0;
-		color: #333;
+		margin: 0;
+		padding: 20px 40px;
+		color: #222;
+		text-shadow: 0 0 17px rgba(0,0,0,0.15);
 		text-align: center;
-		border-bottom: 10px solid @pink;
-		padding-bottom: 0;
 		span {
 			display: block;
 			font-size: 14px;
@@ -167,19 +191,26 @@ body,html {
 			float: right;
 			width: 100%;
 			margin: 0;
+			border-left: 1px solid rgba(0,0,0,0.1);
+			border-top: 1px solid rgba(0,0,0,0.1);
+			.box-sizing(border-box);
 			li {
 				width: 50%;
 				float:left;
 				text-align: center;
 				margin: 0;
+				border-right: 1px solid rgba(0,0,0,0.1);
+				border-bottom: 1px solid rgba(0,0,0,0.1);
+				.box-sizing(border-box);
 				a {
 					text-decoration: none;
 					color: #333;
 					.transition(all .2s ease-in-out);
 					display: block;
+					background: rgba(255,255,255,0.3);
 					&:hover {
 						background-color: @pink;
-						color: #fff;
+						color: @bgcolor;
 					}
 				}
 				.entypo {
@@ -301,7 +332,12 @@ body,html {
 }
 
 .main-header {
-	margin: 0;
+	margin: -40px 0 40px -40px;
+	padding: 40px 40px 0;
+	//background: #fff;
+	border-bottom: 1px solid rgba(0,0,0,0.2);
+	position: relative;
+	z-index: 9;
 	h1 {
 		font-size: 40px;
 		line-height: 100%;
@@ -359,6 +395,7 @@ body,html {
 				margin: 10px 0;
 				padding: 0 5px;
 				width: 100%;
+				background: @bgcolor;
 			}
 			.clear-filter {
 				position: absolute;
@@ -368,7 +405,7 @@ body,html {
 				z-index: 2;
 				text-decoration: none;
 				line-height: 36px;
-				background: #fff;
+				background: @bgcolor;
 				padding: 0 2px;
 			}
 		}
@@ -414,7 +451,7 @@ body,html {
 						border-left: 2px solid #222;
 						border-right: 2px solid #222;
 						line-height: 36px;
-						background: #fff;
+						background: @bgcolor;
 						text-decoration: none;
 					}
 					&.active {
@@ -466,7 +503,7 @@ body,html {
 					padding: 0 20px 20px;
 					top: 54px;
 					left: -135px;
-					background: #fff;
+					background: @bgcolor;
 					&:before {
 						content: '';
 						position: absolute;
@@ -476,7 +513,7 @@ body,html {
 						width: 10px;
 						height: 10px;
 						.transform(rotate(45deg));
-						background: #fff;
+						background: @bgcolor;
 						border: 2px solid #222;
 					}
 					&:after {
@@ -487,7 +524,7 @@ body,html {
 						margin-left: -10px;
 						width: 30px;
 						height: 12px;
-						background: #fff;
+						background: @bgcolor;
 					}
 					li {
 						margin: 0;
@@ -506,15 +543,15 @@ body,html {
 			}
 		}
 		.tick-filter {
-			background: #fff;
+			background: @bgcolor;
 			color: #333;
 			font-size: 13px;
 			cursor: pointer;
 			&.enabled {
 				background: #222;
-				color: #fff;
+				color: @bgcolor;
 				&:before {
-					color: #fff;
+					color: @bgcolor;
 				}
 			}
 			&:hover {
@@ -557,7 +594,7 @@ body,html {
 			top: 20px;
 			left: 20px;
 			background: @pink;
-			color: #fff;
+			color: @bgcolor;
 			padding: 4px 8px;
 		}
 		.space {
@@ -566,7 +603,7 @@ body,html {
 				top: 20px;
 				right: 10%;
 				background: #222;
-				color: #fff;
+				color: @bgcolor;
 				padding: 4px 8px;
 				font-size: 16px;
 			}
@@ -639,7 +676,7 @@ body,html {
 					line-height: 40px;
 					padding: 0 10px;
 					background: @blue;
-					color: #fff;
+					color: @bgcolor;
 					.transition(all .2s ease-in-out);
 					&:hover {
 						background: darken(@blue, 10%);
@@ -694,12 +731,15 @@ body,html {
 			opacity: 0.8;
 			height: 62px;
 			cursor: pointer;
+			border-bottom: 1px solid rgba(0,0,0,0.2);
+			overflow: hidden;
 			&:hover {
+				overflow: visible;
 				opacity: 1;
 				article {
 					z-index: 3;
-					border-top: 2px solid @blue;
-					border-bottom: 2px solid @blue;
+					border-top: 2px solid #333;
+					border-bottom: 2px solid #333;
 					.transform(translate(0, -42px));
 					padding: 40px 40px 40px 0;
 					.box-shadow(0 0 120px 40px @bgcolor);
@@ -730,9 +770,8 @@ body,html {
 				}
 			}
 			article {
-				background: #fff;
+				background: @bgcolor;
 				padding: 20px 40px 20px 0;
-				border-bottom: 1px solid rgba(0,0,0,0.2);
 				position: relative;
 				pointer-events: none;
 				.transition(all .1s linear);
@@ -815,7 +854,7 @@ body,html {
 	a {
 		padding: 20px;
 		background: @blue;
-		color: #fff;
+		color: @bgcolor;
 		text-decoration: none;
 		&:hover {
 			background: darken(@blue, 10%);

@@ -14,12 +14,25 @@ module.exports = [
 
 		var events = $window.events;
 
+		var occurrences = [];
+
 		// Populate events occurences with timestamp and moment
 		_.each(events, function(e) {
 			_.each(e.occurrences, function(occur) {
 				occur.moment = moment(occur.startsOn + ' ' + occur.startsAt, 'YYYY-MM-DD HH:mm');
 				occur.timestamp = occur.moment.unix();
+				occur.isFuture = occur.timestamp >= today.unix();
+				occurrences.push(occur);
 			});
+		});
+
+		events = _.sortBy(events, function(e) {
+			var next;
+			_.each(e.occurrences, function(occur) {
+				if(occur.isFuture && !next)
+					next = occur.timestamp;
+			});
+			return next;
 		});
 
 		var spaces = $window.spaces;
@@ -57,6 +70,9 @@ module.exports = [
 			},
 			getEvents: function() {
 				return events;
+			},
+			getOccurrences: function() {
+				return occurrences;
 			},
 			getEventsBy: function(key, value) {
 				return _.filter(events, function(e) { return e[key] == value; });
