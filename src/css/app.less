@@ -360,20 +360,27 @@ body {
 			font-family: "Axis";
 			text-transform: uppercase;
 		}
+		.filters-container {
+			border-right: 1px solid rgba(0,0,0,0.2);
+			float: left;
+			margin-bottom: 40px;
+		}
 		.filter-item {
 			float: left;
-			margin: 0 20px 40px 0;
+			margin: 0;
 			.box-sizing(border-box);
 			height: 40px;
-			border: 1px solid rgba(0,0,0,0.2);
-			padding: 0 10px;
+			border-left: 1px solid rgba(0,0,0,0.2);
+			border-top: 1px solid rgba(0,0,0,0.2);
+			border-bottom: 1px solid rgba(0,0,0,0.2);
+			padding: 0 15px;
 			position: relative;
 			line-height: 38px;
 			font-family: "Axis";
 			font-size: 14px;
 			text-transform: uppercase;
 			&.filled {
-				padding: 0 30px 0 10px;
+				padding: 0 30px 0 15px;
 			}
 			a {
 				text-decoration: none;
@@ -383,10 +390,11 @@ body {
 				color: #444;
 				border: 0;
 				outline: none;
-				margin: 10px 0;
-				padding: 0 5px;
-				width: 100%;
+				margin: 12px 0;
+				padding: 0;
+				width: 150px;
 				background: @bgcolor;
+				font-size: 12px;
 			}
 			.clear-filter {
 				position: absolute;
@@ -402,7 +410,6 @@ body {
 		}
 		.list-filter {
 			padding: 38px 0 0;
-			border: 1px solid rgba(0,0,0,0.2);
 			position: relative;
 			z-index: 1;
 			min-width: 240px;
@@ -563,6 +570,7 @@ body {
 			font-size: 100px;
 			line-height: 40px;
 			text-decoration: none;
+			margin-left: 20px;
 		}
 	}
 }
