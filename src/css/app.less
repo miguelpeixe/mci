@@ -374,10 +374,10 @@ body {
 			margin: 0 20px 40px 0;
 			.box-sizing(border-box);
 			height: 40px;
-			border: 2px solid #222;
+			border: 1px solid rgba(0,0,0,0.2);
 			padding: 0 10px;
 			position: relative;
-			line-height: 36px;
+			line-height: 38px;
 			font-family: "Axis";
 			font-size: 14px;
 			text-transform: uppercase;
@@ -404,20 +404,20 @@ body {
 				right: 10px;
 				z-index: 2;
 				text-decoration: none;
-				line-height: 36px;
+				line-height: 38px;
 				background: @bgcolor;
 				padding: 0 2px;
 			}
 		}
 		.list-filter {
-			padding: 36px 0 0;
-			border: 2px solid #222;
+			padding: 38px 0 0;
+			border: 1px solid rgba(0,0,0,0.2);
 			position: relative;
 			z-index: 1;
 			min-width: 240px;
 			overflow: hidden;
 			&.filled {
-				padding: 36px 0 0;
+				padding: 38px 0 0;
 			}
 			&:after {
 				content: '\E75C';
@@ -425,7 +425,7 @@ body {
 				font-family: "entypo";
 				font-size: 250%;
 				top: 0;
-				line-height: 36px;
+				line-height: 38px;
 				right: 10px;
 			}
 			&:hover {
@@ -439,7 +439,7 @@ body {
 				padding: 0;
 				li {
 					display: none;
-					margin: 0 -2px;
+					margin: 0 -1px;
 					cursor: default;
 					font-family: "Axis";
 					font-size: 12px;
@@ -448,9 +448,9 @@ body {
 					&.label {
 						display: block;
 						padding: 0 15px;
-						border-left: 2px solid #222;
-						border-right: 2px solid #222;
-						line-height: 36px;
+						border-left: 1px solid rgba(0,0,0,0.2);
+						border-right: 1px solid rgba(0,0,0,0.2);
+						line-height: 38px;
 						background: @bgcolor;
 						text-decoration: none;
 					}
@@ -465,7 +465,7 @@ body {
 						}
 					}
 					&.inactive:last-child {
-						border-bottom: 2px solid #222;
+						border-bottom: 1px solid rgba(0,0,0,0.2);
 					}
 				}
 			}
@@ -476,7 +476,7 @@ body {
 			text-align: center;
 			.box-sizing(border-box);
 			font-family: "Axis";
-			line-height: 36px;
+			line-height: 38px;
 			font-size: 14px;
 			&.filled {
 				padding: 0 30px 0 10px;
@@ -490,7 +490,7 @@ body {
 			.entypo {
 				margin: 0;
 				font-size: 45px;
-				line-height: 36px;
+				line-height: 38px;
 			}
 			.datepicker-container {
 				position: relative;
@@ -498,7 +498,7 @@ body {
 				text-transform: none;
 				.datepicker {
 					position: absolute;
-					border: 2px solid #222;
+					border: 1px solid rgba(0,0,0,0.2);
 					width: 250px;
 					padding: 0 20px 20px;
 					top: 54px;
@@ -514,7 +514,7 @@ body {
 						height: 10px;
 						.transform(rotate(45deg));
 						background: @bgcolor;
-						border: 2px solid #222;
+						border: 1px solid rgba(0,0,0,0.2);
 					}
 					&:after {
 						content: '';
@@ -561,7 +561,7 @@ body {
 				content: '\2713';
 				font-family: "entypo";
 				font-size: 250%;
-				line-height: 36px;
+				line-height: 38px;
 				float: left;
 				margin-right: 5px;
 				color: #ccc;
@@ -602,7 +602,7 @@ body {
 				position: absolute;
 				top: 20px;
 				right: 10%;
-				background: #222;
+				background: #000;
 				color: @bgcolor;
 				padding: 4px 8px;
 				font-size: 16px;
@@ -625,6 +625,9 @@ body {
 			float: right;
 			//.box-shadow(-2px -3px 3px rgba(0,0,0,0.05));
 			//border-left: 1px solid rgba(0,0,0,0.08);
+			h3 {
+				font-size: 26px;
+			}
 		}
 		a {
 			color: inherit;
