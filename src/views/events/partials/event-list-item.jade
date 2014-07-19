@@ -4,7 +4,7 @@ article.event-list-item(ng-controller="EventSingleController")
 			.image(style="background-image:url({{event['@files:avatar'].url}});")
 			.main-info
 				h3
-					a(href="/eventos/{{event.id}}/") {{event.name}}
+					a(href="/agenda/{{event.id}}/") {{event.name}}
 				p.description(ng-show="event.shortDescription") {{event.shortDescription}}
 		section.info.occurrences
 			.occurrence(ng-repeat="occur in event.occurrences")

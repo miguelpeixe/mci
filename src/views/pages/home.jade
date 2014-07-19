@@ -9,14 +9,6 @@ section#events(ng-controller="EventListController")
 	header
 		h2 Agenda
 		h3 Próximos eventos
-	.event-list
-		article.event-item(ng-repeat="event in service.getFutureEvents(3)")
-			header
-				a(href="/eventos/{{event.id}}/")
-					img(src="{{event['@files:avatar'].url}}")
-				p.space {{service.getEventSpace(event).name}}
-				h3
-					a(href="/eventos/{{event.id}}/") {{event.name}}
-			section.info
-				p.fromNow {{service.getEventMoment(event).from(service.getToday())}}
-				p.date {{event.startsOn}} {{event.startsAt}}
+	ul.event-list
+		li(ng-repeat="event in service.getFutureEvents(3)")
+			include ../events/partials/event-list-item

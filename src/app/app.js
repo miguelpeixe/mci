@@ -28,6 +28,10 @@ angular.module('mci', [
 			.state('home', {
 				url: '/',
 				templateUrl: '/views/pages/home.html'
+			})
+			.state('about', {
+				url: '/sobre/',
+				templateUrl: '/views/pages/about.html'
 			});
 
 		/*

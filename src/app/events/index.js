@@ -10,7 +10,7 @@ angular.module('mci.events', [
 
 		$stateProvider
 			.state('events', {
-				url: '/eventos/',
+				url: '/agenda/',
 				controller: 'EventListController',
 				templateUrl: '/views/events/list.html'
 			})
@@ -18,7 +18,7 @@ angular.module('mci.events', [
 				url: ':startDate/:endDate/:linguagem/:search/:space/:future/:page'
 			})
 			.state('eventsSingle', {
-				url: '/eventos/:eventId/',
+				url: '/agenda/:eventId/',
 				controller: 'EventSingleController',
 				templateUrl: '/views/events/single.html'
 			});
