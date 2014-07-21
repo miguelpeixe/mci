@@ -23,7 +23,8 @@ module.exports = function(grunt) {
 		less: {
 			compile: {
 				files: {
-					'dist/css/app.css': 'src/css/app.less'
+					'dist/css/app.css': 'src/css/app.less',
+					'dist/css/responsive.css': 'src/css/responsive.less'
 				}
 			}
 		},

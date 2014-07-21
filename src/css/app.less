@@ -1,63 +1,4 @@
-/*
- * Less functions
- */
-.box-shadow(@arguments) {
-	-webkit-box-shadow: @arguments;
-	-khtml-box-shadow: @arguments;
-	-moz-box-shadow: @arguments;
-	-o-box-shadow: @arguments;
-	box-shadow: @arguments;
-}
-
-.border-radius(@radius) {
-	-webkit-border-radius: @radius;
-	-khtml-border-radius: @radius;
-	-moz-border-radius: @radius;
-	-o-border-radius: @radius;
-	border-radius: @radius;
-}
-
-.transition(@arguments) {
-	-webkit-transition: @arguments;
-	-khtml-transition: @arguments;
-	-moz-transition: @arguments;
-	-o-transition: @arguments;
-	transition: @arguments;
-}
-
-.transform(@arguments) {
-	-webkit-transform: @arguments;
-	-khtml-transform: @arguments;
-	-moz-transform: @arguments;
-	-o-transform: @arguments;
-	transform: @arguments;
-}
-.box-sizing(@arguments) {
-	-webkit-box-sizing: @arguments;
-	-moz-box-sizing: @arguments;
-	box-sizing: @arguments;
-}
-.font-smoothing(@arguments) {
-	-webkit-font-smoothing: @arguments;
-}
-
-.gradient(@color: #F5F5F5, @start: #EEE, @stop: #FFF) {
-	background: @color;
-	background:	-webkit-gradient(linear,
-				left bottom,
-				left top,
-				color-stop(0, @start),
-				color-stop(1, @stop));
-	background:	-ms-linear-gradient(bottom,
-				@start,
-				@stop);
-	background:	-moz-linear-gradient(center bottom,
-				@start 0%,
-				@stop 100%);
-	background:	-o-linear-gradient(@stop,
-				@start);
-	filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",@stop,@start));
-}
+@import "functions.less";
 
 /*
  * FONTS
@@ -112,11 +53,6 @@ a {
 	.transition(all .2s linear);
 }
 
-@bgcolor: #f7f7f7;
-@blue: #3db1b1;
-@yellow: #e2e760;
-@pink: #ec008b;
-
 body,html {
 	width: 100%;
 	height: 100%;
@@ -167,15 +103,9 @@ body {
 		}
 	}
 	h2 {
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		background: rgba(255,255,255,0.5);
 		font-size: 58px;
 		line-height: 100%;
 		margin: 0;
-		padding: 20px 40px;
 		color: #222;
 		text-shadow: 0 0 17px rgba(0,0,0,0.15);
 		text-align: center;
@@ -187,6 +117,7 @@ body {
 		}
 	}
 	#mastnav {
+		margin-bottom: 40px;
 		ul {
 			float: right;
 			width: 100%;
@@ -570,7 +501,7 @@ body {
 			font-size: 100px;
 			line-height: 40px;
 			text-decoration: none;
-			margin-left: 20px;
+			margin: 0 0 0 20px;
 		}
 	}
 }

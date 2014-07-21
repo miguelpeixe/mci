@@ -2,11 +2,13 @@ doctype html
 html(lang='pt-BR')
 	head
 		title Mês da Cultura Independente
+		meta(name="viewport" content="width=device-width,initial-scale=1.0")
 		link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Oswald:400,300,700')
 		link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,600,700')
 		link(rel='stylesheet', href='/css/base.css')
 		link(rel='stylesheet', href='/css/skeleton.css')
 		link(rel='stylesheet', href='/css/app.css')
+		link(rel='stylesheet', href='/css/responsive.css')
 		link(rel='stylesheet', href='/css/angular-pickadate.css')
 	body
 		header#masthead
@@ -14,15 +16,15 @@ html(lang='pt-BR')
 				a(href="/")
 					span Mês da Cultura Independente
 					img(src='/img/logo.png' alt='Mês da Cultura Independente')
-			h2
-				span setembro/
-				| 2014
-			nav#mastnav(ng-controller="NavCtrl")
+			nav#mastnav.clearfix(ng-controller="NavCtrl")
 				ul(ng-mouseleave="currentHover = ''")
 					li(ng-repeat="item in nav")
 						a(href="{{item.href}}" title="{{item.title}}" ng-mouseenter="currentHover = item.title")
 							span.entypo(ng-bind-html="item.icon")
 				span.currentHover(ng-show="currentHover") {{currentHover}}
+			h2
+				span setembro/
+				| 2014
 		section#content(ui-view, autoscroll='true')
 		script(type='text/javascript', src='/vendor.js')
 		script(type='text/javascript', src='/app.js')
