@@ -80,7 +80,6 @@ module.exports = [
 				return _.filter(events, function(e) { return e[key] == value; });
 			},
 			getEventsByDateRange: function(from, to) {
-				//var events = angular.copy(events);
 				to = to || from;
 				from = moment(from).unix();
 				to = moment(to).add('days', 1).unix();
