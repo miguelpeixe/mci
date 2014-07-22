@@ -111,29 +111,24 @@ module.exports = [
 
 		// Not working
 		if($state.params.page) {
+			console.log('is paging');
 			$scope.eventNav.curPage = $state.params.page-1;
+			$scope.eventNav.offset = $scope.eventNav.perPage * $scope.eventNav.curPage;
 		}
 
-		// update pagination state
-		$scope.$on('mci.page.next', function(ev, nav) {
-			if(nav.list == 'filteredEvents') {
-				$state.go('events.filter', _.extend($stateParams, {
-					page: nav.curPage + 1
-				}));
-			}
-		});
-		$scope.$on('mci.page.prev', function(ev, nav) {
-			if(nav.list == 'filteredEvents') {
-				$state.go('events.filter', _.extend($stateParams, {
-					page: nav.curPage + 1
-				}));
-			}
+		$scope.$watch('eventNav.curPage', function(page) {
+			$state.go('events.filter', _.extend($stateParams, {
+				page: page + 1
+			}));
 		});
 
 		// clear pagination when search changes
-		$scope.$watch('eventSearch', function() {
-			$scope.eventNav.curPage = 0;
-			$scope.eventNav.offset = 0;
+		$scope.$watch('eventSearch', function(newVal, oldVal) {
+			if(oldVal !== newVal) {
+				console.log('eventSearch watch is resetting pagination');
+				$scope.eventNav.curPage = 0;
+				$scope.eventNav.offset = 0;
+			}
 		}, true);
 
 		// update terms filter and state
@@ -147,9 +142,12 @@ module.exports = [
 		}, true);
 
 		// update text search filter and clear pagination (parent object watch doesnt get search text changes)
-		$scope.$watch('eventSearch.$', function(text) {
-			$scope.eventNav.curPage = 0;
-			$scope.eventNav.offset = 0;
+		$scope.$watch('eventSearch.$', function(text, oldText) {
+			if(oldText !== text) {
+				console.log('eventSearch.$ watch is resetting pagination');
+				$scope.eventNav.curPage = 0;
+				$scope.eventNav.offset = 0;
+			}
 			$scope.eventFilter.$ = text;
 		});
 
@@ -174,13 +172,18 @@ module.exports = [
 
 		$scope.isFutureEvents = false;
 
-		$scope.futureEvents = function() {
+		$scope.futureEvents = function(init) {
 			// clear navigation
-			$scope.eventNav.curPage = 0;
-			$scope.eventNav.offset = 0;
+			if(typeof init == 'undefined') {
+				console.log('future Events watch is resetting pagination');
+				$scope.eventNav.curPage = 0;
+				$scope.eventNav.offset = 0;
+			}
 			// get events
 			$scope.events = Event.getFutureEvents();
-			// update space data (?)
+			$scope.isFutureEvents = true;
+
+			// update space data
 			_.each($scope.spaces, function(space) {
 				space.events = angular.copy(_.filter($scope.events, function(e) {
 					return _.find(e.occurrences, function(occur) {
@@ -188,31 +191,47 @@ module.exports = [
 					});
 				}));
 			});
-			$scope.isFutureEvents = true;
 		};
 
-		$scope.allEvents = function() {
+		$scope.allEvents = function(init) {
 			// clear navigation
-			$scope.eventNav.curPage = 0;
-			$scope.eventNav.offset = 0;
+			if(typeof init == 'undefined') {
+				console.log('all Events watch is resetting pagination');
+				$scope.eventNav.curPage = 0;
+				$scope.eventNav.offset = 0;
+			}
 			// get events
 			$scope.events = Event.getEvents();
-			// update space data (?)
-			_.each($scope.spaces, function(space) {
-				space.events = angular.copy(_.filter($scope.events, function(e) { return e.spaceId == space.id; }));
-			});
 			$scope.isFutureEvents = false;
+
+			// update space data
+			_.each($scope.spaces, function(space) {
+				space.events = angular.copy(_.filter($scope.events, function(e) {
+					return _.find(e.occurrences, function(occur) {
+						return occur.spaceId == space.id;
+					});
+				}));
+			});
 		};
 
-		// Init with next events
-		$scope.futureEvents();
+		// Init events
+		if(!parseInt($state.params.past))
+			$scope.futureEvents(true);
+		else
+			$scope.allEvents(true);
 
 		$scope.toggleFutureEvents = function() {
 
 			if(!$scope.isFutureEvents) {
 				$scope.futureEvents();
+				$state.go('events.filter', _.extend($stateParams, {
+					past: 0,
+				}));
 			} else {
 				$scope.allEvents();
+				$state.go('events.filter', _.extend($stateParams, {
+					past: 1,
+				}));
 			}
 
 		};

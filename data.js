@@ -79,12 +79,6 @@ module.exports = function(cb, silent) {
 
 						event.occurrences.push(occurrence.rule);
 
-						event.acessibilidade = [];
-						if(event.traducaoLibras)
-							event.acessibilidade.push('Tradução para libras');
-						if(event.descricaoSonora)
-							event.acessibilidade.push('Descrição sonora');
-
 					});
 
 					// Remove events without occurrence

@@ -15,7 +15,7 @@ angular.module('mci.events', [
 				templateUrl: '/views/events/list.html'
 			})
 			.state('events.filter', {
-				url: ':startDate/:endDate/:linguagem/:search/:space/:future/:page'
+				url: ':startDate/:endDate/:linguagem/:search/:space/:past/:page'
 			})
 			.state('eventsSingle', {
 				url: '/agenda/:eventId/',
