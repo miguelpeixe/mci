@@ -6,7 +6,7 @@ module.exports = [
 	'$window',
 	function($http, $q, $window) {
 
-		var today = moment('2014-05-18 10:00', 'YYYY-MM-DD HH:mm');
+		var today = moment('2014-05-18 10:10', 'YYYY-MM-DD HH:mm');
 
 		var events = $window.events;
 
@@ -133,6 +133,9 @@ module.exports = [
 			},
 			getOccurrenceSpace: function(occur) {
 				return _.find(spaces, function(s) { return s.id == occur.spaceId; });	
+			},
+			getOccurrenceEvent: function(occur) {
+				return _.find(events, function(e) { return e.occurrences.indexOf(occur) !== -1; });
 			},
 			getFutureEvents: function(amount, src) {
 

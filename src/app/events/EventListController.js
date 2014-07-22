@@ -354,7 +354,7 @@ module.exports = [
 		 * Featured event
 		 */
 
-		$scope.featuredEvent = function(offset) {
+		$scope.featuredEvent = function(geocode) {
 
 			var getRandomCloseSpace = function() {
 
@@ -366,22 +366,26 @@ module.exports = [
 
 			};
 
-			var closestSpace = getRandomCloseSpace();
-
+			var closestSpace = false;
 			var featuredEvent = false;
 
+			if(geocode) {
+				var closestSpace = getRandomCloseSpace();
+			}
+
 			// geolocation is broken or couldnt find close space or 
-			if(!closestSpace._distance || closestSpace._distance > 10 * 1000) {
+			if(!closestSpace || !closestSpace._distance || closestSpace._distance > 10 * 1000) {
 
-				var event = Event.getFutureEvents()[_.random(0,3)];
+				var occurrences = _.filter(Event.getOccurrences(), function(occur) { return occur.isFuture; });
 
-				//event.fromNow = Event.getEventMoment(event).from(Event.getToday());
+				var occurrence = occurrences[_.random(0,3)] || occurrences[0];
 
 				featuredEvent = {
 					type: 'far',
 					label: 'Acontecendo agora',
-					event: event
-					//space: Event.getEventSpace(event)
+					event: Event.getOccurrenceEvent(occurrence),
+					occurrence: occurrence,
+					space: Event.getOccurrenceSpace(occurrence)
 				};
 
 			} else {
@@ -418,19 +422,19 @@ module.exports = [
 
 		};
 
-		$scope.featured = $scope.featuredEvent();
+		$scope.featured = $scope.featuredEvent(false);
 
 		/*
 		 * Load space distances and rerender featured event
 		 */
-		Event.initUserLocation().then(function() {
-			_.each($scope.spaces, function(space) {
-				var d = Event.getSpaceDistance(space);
-				space._distance = d;
-				space.kmDistance = Math.round(d/10)/100;
-			});
-			$scope.featured = $scope.featuredEvent();
-		});
+		// Event.initUserLocation().then(function() {
+		// 	_.each($scope.spaces, function(space) {
+		// 		var d = Event.getSpaceDistance(space);
+		// 		space._distance = d;
+		// 		space.kmDistance = Math.round(d/10)/100;
+		// 	});
+		// 	$scope.featured = $scope.featuredEvent(true);
+		// });
 
 	}
 ];

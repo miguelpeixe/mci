@@ -8,12 +8,12 @@ article#highlight-event(ng-show="featured")
 		section.meta.clearfix
 			p.time
 				span.entypo &#128340;
-				| {{featured.occurrence.moment.from(service.getToday())}}
+				span(fromnow date="featured.occurrence.timestamp")
 			p.distance(ng-show="featured.type == 'near'")
 				span.entypo &#59172;
 				strong {{featured.space.kmDistance}} km 
 				| de você
 		section.content
 			p.description {{featured.event.shortDescription}}
-	aside.space
+	aside.space(ng-show="featured.space")
 		h3 {{featured.space.name}}
