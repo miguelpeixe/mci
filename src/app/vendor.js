@@ -11,3 +11,7 @@ require('angular');
 require('angular-i18n/angular-locale_pt-br');
 require('ui-router');
 require('angular-pickadate/src/angular-pickadate');
+
+window.moment = require('moment');
+require('moment/lang/pt-br');
+moment.lang('pt-BR');

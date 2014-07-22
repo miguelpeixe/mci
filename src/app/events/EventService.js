@@ -1,9 +1,5 @@
 'use strict';
 
-var moment = require('moment');
-require('moment/lang/pt-br');
-moment.lang('pt-BR');
-
 module.exports = [
 	'$http',
 	'$q',

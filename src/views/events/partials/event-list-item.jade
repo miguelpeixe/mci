@@ -6,12 +6,12 @@ article.event-list-item(ng-controller="EventSingleController")
 				h3
 					a(href="/agenda/{{event.id}}/") {{event.name}}
 				p.description(ng-show="event.shortDescription") {{event.shortDescription}}
-		section.info.occurrences
+		section.occurrences
 			.occurrence.clearfix(ng-repeat="occur in getOccurrences(event)")
 				.date-info
 					p.fromNow
 						span.entypo &#128340;
-						| {{occur.moment.from(service.getToday())}}
+						span(fromnow date="occur.timestamp")
 					p.date
 						span.entypo &#128197;
 						| {{occur.startsOn}} {{occur.startsAt}}

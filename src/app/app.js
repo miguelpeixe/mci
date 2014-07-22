@@ -70,6 +70,29 @@ angular.module('mci', [
 	};
 })
 
+.directive('fromnow', [
+	'$interval',
+	function($interval) {
+		return {
+			scope: {
+				date: '=date'
+			},
+			template: '{{fromNow}}',
+			link: function(scope, element, attrs) {
+
+				var today = moment('2014-05-18 10:00', 'YYYY-MM-DD HH:mm');
+
+				var date = moment(scope.date*1000);
+
+				scope.fromNow = date.from(today);
+				$interval(function() {
+					scope.fromNow = date.from(today);
+				}, 1000*60);
+			}
+		}
+	}
+])
+
 .controller('NavCtrl', [
 	'$scope',
 	'$sce',

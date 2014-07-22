@@ -1,9 +1,5 @@
 'use strict';
 
-var moment = require('moment');
-require('moment/lang/pt-br');
-moment.lang('pt-BR');
-
 module.exports = [
 	'$q',
 	'$interval',
@@ -115,10 +111,12 @@ module.exports = [
 			$scope.eventNav.offset = $scope.eventNav.perPage * $scope.eventNav.curPage;
 		}
 
-		$scope.$watch('eventNav.curPage', function(page) {
-			$state.go('events.filter', _.extend($stateParams, {
-				page: page + 1
-			}));
+		$scope.$watch('eventNav.curPage', function(page, prevPage) {
+			if(page || prevPage) {
+				$state.go('events.filter', _.extend($stateParams, {
+					page: page + 1
+				}));
+			}
 		});
 
 		// clear pagination when search changes
@@ -332,11 +330,24 @@ module.exports = [
 		});
 
 		$scope.getOccurrences = function(e) {
+			var occurrences = [];
 			if($scope.eventSearch.startDate) {
-				return e.filteredOccurrences;
+				occurrences = e.filteredOccurrences;
+			} else if($scope.isFutureEvents) {
+				occurrences = _.filter(e.occurrences, function(occur) {
+					return occur.isFuture;
+				});
 			} else {
-				return e.occurrences;
+				occurrences = e.occurrences;
 			}
+			occurrences = _.sortBy(occurrences, function(occur) {
+				if(occur.isFuture) {
+					return -occur.timestamp;
+				} else {
+					return occur.timestamp;
+				}
+			});
+			return occurrences;
 		};
 
 		/*

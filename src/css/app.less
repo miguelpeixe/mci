@@ -656,7 +656,6 @@ body {
 		margin: 0 0 40px;
 	}
 	.event-list {
-		//border-top: 1px solid rgba(0,0,0,0.1);
 		margin-bottom: 40px;
 		margin: -40px 0 40px -40px; 
 		li {
@@ -689,15 +688,20 @@ body {
 						}
 					}
 				}
-				.info {
-					p {
-						white-space: normal;
-						overflow: visible;
-						text-overflow: clip;
-					}
-					.date-info {
-						.date {
-							display: block;
+				.occurrences {
+					pointer-events: auto;
+					.occurrence {
+						display:block;
+						margin-bottom: 10px;
+						p {
+							white-space: normal;
+							overflow: visible;
+							text-overflow: clip;
+						}
+						.date-info {
+							.date {
+								display: block;
+							}
 						}
 					}
 				}
@@ -756,26 +760,32 @@ body {
 					background-position: center;
 				}
 			}
-			.info {
+			.occurrences {
 				width: 30%;
 				float: left;
-				p {
-					font-size: 14px;
-					margin: 0;
-					white-space: nowrap;
-					overflow: hidden;
-					text-overflow: ellipsis;
-				}
-				.date-info {
-					width: 50%;
-					float: left;
-					.date {
-						display: none;
+				.occurrence {
+					display: none;
+					&:first-child {
+						display: block;
 					}
-				}
-				p.space {
-					width: 50%;
-					float: left;
+					p {
+						font-size: 14px;
+						margin: 0;
+						white-space: nowrap;
+						overflow: hidden;
+						text-overflow: ellipsis;
+					}
+					.date-info {
+						width: 50%;
+						float: left;
+						.date {
+							display: none;
+						}
+					}
+					p.space {
+						width: 50%;
+						float: left;
+					}
 				}
 			}
 		}
