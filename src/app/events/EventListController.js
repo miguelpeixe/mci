@@ -111,7 +111,6 @@ module.exports = [
 
 		// Not working
 		if($state.params.page) {
-			console.log('is paging');
 			$scope.eventNav.curPage = $state.params.page-1;
 			$scope.eventNav.offset = $scope.eventNav.perPage * $scope.eventNav.curPage;
 		}
@@ -125,7 +124,6 @@ module.exports = [
 		// clear pagination when search changes
 		$scope.$watch('eventSearch', function(newVal, oldVal) {
 			if(oldVal !== newVal) {
-				console.log('eventSearch watch is resetting pagination');
 				$scope.eventNav.curPage = 0;
 				$scope.eventNav.offset = 0;
 			}
@@ -144,7 +142,6 @@ module.exports = [
 		// update text search filter and clear pagination (parent object watch doesnt get search text changes)
 		$scope.$watch('eventSearch.$', function(text, oldText) {
 			if(oldText !== text) {
-				console.log('eventSearch.$ watch is resetting pagination');
 				$scope.eventNav.curPage = 0;
 				$scope.eventNav.offset = 0;
 			}
@@ -175,7 +172,6 @@ module.exports = [
 		$scope.futureEvents = function(init) {
 			// clear navigation
 			if(typeof init == 'undefined') {
-				console.log('future Events watch is resetting pagination');
 				$scope.eventNav.curPage = 0;
 				$scope.eventNav.offset = 0;
 			}
@@ -196,7 +192,6 @@ module.exports = [
 		$scope.allEvents = function(init) {
 			// clear navigation
 			if(typeof init == 'undefined') {
-				console.log('all Events watch is resetting pagination');
 				$scope.eventNav.curPage = 0;
 				$scope.eventNav.offset = 0;
 			}
@@ -291,12 +286,26 @@ module.exports = [
 			if($scope.eventSearch.endDate && date > $scope.eventSearch.endDate) {
 				$scope.eventSearch.endDate = '';
 			}
+
 			$scope.datepicker.end.setMinDate();
 			if(date || prevDate) {
 				$state.go('events.filter', _.extend($stateParams, {
 					startDate: date
 				}));
 			}
+
+			// reset pagination
+			if(date !== prevDate) {
+				$scope.eventNav.curPage = 0;
+				$scope.eventNav.offset = 0;
+			}
+
+			if(date) {
+				$scope.events = Event.getEventsByDateRange($scope.eventSearch.startDate, $scope.eventSearch.endDate || null);
+			} else {
+				$scope.events = Event.getEvents();				
+			}
+
 		});
 
 		$scope.$watch('eventSearch.endDate', function(date, prevDate) {
@@ -307,7 +316,28 @@ module.exports = [
 					endDate: date
 				}));
 			}
+
+			// reset pagination
+			if(date !== prevDate) {
+				$scope.eventNav.curPage = 0;
+				$scope.eventNav.offset = 0;
+			}
+
+			if($scope.eventSearch.startDate) {
+				$scope.events = Event.getEventsByDateRange($scope.eventSearch.startDate, $scope.eventSearch.endDate || null);
+			} else {
+				$scope.events = Event.getEvents();				
+			}
+
 		});
+
+		$scope.getOccurrences = function(e) {
+			if($scope.eventSearch.startDate) {
+				return e.filteredOccurrences;
+			} else {
+				return e.occurrences;
+			}
+		};
 
 		/*
 		 * Featured event

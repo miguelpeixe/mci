@@ -7,7 +7,7 @@ article.event-list-item(ng-controller="EventSingleController")
 					a(href="/agenda/{{event.id}}/") {{event.name}}
 				p.description(ng-show="event.shortDescription") {{event.shortDescription}}
 		section.info.occurrences
-			.occurrence(ng-repeat="occur in event.occurrences")
+			.occurrence.clearfix(ng-repeat="occur in getOccurrences(event)")
 				.date-info
 					p.fromNow
 						span.entypo &#128340;

@@ -16,7 +16,7 @@ module.exports = [
 
 		var occurrences = [];
 
-		// Populate events occurences with timestamp and moment
+		// Populate events occurrences with timestamp and moment
 		_.each(events, function(e) {
 			_.each(e.occurrences, function(occur) {
 				occur.moment = moment(occur.startsOn + ' ' + occur.startsAt, 'YYYY-MM-DD HH:mm');
@@ -34,6 +34,8 @@ module.exports = [
 			});
 			return next;
 		});
+
+		occurrences = _.sortBy(occurrences, function(o) { return o.timestamp; });
 
 		var spaces = $window.spaces;
 
@@ -68,14 +70,26 @@ module.exports = [
 			getToday: function() {
 				return today;
 			},
-			getEvents: function() {
-				return events;
-			},
 			getOccurrences: function() {
 				return occurrences;
 			},
+			getEvents: function() {
+				return events;
+			},
 			getEventsBy: function(key, value) {
 				return _.filter(events, function(e) { return e[key] == value; });
+			},
+			getEventsByDateRange: function(from, to) {
+				//var events = angular.copy(events);
+				to = to || from;
+				from = moment(from).unix();
+				to = moment(to).add('days', 1).unix();
+				return _.filter(events, function(e) {
+					e.filteredOccurrences = _.filter(e.occurrences, function(occur) {
+						return occur.timestamp <= to && occur.timestamp >= from;
+					});
+					return e.filteredOccurrences.length;
+				});
 			},
 			getSpaces: function() {
 				return spaces;
