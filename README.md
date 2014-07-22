@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/miguelpeixe/mci.png?label=ready&title=Ready)](https://waffle.io/miguelpeixe/mci)
 # Visualização da Cultura Independente
 
 Projeto de visualização de eventos cadastrados no [Mapas Culturais](https://github.com/hacklabr/mapasculturais).
