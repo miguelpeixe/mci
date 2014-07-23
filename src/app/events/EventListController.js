@@ -208,10 +208,13 @@ module.exports = [
 		};
 
 		// Init events
-		if(!parseInt($state.params.past))
-			$scope.futureEvents(true);
-		else
-			$scope.allEvents(true);
+		var initEvents = function() {
+			if(!parseInt($state.params.past) && Event.isHappening())
+				$scope.futureEvents(true);
+			else
+				$scope.allEvents(true);
+		}
+		initEvents();
 
 		$scope.toggleFutureEvents = function() {
 
@@ -301,7 +304,7 @@ module.exports = [
 			if(date) {
 				$scope.events = Event.getEventsByDateRange($scope.eventSearch.startDate, $scope.eventSearch.endDate || null);
 			} else {
-				$scope.events = Event.getEvents();				
+				initEvents();
 			}
 
 		});
@@ -324,7 +327,7 @@ module.exports = [
 			if($scope.eventSearch.startDate) {
 				$scope.events = Event.getEventsByDateRange($scope.eventSearch.startDate, $scope.eventSearch.endDate || null);
 			} else {
-				$scope.events = Event.getEvents();				
+				initEvents();
 			}
 
 		});
@@ -362,7 +365,10 @@ module.exports = [
 
 				orderedSpaces = _.filter(orderedSpaces, function(s) { return s.events.length && Event.getFutureEvents(null, s.events); });
 
-				return orderedSpaces[_.random(0, 2)] || orderedSpaces[0];
+				if(orderedSpaces.length)
+					return orderedSpaces[_.random(0, 2)] || orderedSpaces[0];
+				
+				return false;
 
 			};
 
@@ -377,12 +383,24 @@ module.exports = [
 			if(!closestSpace || !closestSpace._distance || closestSpace._distance > 10 * 1000) {
 
 				var occurrences = _.filter(Event.getOccurrences(), function(occur) { return occur.isFuture; });
+				var occurrence;
+				var label;
+				var type;
 
-				var occurrence = occurrences[_.random(0,3)] || occurrences[0];
+				if(!occurrences.length) {
+					occurrences = Event.getOccurrences();
+					occurrence = occurrences[_.random(0, occurrences.length-1)];
+					label = 'Destaque';
+					type = 'old';
+				} else {
+					occurrence = occurrences[_.random(0,3)] || occurrences[0];
+					label = 'Acontecendo agora';
+					type = 'far';
+				}
 
 				featuredEvent = {
-					type: 'far',
-					label: 'Acontecendo agora',
+					type: type,
+					label: label,
 					event: Event.getOccurrenceEvent(occurrence),
 					occurrence: occurrence,
 					space: Event.getOccurrenceSpace(occurrence)
@@ -427,14 +445,14 @@ module.exports = [
 		/*
 		 * Load space distances and rerender featured event
 		 */
-		// Event.initUserLocation().then(function() {
-		// 	_.each($scope.spaces, function(space) {
-		// 		var d = Event.getSpaceDistance(space);
-		// 		space._distance = d;
-		// 		space.kmDistance = Math.round(d/10)/100;
-		// 	});
-		// 	$scope.featured = $scope.featuredEvent(true);
-		// });
+		Event.initUserLocation().then(function() {
+			_.each($scope.spaces, function(space) {
+				var d = Event.getSpaceDistance(space);
+				space._distance = d;
+				space.kmDistance = Math.round(d/10)/100;
+			});
+			$scope.featured = $scope.featuredEvent(true);
+		});
 
 	}
 ];

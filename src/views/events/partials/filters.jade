@@ -38,7 +38,7 @@ nav
 
 			input(type="text" ng-model="eventSearch.$" placeholder="Digite uma busca...")
 
-		.filter-item.tick-filter(ng-show="isEventFiltering() && !eventSearch.startDate" ng-class="{enabled:isFutureEvents}" ng-click="toggleFutureEvents()") Eventos futuros
+		.filter-item.tick-filter(ng-show="isEventFiltering() && !eventSearch.startDate && service.isHappening()" ng-class="{enabled:isFutureEvents}" ng-click="toggleFutureEvents()") Eventos futuros
 
 
 

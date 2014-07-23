@@ -33,6 +33,8 @@ module.exports = [
 
 		occurrences = _.sortBy(occurrences, function(o) { return o.timestamp; });
 
+		var isHappening = _.find(occurrences, function(o) { return o.isFuture; }) ? true : false;
+
 		var spaces = $window.spaces;
 
 		var userCoords = false;
@@ -63,6 +65,9 @@ module.exports = [
 		}
 
 		return {
+			isHappening: function() {
+				return isHappening;
+			},
 			getToday: function() {
 				return today;
 			},
