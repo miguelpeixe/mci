@@ -37,7 +37,10 @@
 	},
 	"napa": {
 		"angular-i18n": "angular/bower-angular-i18n",
-		"angular-pickadate": "miguelpeixe/angular-pickadate"
+		"angular-pickadate": "miguelpeixe/angular-pickadate",
+		"angular-leaflet": "tombatossals/angular-leaflet-directive",
+		"angular-masonry": "passy/angular-masonry",
+		"angular-dialog": "likeastore/ngDialog"
 	},
 	"keywords": [
 		"mci",

@@ -85,9 +85,18 @@ angular.module('mci', [
 				var date = moment(scope.date*1000);
 
 				scope.fromNow = date.from(today);
-				$interval(function() {
+				var interval = $interval(function() {
 					scope.fromNow = date.from(today);
 				}, 1000*60);
+
+				scope.$watch('date', function() {
+					date = moment(scope.date*1000);
+					scope.fromNow = date.from(today);
+					$interval.cancel(interval);
+					interval = $interval(function() {
+						scope.fromNow = date.from(today);
+					}, 1000*60);
+				});
 			}
 		}
 	}

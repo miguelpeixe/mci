@@ -774,6 +774,9 @@ body {
 						white-space: nowrap;
 						overflow: hidden;
 						text-overflow: ellipsis;
+						.entypo {
+							color: @pink;
+						}
 					}
 					.date-info {
 						width: 50%;
@@ -785,6 +788,9 @@ body {
 					p.space {
 						width: 50%;
 						float: left;
+						&:hover {
+							color: @blue;
+						}
 					}
 				}
 			}
@@ -822,4 +828,365 @@ body {
 			margin: 0 10px 0 0;
 		}
 	}
+}
+
+#single-event {
+	.main-header {
+		&.with-image {
+			.image {
+				width: 100%;
+				padding-right: 80px;
+				height: 400px;
+				margin: -40px;
+				background-size:cover;
+				background-position:center;
+			}
+			h1 {
+				background: @bgcolor;
+				padding: 40px;
+				margin: -40px 10% 0 -40px;
+			}
+		}
+		.next-occurrence {
+			margin: 0 0 40px;
+			color: #666;
+			p {
+				float: left;
+				font-size: 20px;
+				margin-right: 40px;
+				.entypo {
+					margin-right: 20px;
+					color: @pink;
+				}
+				&.space {
+					.address {
+						font-size: 12px;
+						line-height: 16px;
+						margin-left: 10px;
+						&:before {
+							content: '(';
+						}
+						&:after {
+							content: ')';
+						}
+					}
+				}
+				&.past-event {
+					font-size: 14px;
+				}
+			}
+			.leaflet-container {
+				width: 100%;
+				height: 100px;
+				margin-top: 20px;
+				.transition(height .2s ease-in-out);
+				&.open {
+					height: 400px;
+				}
+				.toggle-map {
+					position: absolute;
+					bottom: 0;
+					left: 0;
+					right: 0;
+					text-align: center;
+					font-weight: bold;
+					z-index: 10;
+					cursor: pointer;
+					margin: 0;
+					padding-top: 88px;
+					text-transform: lowercase;
+					font-size: 12px;
+					line-height: 12px;
+					.gradient(@bgcolor, @bgcolor, transparent);
+					&:hover {
+						color: @blue;
+					}
+				}
+			}
+		}
+		.past-event {
+			text-transform: uppercase;
+			color: #999;
+			font-style: italic;
+		}
+	}
+	.event-occurrences {
+		float: right;
+		width: 30%;
+		margin: -40px 10% 40px 40px;
+		border-left: 1px solid rgba(0,0,0,0.2);
+		border-bottom: 1px solid rgba(0,0,0,0.2);
+		padding: 40px 0 40px 40px;
+		h2 {
+			font-size: 20px;
+			color: @pink;
+		}
+		ul {
+			li {
+				opacity: .5;
+				margin: 0;
+				&.future {
+					opacity: 1;
+				}
+			}
+		}
+	}
+	.event-content {
+		max-width: 900px;
+		margin: 0 0 40px;
+	}
+	#gallery {
+		margin-right: 10%;
+		.masonry-brick {
+			width: 25%;
+			padding: 0 20px 20px 0;
+			margin: 0;
+			.box-sizing(border-box);
+			img {
+				width: 100%;
+				height: auto;
+				display: block;
+			}
+		}
+	}
+}
+
+@-webkit-keyframes ngdialog-fadeout {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes ngdialog-fadeout {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes ngdialog-fadein {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes ngdialog-fadein {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+/*
+ * ngDialog
+ */
+
+.ngdialog,
+.ngdialog *,
+.ngdialog *:before,
+.ngdialog *:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.ngdialog {
+  position: fixed;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  z-index: 10000;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.ngdialog-overlay {
+  position: fixed;
+  background: rgba(0, 0, 0, 0.4);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 20000px;
+  -webkit-backface-visibility: hidden;
+  -webkit-animation: ngdialog-fadein 0.5s;
+  animation: ngdialog-fadein 0.5s;
+}
+
+.ngdialog.ngdialog-closing .ngdialog-overlay {
+  -webkit-backface-visibility: hidden;
+  -webkit-animation: ngdialog-fadeout 0.5s;
+  animation: ngdialog-fadeout 0.5s;
+}
+
+.ngdialog-content {
+  background: white;
+  -webkit-backface-visibility: hidden;
+  -webkit-animation: ngdialog-fadein 0.5s;
+  animation: ngdialog-fadein 0.5s;
+}
+
+.ngdialog.ngdialog-closing .ngdialog-content {
+  -webkit-backface-visibility: hidden;
+  -webkit-animation: ngdialog-fadeout 0.5s;
+  animation: ngdialog-fadeout 0.5s;
+}
+
+.ngdialog-close:before {
+  font-family: 'Helvetica', Arial, sans-serif;
+  content: '\00D7';
+  cursor: pointer;
+}
+
+body.ngdialog-open {
+  overflow: hidden;
+}
+@-webkit-keyframes ngdialog-flyin {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-40px);
+    transform: translateY(-40px);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes ngdialog-flyin {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-40px);
+    -ms-transform: translateY(-40px);
+    transform: translateY(-40px);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+@-webkit-keyframes ngdialog-flyout {
+  0% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    -webkit-transform: translateY(-40px);
+    transform: translateY(-40px);
+  }
+}
+
+@keyframes ngdialog-flyout {
+  0% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    -webkit-transform: translateY(-40px);
+    -ms-transform: translateY(-40px);
+    transform: translateY(-40px);
+  }
+}
+
+.ngdialog.ngdialog-theme-default {
+  padding-bottom: 80px;
+  padding-top: 80px;
+}
+
+.ngdialog.ngdialog-theme-default.ngdialog-closing .ngdialog-content {
+  -webkit-animation: ngdialog-flyout .5s;
+  animation: ngdialog-flyout .5s;
+}
+
+.ngdialog.ngdialog-theme-default .ngdialog-content {
+  -webkit-animation: ngdialog-flyin .5s;
+  animation: ngdialog-flyin .5s;
+  background: @bgcolor;
+  color: #444;
+  font-family: 'Helvetica',sans-serif;
+  font-size: 1.1em;
+  line-height: 1.5em;
+  margin: 0 auto;
+  max-width: 100%;
+  padding: 40px;
+  position: relative;
+  width: 50%;
+}
+
+.ngdialog.ngdialog-theme-default .ngdialog-close {
+  border-radius: 5px;
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.ngdialog.ngdialog-theme-default .ngdialog-close:before {
+  background: transparent;
+  border-radius: 3px;
+  color: #bbb;
+  content: '\00D7';
+  font-size: 26px;
+  font-weight: 400;
+  height: 30px;
+  line-height: 26px;
+  position: absolute;
+  right: 3px;
+  text-align: center;
+  top: 3px;
+  width: 30px;
+}
+
+.ngdialog.ngdialog-theme-default .ngdialog-close:hover:before,
+.ngdialog.ngdialog-theme-default .ngdialog-close:active:before {
+  color: #777;
+}
+
+@media (max-width: 568px) {
+  .ngdialog.ngdialog-theme-default .ngdialog-button:focus {
+    -webkit-animation: none;
+    animation: none;
+  }
+}
+
+/*
+ * ngDialog MAP
+ */
+
+.ngdialog h2 {
+	font-size: 20px;
+	margin: 0 0 20px;
+}
+
+.ngdialog .leaflet-container {
+	width: 100%;
+	height: 400px;
 }

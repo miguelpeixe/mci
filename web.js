@@ -75,8 +75,6 @@ function init() {
 
 		var loaded = _.find(loadedEvents, function(e) { return e.id == eventId; });
 
-		loaded = false;
-
 		// 10 minutes cache
 		if(!loaded || (loaded._age + (1000 * 60 * 10)) < new Date().getTime()) {
 			if(loaded) {
@@ -86,7 +84,6 @@ function init() {
 				if(reqErr) {
 					res.send(reqErr);
 				} else {
-					//res.send(body);
 					var e = JSON.parse(body)[0];
 					if(!e || typeof e == 'undefined')
 						e = {};
@@ -101,6 +98,29 @@ function init() {
 		} else {
 			res.send(loaded);
 		}
+
+	});
+
+	app.get('/agenda/limpar-cache', function(req, res) {
+
+		if(loadedEvents.length) {
+
+			var clearedString = '<ul>';
+
+			_.each(loadedEvents, function(e) {
+				clearedString += '<li>' + e.name + '</li>';
+			});
+
+			clearedString += '</ul>';
+
+		} else {
+
+			clearedString = 'Nenhum';
+
+		}
+
+		loadedEvents = [];
+		res.send('<h1>Cache da agenda liberado</h1><p>' + new Date().toString() + '</p><h2>Eventos que estavam em cache:</h2>' + clearedString);
 
 	});
 

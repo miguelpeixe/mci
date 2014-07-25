@@ -333,7 +333,7 @@ module.exports = [
 		});
 
 		$scope.getOccurrences = function(e) {
-			var occurrences = [];
+			var occurrences = e.occurrences;
 			if($scope.eventSearch.startDate) {
 				occurrences = e.filteredOccurrences;
 			} else if($scope.isFutureEvents) {
@@ -379,7 +379,7 @@ module.exports = [
 				var closestSpace = getRandomCloseSpace();
 			}
 
-			// geolocation is broken or couldnt find close space or 
+			// geolocation is broken or couldnt find close space
 			if(!closestSpace || !closestSpace._distance || closestSpace._distance > 10 * 1000) {
 
 				var occurrences = _.filter(Event.getOccurrences(), function(occur) { return occur.isFuture; });
@@ -408,28 +408,16 @@ module.exports = [
 
 			} else {
 
-				var occurrence;
-				var events = _.filter(closestSpace.events, function(e) {
-					return _.find(e.occurrences, function(occur) {
-						if(occur.spaceId == closestSpace.id && occur.moment.isAfter(Event.getToday())) {
-							occurrence = occur;
-							return true;
-						} else {
-							return false;
-						}
-					});
+				var occurrences = _.filter(Event.getOccurrences(), function(occur) {
+					return occur.spaceId == closestSpace.id && occur.isFuture;
 				});
 
-				var event = events[_.random(0, 3)] || events[events.length-1];
-
-				event.space = closestSpace;
-
-				//event.fromNow = Event.getEventMoment(event).from(Event.getToday());
+				var occurrence = occurrences[_.random(0, 3)] || occurrences[0];
 
 				featuredEvent = {
 					type: 'near',
 					label: 'Agora perto de você',
-					event: event,
+					event: Event.getOccurrenceEvent(occurrence),
 					occurrence: occurrence,
 					space: closestSpace
 				};

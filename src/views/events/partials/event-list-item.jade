@@ -1,4 +1,4 @@
-article.event-list-item(ng-controller="EventSingleController")
+article.event-list-item
 	.clearfix
 		header(ng-class="{'no-image':!event['@files:avatar']}")
 			.image(style="background-image:url({{event['@files:avatar'].url}});")
@@ -15,6 +15,6 @@ article.event-list-item(ng-controller="EventSingleController")
 					p.date
 						span.entypo &#128197;
 						| {{occur.startsOn}} {{occur.startsAt}}
-				p.space
+				p.space(ng-controller="MapDialogController" ng-click="openMap($event, occur);")
 					span.entypo &#59172;
-					| {{service.getOccurrenceSpace(occur).name}}
+					| {{occur.spaceName}}

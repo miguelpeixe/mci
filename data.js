@@ -17,7 +17,7 @@ module.exports = function(cb, silent) {
 	var eventsReq = {
 		url: config.apiUrl + '/event/find',
 		qs: {
-			'@select': 'id,name,shortDescription,description,classificacaoEtaria,terms,traducaoLibras,descricaoSonora',
+			'@select': 'id,name,shortDescription,classificacaoEtaria,terms,traducaoLibras,descricaoSonora',
 			'@files': '(avatar,header):url',
 			'project': 'in(@Project:' + config.projectId + ')'
 		}

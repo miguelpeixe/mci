@@ -10,6 +10,8 @@ module.exports = [
 
 		var events = $window.events;
 
+		var spaces = $window.spaces;
+
 		var occurrences = [];
 
 		// Populate events occurrences with timestamp and moment
@@ -22,6 +24,7 @@ module.exports = [
 			});
 		});
 
+		// Sort events by occurrences
 		events = _.sortBy(events, function(e) {
 			var next;
 			_.each(e.occurrences, function(occur) {
@@ -31,11 +34,17 @@ module.exports = [
 			return next;
 		});
 
+		// Populate occurrences with space name
+		_.each(occurrences, function(occur) {
+			var space = _.find(spaces, function(s) { return s.id == occur.spaceId; });
+			if(space)
+				occur.spaceName = space.name;
+		});
+
+		// Sort occurrences by timestamp
 		occurrences = _.sortBy(occurrences, function(o) { return o.timestamp; });
 
 		var isHappening = _.find(occurrences, function(o) { return o.isFuture; }) ? true : false;
-
-		var spaces = $window.spaces;
 
 		var userCoords = false;
 
@@ -137,7 +146,7 @@ module.exports = [
 				return deferred.promise;
 			},
 			getOccurrenceSpace: function(occur) {
-				return _.find(spaces, function(s) { return s.id == occur.spaceId; });	
+				return _.find(spaces, function(s) { return s.id == occur.spaceId; });
 			},
 			getOccurrenceEvent: function(occur) {
 				return _.find(events, function(e) { return e.occurrences.indexOf(occur) !== -1; });

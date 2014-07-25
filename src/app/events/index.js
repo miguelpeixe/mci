@@ -2,7 +2,10 @@
 
 angular.module('mci.events', [
 	'ui.router',
-	'pickadate'
+	'pickadate',
+	'leaflet-directive',
+	'wu.masonry',
+	'ngDialog'
 ])
 .config([
 	'$stateProvider',
@@ -15,16 +18,26 @@ angular.module('mci.events', [
 				templateUrl: '/views/events/list.html'
 			})
 			.state('events.filter', {
-				url: ':startDate/:endDate/:linguagem/:search/:space/:past/:page'
+				url: ':startDate/:endDate/:linguagem/:search/:space/:past/:page/'
 			})
 			.state('eventsSingle', {
 				url: '/agenda/:eventId/',
 				controller: 'EventSingleController',
-				templateUrl: '/views/events/single.html'
+				templateUrl: '/views/events/single.html',
+				resolve: {
+					'EventData': [
+						'$stateParams',
+						'EventService',
+						function($stateParams, Event) {
+							return Event.getEvent($stateParams.eventId);
+						}
+					]
+				}
 			});
 
 	}
 ])
 .factory('EventService', require('./EventService'))
 .controller('EventListController', require('./EventListController'))
-.controller('EventSingleController', require('./EventSingleController'));
+.controller('EventSingleController', require('./EventSingleController'))
+.controller('MapDialogController', require('./MapDialogController'));
