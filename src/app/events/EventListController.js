@@ -333,10 +333,12 @@ module.exports = [
 				$scope.eventNav.offset = 0;
 			}
 
-			if(date) {
-				$scope.events = Event.getEventsByDateRange($scope.eventSearch.startDate, $scope.eventSearch.endDate || null, baseEvents);
-			} else {
-				initEvents();
+			if(date || prevDate) {
+				if(date) {
+					$scope.events = Event.getEventsByDateRange($scope.eventSearch.startDate, $scope.eventSearch.endDate || null, baseEvents);
+				} else {
+					initEvents();
+				}
 			}
 
 		});
@@ -356,10 +358,12 @@ module.exports = [
 				$scope.eventNav.offset = 0;
 			}
 
-			if($scope.eventSearch.startDate) {
-				$scope.events = Event.getEventsByDateRange($scope.eventSearch.startDate, $scope.eventSearch.endDate || null);
-			} else {
-				initEvents();
+			if(date || prevDate) {
+				if($scope.eventSearch.startDate) {
+					$scope.events = Event.getEventsByDateRange($scope.eventSearch.startDate, $scope.eventSearch.endDate || null);
+				} else {
+					initEvents();
+				}
 			}
 
 		});
