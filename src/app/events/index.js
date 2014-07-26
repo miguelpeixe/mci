@@ -18,7 +18,7 @@ angular.module('mci.events', [
 				templateUrl: '/views/events/list.html'
 			})
 			.state('events.filter', {
-				url: ':startDate/:endDate/:linguagem/:search/:space/:past/:page/'
+				url: ':tag/:startDate/:endDate/:linguagem/:search/:space/:past/:page/'
 			})
 			.state('eventsSingle', {
 				url: '/agenda/:eventId/',
@@ -40,4 +40,4 @@ angular.module('mci.events', [
 .factory('EventService', require('./EventService'))
 .controller('EventListController', require('./EventListController'))
 .controller('EventSingleController', require('./EventSingleController'))
-.controller('MapDialogController', require('./MapDialogController'));
+.controller('MapController', require('./MapController'));

@@ -29,6 +29,8 @@ module.exports = [
 		 * Init search (filter) vals with state params
 		 */
 
+		$scope.tag = $state.params.tag;
+
 		$scope.eventSearch = {
 			$: $state.params.search || '',
 			terms: $state.params.linguagem || '',
@@ -167,6 +169,8 @@ module.exports = [
 
 		$scope.isFutureEvents = false;
 
+		var baseEvents;
+
 		$scope.futureEvents = function(init) {
 			// clear navigation
 			if(typeof init == 'undefined') {
@@ -174,7 +178,7 @@ module.exports = [
 				$scope.eventNav.offset = 0;
 			}
 			// get events
-			$scope.events = Event.getFutureEvents();
+			$scope.events = Event.getFutureEvents(null, baseEvents);
 			$scope.isFutureEvents = true;
 
 			// update space data
@@ -186,6 +190,28 @@ module.exports = [
 				}));
 			});
 		};
+
+		$scope.tagEvents = function(init) {
+
+			if(typeof init == 'undefined') {
+				$scope.eventNav.curPage = 0;
+				$scope.eventNav.offset = 0;
+			}
+
+			$scope.events = _.filter(Event.getEvents(), function(e) { return e.terms.tag && e.terms.tag.indexOf($state.params.tag) !== -1; });
+			baseEvents = $scope.events.slice(0);
+			$scope.isFutureEvents = false;
+
+			// update space data
+			_.each($scope.spaces, function(space) {
+				space.events = angular.copy(_.filter($scope.events, function(e) {
+					return _.find(e.occurrences, function(occur) {
+						return occur.spaceId == space.id;
+					});
+				}));
+			});
+
+		}
 
 		$scope.allEvents = function(init) {
 			// clear navigation
@@ -209,7 +235,9 @@ module.exports = [
 
 		// Init events
 		var initEvents = function() {
-			if(!parseInt($state.params.past) && Event.isHappening())
+			if($state.params.tag)
+				$scope.tagEvents(true);
+			else if(!parseInt($state.params.past) && Event.isHappening())
 				$scope.futureEvents(true);
 			else
 				$scope.allEvents(true);
@@ -224,7 +252,11 @@ module.exports = [
 					past: 0,
 				}));
 			} else {
-				$scope.allEvents();
+				if($state.params.tag) {
+					$scope.tagEvents();
+				} else {
+					$scope.allEvents();
+				}
 				$state.go('events.filter', _.extend($stateParams, {
 					past: 1,
 				}));
@@ -302,7 +334,7 @@ module.exports = [
 			}
 
 			if(date) {
-				$scope.events = Event.getEventsByDateRange($scope.eventSearch.startDate, $scope.eventSearch.endDate || null);
+				$scope.events = Event.getEventsByDateRange($scope.eventSearch.startDate, $scope.eventSearch.endDate || null, baseEvents);
 			} else {
 				initEvents();
 			}

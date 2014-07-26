@@ -19,4 +19,4 @@ article#highlight-event(ng-show="featured")
 		section.content
 			p.description {{featured.event.shortDescription}}
 	aside.space(ng-show="featured.space")
-		h3 {{featured.space.name}}
+		h3(ng-controller="MapController" ng-click="openDialog($event, featured.occurrence)") {{featured.space.name}}

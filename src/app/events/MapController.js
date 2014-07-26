@@ -7,19 +7,10 @@ module.exports = [
 	'$scope',
 	function(ngDialog, leafletData, Event, $scope) {
 
-		$scope.openMap = function(event, occur) {
+		$scope.initMap = function(occur, options) {
 
-			event.preventDefault();
-			event.stopPropagation();
+			options = options || {};
 
-			var map;
-			leafletData.getMap().then(function(m) {
-				map = m;
-				$scope.$watch('markers', function(markers) {
-					var bounds = L.latLngBounds(markers);
-					m.fitBounds(bounds, { reset: true });
-				}, true);
-			});
 			$scope.space = Event.getOccurrenceSpace(occur);
 
 			$scope.markers = [
@@ -29,7 +20,7 @@ module.exports = [
 				]
 			];
 
-			$scope.map = {
+			$scope.map = _.extend({
 				defaults: {
 					tileLayer: 'http://{s}.sm.mapstack.stamen.com/($f7f7f7[@p],(buildings,$ec008b[hsl-color]),parks,mapbox-water,(streets-and-labels,$38a2a2[hsl-color]))/{z}/{x}/{y}.png',
 					maxZoom: 16
@@ -45,8 +36,31 @@ module.exports = [
 						lng: $scope.markers[0][1],
 						message: $scope.space.name
 					}
+				},
+				open: false,
+				toggleLabel: 'Expandir mapa',
+				toggle: function() {
+					if(this.open) {
+						this.toggleLabel = 'Expandir mapa';
+						this.open = false;
+					} else {
+						this.toggleLabel = 'Recolher mapa';
+						this.open = true;
+					}
+					setTimeout(function() {
+						map.invalidateSize(true);
+					}, 200);
 				}
-			};
+			}, options);
+
+		}
+
+		$scope.openDialog = function(event, occur) {
+
+			event.preventDefault();
+			event.stopPropagation();
+
+			$scope.initMap(occur);
 
 			ngDialog.open({
 				template: '/views/events/map.html',
@@ -55,7 +69,7 @@ module.exports = [
 
 		};
 
-		$scope.locateUser = function() {
+		$scope.locateUser = function(mapId) {
 			Event.initUserLocation().then(function(coords) {
 				if(coords) {
 					var marker = [
@@ -68,6 +82,10 @@ module.exports = [
 						lng: marker[1],
 						message: 'Sua localização'
 					};
+					leafletData.getMap(mapId).then(function(m) {
+						var bounds = L.latLngBounds($scope.markers);
+						m.fitBounds(bounds, { reset: true });
+					});
 				}
 			});
 		};

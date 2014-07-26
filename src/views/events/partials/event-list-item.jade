@@ -15,6 +15,6 @@ article.event-list-item
 					p.date
 						span.entypo &#128197;
 						| {{occur.startsOn}} {{occur.startsAt}}
-				p.space(ng-controller="MapDialogController" ng-click="openMap($event, occur);")
+				p.space(ng-controller="MapController" ng-click="openDialog($event, occur);")
 					span.entypo &#59172;
 					| {{occur.spaceName}}

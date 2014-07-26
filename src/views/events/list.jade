@@ -1,10 +1,12 @@
 section#list-event
 	header.list-header.main-header.clearfix
-		h1 Agenda
+		h1
+			span(ng-hide="tag") Agenda
+			span.tag(ng-show="tag") {{tag}}
 		include partials/filters
 
 	section#event-list.main-content
-		section.event-results(ng-show="isEventFiltering()")
+		section.event-results(ng-show="isEventFiltering() || tag")
 
 			ul.event-list(ng-show="filteredEvents.length")
 				li.clearfix(ng-repeat="event in (filteredEvents = (events | filter:eventFilter:strict)) | offset: eventNav.perPage * eventNav.curPage | limitTo: eventNav.perPage" ng-click="accessEvent(event)")
@@ -22,7 +24,7 @@ section#list-event
 
 		include partials/featured
 
-		#linguagens
+		#linguagens(ng-hide="tag")
 			h2 Navegue pelas linguagens
 			ul.linguagem-list.clearfix
 				li(ng-repeat="linguagem in linguagens")

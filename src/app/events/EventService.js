@@ -89,11 +89,12 @@ module.exports = [
 			getEventsBy: function(key, value) {
 				return _.filter(events, function(e) { return e[key] == value; });
 			},
-			getEventsByDateRange: function(from, to) {
+			getEventsByDateRange: function(from, to, src) {
 				to = to || from;
+				src = src || events;
 				from = moment(from).unix();
 				to = moment(to).add('days', 1).unix();
-				return _.filter(events, function(e) {
+				return _.filter(src, function(e) {
 					e.filteredOccurrences = _.filter(e.occurrences, function(occur) {
 						return occur.timestamp <= to && occur.timestamp >= from;
 					});

@@ -19,24 +19,31 @@ section#single-event
 					| {{featOccur.spaceName}}
 					span.address {{featOccur.space.endereco}}
 
-			leaflet(defaults="map.defaults" markers="map.markers" paths="map.paths" center="map.center" ng-class="{open:map.open}")
-				p.toggle-map(ng-click="map.toggle()") {{map.toggleLabel}}
+			.map(ng-controller="MapController" ng-init="initMap(featOccur, mapOptions)")
+				leaflet#main-map(defaults="map.defaults" markers="map.markers" paths="map.paths" center="map.center" ng-class="{open:map.open}")
+					p.toggle-map(ng-click="map.toggle()") {{map.toggleLabel}}
 
 		p.past-event(ng-hide="featOccur") Este evento já aconteceu
-	section#event-agenda.event-occurrences(ng-show="event.occurrences.length>1")
-		h2 Agenda
-		ul
-			li.clearfix(ng-repeat="occur in event.occurrences" ng-class="{future:occur.isFuture}")
-				.date-info
-					p.fromNow
-						span.entypo &#128340;
-						span(fromnow date="occur.timestamp")
-					p.date
-						span.entypo &#128197;
-						| {{occur.startsOn}} {{occur.startsAt}}
-				p.space
-					span.entypo &#59172;
-					| {{occur.spaceName}}
+	aside#event-sidebar
+		#event-agenda.event-occurrences(ng-show="event.occurrences.length>1")
+			h2 Agenda
+			ul
+				li.clearfix(ng-repeat="occur in event.occurrences" ng-class="{future:occur.isFuture}")
+					.date-info
+						p.fromNow
+							span.entypo &#128340;
+							span(fromnow date="occur.timestamp")
+						p.date
+							span.entypo &#128197;
+							| {{occur.startsOn}} {{occur.startsAt}}
+					p.space(ng-controller="MapController" ng-click="openDialog($event, occur)")
+						span.entypo &#59172;
+						| {{occur.spaceName}}
+
+		#event-tags(ng-show="event.terms.tag")
+			h3(ng-repeat="tag in event.terms.tag")
+				a(href="javascript:void(0)" ng-click="accessTag(tag)") {{tag}}
+
 	section#event-description.event-content.main-content
 		p(ng-show="description") {{description}}
 	section#gallery(ng-show="event['@files:gallery']")
