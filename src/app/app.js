@@ -14,6 +14,7 @@ angular.module('mci', [
 	'ui.router',
 	'mci.events'
 ])
+
 .config([
 	'$stateProvider',
 	'$urlRouterProvider',
@@ -114,7 +115,7 @@ angular.module('mci', [
 				icon: $sce.trustAsHtml('&#8962;')
 			},
 			{
-				title: 'Eventos',
+				title: 'Agenda',
 				href: '/agenda/',
 				icon: $sce.trustAsHtml('&#128197;')
 			},
@@ -140,18 +141,22 @@ angular.module('mci', [
 			}
 		];
 
+		$scope.updateHover = function(str) {
+
+			$scope.currentHover = str;
+
+		};
+
 		$scope.currentHover = '';
 
 	}
 ]);
 
 $(document).ready(function() {
-	window.events = [];
-	$.get('/data/events.json', function(events) {
-		window.events = events;
-		$.get('/data/spaces.json', function(spaces) {
-			window.spaces = spaces;
-			angular.bootstrap(document, ['mci']);
-		}, 'json');
+	$.get('/api/data', function(data) {
+		window.options = data.options;
+		window.events = data.events;
+		window.spaces = data.spaces;
+		angular.bootstrap(document, ['mci']);
 	}, 'json');
 });

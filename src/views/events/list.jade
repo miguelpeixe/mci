@@ -1,9 +1,11 @@
-section#list-event
+section#list-event(ng-class="{tag: tag}")
 	header.list-header.main-header.clearfix
-		h1
-			span(ng-hide="tag") Agenda
-			span.tag(ng-show="tag") {{tag}}
-		include partials/filters
+		.clearfix
+			h1
+				span(ng-hide="tag") Agenda
+				span.tag(ng-show="tag") {{tag}}
+			include partials/filters
+		p(ng-show="tag") {{service.getTagDescription(tag)}}
 
 	section#event-list.main-content
 		section.event-results(ng-show="isEventFiltering() || tag")

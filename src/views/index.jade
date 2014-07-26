@@ -18,15 +18,16 @@ html(lang='pt-BR')
 					span Mês da Cultura Independente
 					img(src='/img/logo.png' alt='Mês da Cultura Independente')
 			nav#mastnav.clearfix(ng-controller="NavCtrl")
-				ul(ng-mouseleave="currentHover = ''")
+				p.currentHover(ng-bind="currentHover")
+				ul(ng-mouseleave="updateHover('')")
 					li(ng-repeat="item in nav")
-						a(href="{{item.href}}" title="{{item.title}}" ng-mouseenter="currentHover = item.title")
+						a(href="{{item.href}}" title="{{item.title}}" ng-mouseenter="updateHover(item.title)")
 							span.entypo(ng-bind-html="item.icon")
-				span.currentHover(ng-show="currentHover") {{currentHover}}
 			h2
 				span setembro/
 				| 2014
 		section#content(ui-view, autoscroll='true')
+
 		script(type='text/javascript', src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js')
 		script(type='text/javascript', src='//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.0.4/jquery.imagesloaded.min.js')
 		script(type='text/javascript', src='//cdnjs.cloudflare.com/ajax/libs/masonry/3.1.5/masonry.pkgd.min.js')

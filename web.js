@@ -31,8 +31,27 @@ function init() {
 	var app = express();
 
 	app.use(require('prerender-node'));
+	app.use(require('compression')());
 
 	app.use('/', express.static(__dirname + '/dist'));
+
+	var options = {};
+
+	if(fs.existsSync('options.js')) {
+		options = require('./options');
+	}
+
+	app.get('/api/data', function(req, res) {
+
+		var data = {
+			options: options,
+			events: require('./dist/data/events.json'),
+			spaces: require('./dist/data/spaces.json')
+		};
+
+		res.send(data);
+
+	});
 
 	var loadedEvents = [];
 

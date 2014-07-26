@@ -8,6 +8,8 @@ module.exports = [
 
 		var today = moment('2014-05-18 10:10', 'YYYY-MM-DD HH:mm');
 
+		var options = $window.options;
+
 		var events = $window.events;
 
 		var spaces = $window.spaces;
@@ -88,6 +90,15 @@ module.exports = [
 			},
 			getEventsBy: function(key, value) {
 				return _.filter(events, function(e) { return e[key] == value; });
+			},
+			getTagDescription: function(tagName) {
+				if(options.tags) {
+					var tag = _.find(options.tags, function(t) { return t.name == tagName; });
+					if(tag && tag.description) {
+						return tag.description;
+					}
+				}
+				return false;
 			},
 			getEventsByDateRange: function(from, to, src) {
 				to = to || from;

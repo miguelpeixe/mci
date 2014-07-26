@@ -13,6 +13,8 @@
 		"start": "node web.js"
 	},
 	"dependencies": {
+		"express": "latest",
+		"compression": "latest",
 		"dotenv": "latest",
 		"request": "latest",
 		"underscore": "latest",
@@ -22,7 +24,6 @@
 		"ui-router": "latest",
 		"leaflet": "latest",
 		"moment": "latest",
-		"express": "latest",
 		"prerender-node": "latest",
 		"grunt": "latest",
 		"grunt-cli": "latest",

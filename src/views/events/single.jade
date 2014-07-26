@@ -41,8 +41,10 @@ section#single-event
 						| {{occur.spaceName}}
 
 		#event-tags(ng-show="event.terms.tag")
-			h3(ng-repeat="tag in event.terms.tag")
-				a(href="javascript:void(0)" ng-click="accessTag(tag)") {{tag}}
+			.tag(ng-repeat="tag in event.terms.tag" ng-show="service.getTagDescription(tag)")
+				h3
+					a(href="javascript:void(0)" ng-click="accessTag(tag)") {{tag}}
+				p {{service.getTagDescription(tag)}}
 
 	section#event-description.event-content.main-content
 		p(ng-show="description") {{description}}
