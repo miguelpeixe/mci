@@ -39,10 +39,14 @@ module.exports = [
 						data: data.data,
 						nextPage: function() {
 							var deferred = $q.defer();
-							load(perPage, currentPage+1, function(data) {
-								currentPage = data.pagination.currentPage;
-								deferred.resolve(data.data);
-							});
+							if(currentPage == totalPages) {
+								deferred.resolve(false);
+							} else {
+								load(perPage, currentPage+1, function(data) {
+									currentPage = data.pagination.currentPage;
+									deferred.resolve(data);
+								});
+							}
 							return deferred.promise;
 						}
 					});

@@ -7,9 +7,15 @@ module.exports = [
 
 		$scope.items = SocialData.data;
 
-		$scope.nextPage = SocialData.nextPage;
-
-		console.log($scope.items.length);
+		$scope.nextPage = function() {
+			SocialData.nextPage().then(function(data) {
+				if(data) {
+					if(data.pagination.currentPage == data.pagination.totalPages)
+						$scope.lastPage = true;
+					$scope.items = $scope.items.concat(data.data);
+				}
+			});
+		};
 
 	}
 ]

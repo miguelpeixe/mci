@@ -171,8 +171,8 @@ function init() {
 
 		app.get('/api/social', function(req, res) {
 
-			var perPage = req.query.perPage || 20;
-			var page = req.query.page || 1;
+			var perPage = parseInt(req.query.perPage || 20);
+			var page = parseInt(req.query.page || 1);
 			var offset = (page-1) * perPage;
 
 			if(offset > social.length) {

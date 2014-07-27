@@ -1,7 +1,8 @@
-article#about
+section#social
 	header.main-header.clearfix
 		h1 Na rede
 	section.main-content
-		ul
-			li(ng-repeat="item in items" class="{{item.media_provider}} {{item.media_type}}")
+		ul.items(masonry)
+			li.masonry-brick(ng-repeat="item in items" class="{{item.media_provider}} {{item.media_type}}")
 				img(src="{{item.thumb}}")
+		a(href="javascript:void(0);" ng-click="nextPage()" ng-hide="lastPage") Carregar mais
