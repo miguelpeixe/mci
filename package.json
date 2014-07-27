@@ -42,7 +42,8 @@
 		"angular-pickadate": "miguelpeixe/angular-pickadate",
 		"angular-leaflet": "tombatossals/angular-leaflet-directive",
 		"angular-masonry": "passy/angular-masonry",
-		"angular-dialog": "likeastore/ngDialog"
+		"angular-dialog": "likeastore/ngDialog",
+		"angular-infiniteScroll": "sroze/ngInfiniteScroll"
 	},
 	"keywords": [
 		"mci",

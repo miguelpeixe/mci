@@ -2,6 +2,7 @@
 
 angular.module('mci.social', [
 	'ui.router',
+	'infinite-scroll',
 	'wu.masonry',
 	'ngDialog'
 ])

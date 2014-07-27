@@ -8,6 +8,7 @@ require('angular-pickadate/src/angular-pickadate');
 require('angular-leaflet/dist/angular-leaflet-directive');
 require('angular-masonry/angular-masonry');
 require('angular-dialog/js/ngDialog');
+require('angular-infiniteScroll/build/ng-infinite-scroll');
 
 window.moment = require('moment');
 require('moment/lang/pt-br');

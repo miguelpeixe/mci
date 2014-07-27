@@ -2,7 +2,8 @@ section#social
 	header.main-header.clearfix
 		h1 Na rede
 	section.main-content
-		ul.items(masonry)
+		ul.items(masonry infinite-scroll="nextPage()" infinite-scroll-disabled="lastPage")
 			li.masonry-brick(ng-repeat="item in items" class="{{item.media_provider}} {{item.media_type}}")
-				img(src="{{item.thumb}}")
-		a(href="javascript:void(0);" ng-click="nextPage()" ng-hide="lastPage") Carregar mais
+				.item-content
+					img(src="{{item.thumb}}")
+		p.end(ng-show="lastPage") Isso é tudo!
