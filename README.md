@@ -1,6 +1,6 @@
 # Visualização da Cultura Independente
 
-Projeto de visualização de eventos cadastrados no [Mapas Culturais](https://github.com/hacklabr/mapasculturais).
+Projeto de visualização de eventos cadastrados no [Mapas Culturais](https://github.com/hacklabr/mapasculturais), desenvolvido para a plataforma [SP Cultura](http://spcultura.prefeitura.sp.gov.br/) da [Secretaria Municipal de Cultura de São Paulo](http://www.prefeitura.sp.gov.br/cidade/secretarias/cultura/).
 
 Criado para o Mês da Cultura Independente.
 
