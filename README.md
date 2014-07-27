@@ -52,9 +52,9 @@ $ npm start
 
 Você pode também alterar as variáveis com um arquivo `.env`, seguindo o [exemplo](.env.example)
 
-### Configurando o "Na rede"
+### Configurando o *Na rede*
 
-Na rede é um sistema para indexar conteúdo multimídia publicados no **YouTube**, **Instagram** e **Flickr**.
+*Na rede* é um sistema para indexar conteúdo multimídia publicados no **YouTube**, **Instagram** e **Flickr**.
 
 Primeiro, você deve definir as chaves de API:
 
