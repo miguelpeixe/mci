@@ -56,7 +56,7 @@ a {
 body,html {
 	width: 100%;
 	height: 100%;
-	background: @bgcolor;
+	background: @bg;
 }
 
 body {
@@ -76,13 +76,13 @@ body {
 	height: 100%;
 	width: 231px;
 	padding: 40px 40px 0;
-	//background: @bgcolor;
+	//background: @bg;
 	background-image: url(../img/bg2.jpg);
 	background-position: top left;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	.box-sizing(border-box);
-	//border-right: 40px solid @bgcolor;
+	//border-right: 40px solid @bg;
 	border-right: 1px solid rgba(0,0,0,0.2);
 	margin-right: 40px;
 	float: left;
@@ -140,7 +140,7 @@ body {
 					background: rgba(255,255,255,0.5);
 					&:hover {
 						background-color: #222;
-						color: @bgcolor;
+						color: @bg;
 					}
 				}
 				.entypo {
@@ -156,7 +156,7 @@ body {
 			height: 14px;
 			line-height: 14px;
 			font-size: 12px;
-			color: @bgcolor;
+			color: @bg;
 			text-align: center;
 			text-transform: uppercase;
 			font-weight: 800;
@@ -180,7 +180,7 @@ body {
 				bottom: 0;
 				left: 30%;
 				right: 10%;
-				background: @bgcolor;
+				background: @bg;
 				text-align: right;
 				h2,
 				h3 {
@@ -203,7 +203,7 @@ body {
 			&#featured {
 				width: 70%;
 				height: 100%;
-				border-right: 40px solid @bgcolor;
+				border-right: 40px solid @bg;
 			}
 			&#second {
 				width: 30%;
@@ -244,7 +244,7 @@ body {
 				height: 100%;
 				float: left;
 				.box-sizing(border-box);
-				border-left: 20px solid @bgcolor;
+				border-left: 20px solid @bg;
 				header {
 					img {
 						width: 100%;
@@ -266,6 +266,7 @@ body {
 	margin: -40px 0 40px -40px;
 	padding: 40px 40px 0;
 	//background: #fff;
+	background: @header;
 	border-bottom: 1px solid rgba(0,0,0,0.2);
 	position: relative;
 	z-index: 9;
@@ -339,7 +340,7 @@ body {
 				margin: 12px 0;
 				padding: 0;
 				width: 150px;
-				background: @bgcolor;
+				background: @header;
 				font-size: 12px;
 			}
 			.clear-filter {
@@ -350,7 +351,7 @@ body {
 				z-index: 2;
 				text-decoration: none;
 				line-height: 38px;
-				background: @bgcolor;
+				background: @header;
 				padding: 0 2px;
 			}
 		}
@@ -395,7 +396,7 @@ body {
 						border-left: 1px solid rgba(0,0,0,0.2);
 						border-right: 1px solid rgba(0,0,0,0.2);
 						line-height: 38px;
-						background: @bgcolor;
+						background: @header;
 						text-decoration: none;
 					}
 					&.active {
@@ -447,7 +448,7 @@ body {
 					padding: 0 20px 20px;
 					top: 54px;
 					left: -135px;
-					background: @bgcolor;
+					background: @bg;
 					&:before {
 						content: '';
 						position: absolute;
@@ -457,7 +458,7 @@ body {
 						width: 10px;
 						height: 10px;
 						.transform(rotate(45deg));
-						background: @bgcolor;
+						background: @bg;
 						border: 1px solid rgba(0,0,0,0.2);
 					}
 					&:after {
@@ -468,7 +469,7 @@ body {
 						margin-left: -10px;
 						width: 30px;
 						height: 12px;
-						background: @bgcolor;
+						background: @bg;
 					}
 					li {
 						margin: 0;
@@ -487,15 +488,15 @@ body {
 			}
 		}
 		.tick-filter {
-			background: @bgcolor;
+			background: @bg;
 			color: #333;
 			font-size: 13px;
 			cursor: pointer;
 			&.enabled {
 				background: #222;
-				color: @bgcolor;
+				color: @bg;
 				&:before {
-					color: @bgcolor;
+					color: @bg;
 				}
 			}
 			&:hover {
@@ -554,7 +555,7 @@ body {
 			top: 20px;
 			left: 20px;
 			background: @pink;
-			color: @bgcolor;
+			color: @bg;
 			padding: 4px 8px;
 		}
 		.space {
@@ -563,7 +564,7 @@ body {
 				top: 20px;
 				right: 10%;
 				background: #000;
-				color: @bgcolor;
+				color: @bg;
 				padding: 4px 8px;
 				font-size: 16px;
 				cursor: pointer;
@@ -585,7 +586,7 @@ body {
 			.box-sizing(border-box);
 			margin-top: -150px;
 			margin-right: 10%;
-			background: @bgcolor;
+			background: @bg;
 			float: right;
 			//.box-shadow(-2px -3px 3px rgba(0,0,0,0.05));
 			//border-left: 1px solid rgba(0,0,0,0.08);
@@ -633,8 +634,8 @@ body {
 				float: left;
 				margin: 0;
 				.box-sizing(border-box);
-				border-right: 1px solid @bgcolor;
-				border-bottom: 1px solid @bgcolor;
+				border-right: 1px solid @bg;
+				border-bottom: 1px solid @bg;
 				text-transform: uppercase;
 				font-family: "Axis";
 				font-size: 13px;
@@ -643,7 +644,7 @@ body {
 					line-height: 40px;
 					padding: 0 10px;
 					background: @blue;
-					color: @bgcolor;
+					color: @bg;
 					.transition(all .2s ease-in-out);
 					&:hover {
 						background: darken(@blue, 10%);
@@ -686,12 +687,11 @@ body {
 		}
 	}
 	.event-results {
-		border-bottom: 2px solid #222;
-		margin: 0 0 40px;
+		margin: 0 0 40px -40px;
 	}
 	.event-list {
 		margin-bottom: 40px;
-		margin: -40px 0 40px -40px; 
+		margin: -40px 0 0; 
 		li {
 			margin: 0;
 			width: 100%;
@@ -708,7 +708,7 @@ body {
 					border-top: 2px solid #333;
 					border-bottom: 2px solid #333;
 					padding: 40px 40px 40px 0;
-					.box-shadow(0 0 120px 40px @bgcolor);
+					.box-shadow(0 0 120px 40px @bg);
 				}
 				header {
 					.main-info {
@@ -839,13 +839,17 @@ body {
 }
 
 #pagination {
+	background: #333;
 	a {
-		padding: 20px;
-		background: @blue;
-		color: @bgcolor;
+		padding: 20px 40px;
+		background: #222;
+		color: @bg;
 		text-decoration: none;
+		width: 50%;
+		.box-sizing(border-box);
+		text-align: center;
 		&:hover {
-			background: darken(@blue, 10%);
+			background: #111;
 		}
 	}
 	.next {
@@ -876,7 +880,7 @@ body {
 				background-position:center;
 			}
 			h1 {
-				background: @bgcolor;
+				background: @bg;
 				padding: 40px;
 				margin: -40px 10% 0 -40px;
 			}
@@ -932,7 +936,7 @@ body {
 					text-transform: lowercase;
 					font-size: 12px;
 					line-height: 12px;
-					.gradient(@bgcolor, @bgcolor, transparent);
+					.gradient(@bg, @bg, transparent);
 					&:hover {
 						color: @blue;
 					}
@@ -1195,7 +1199,7 @@ body.ngdialog-open {
 .ngdialog.ngdialog-theme-default .ngdialog-content {
   -webkit-animation: ngdialog-flyin .5s;
   animation: ngdialog-flyin .5s;
-  background: @bgcolor;
+  background: @bg;
   color: #444;
   font-family: 'Helvetica',sans-serif;
   font-size: 1.1em;
