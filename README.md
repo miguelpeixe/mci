@@ -50,11 +50,11 @@ E rode novamente:
 $ npm start
 ```
 
-Você pode também alterar as variáveis com um arquivo `.env`, seguindo o [exemplo](https://github.com/miguelpeixe/mci/blob/master/.env.example)
+Você pode também alterar as variáveis com um arquivo `.env`, seguindo o [exemplo](.env.example)
 
 ### Configurando o "Na rede"
 
-Na rede é um sistema para indexar conteúdo multimídia publicados no YouTube, Instagram e Flickr.
+Na rede é um sistema para indexar conteúdo multimídia publicados no **YouTube**, **Instagram** e **Flickr**.
 
 Primeiro, você deve definir as chaves de API:
 
@@ -76,3 +76,7 @@ $ export MCI_HASHTAG=<SUA BUSCA>
 ```
 
 Para concluir as alterações, reinicie o servidor.
+
+## Deploy
+
+Em breve.
