@@ -59,15 +59,15 @@ Na rede é um sistema para indexar conteúdo multimídia publicados no YouTube, 
 Primeiro, você deve definir as chaves de API:
 
 #### Instagram [(obtenha sua chave aqui)](http://instagram.com/developer/)
+
 ```
 $ export MCI_INSTAGRAM_CLIENT_ID=<CHAVE>
-
 ```
 
 #### Flickr [(obtenha sua chave aqui)](https://www.flickr.com/services/api/misc.api_keys.html)
+
 ```
 $ export MCI_FLICKR_API_KEY=<CHAVE>
-
 ```
 
 Agora podemos definir a hashtag:
