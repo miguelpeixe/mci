@@ -1,5 +1,6 @@
 var fs = require('fs'),
 	express = require('express'),
+	bodyParser = require('body-parser'),
 	request = require('request'),
 	_ = require('underscore'),
 	config = require('./config'),
@@ -33,6 +34,11 @@ function init() {
 
 	app.use(require('prerender-node'));
 	app.use(require('compression')());
+	app.set('view engine', 'jade');
+	app.set('views', __dirname + '/src/views/');
+
+	app.use(bodyParser.urlencoded({ extended: false }));
+	app.use(bodyParser.json());
 
 	app.use('/', express.static(__dirname + '/dist'));
 
@@ -121,35 +127,57 @@ function init() {
 
 	});
 
-	app.get('/agenda/limpar-cache', function(req, res) {
+	app.all('/agenda/limpar-cache', function(req, res) {
 
-		if(loadedEvents.length) {
+		if(config.password && (!req.body.password || req.body.password !== config.password)) {
 
-			var clearedString = '<ul>';
+			var resData = {};
 
-			_.each(loadedEvents, function(e) {
-				clearedString += '<li>' + e.name + '</li>';
-			});
+			if(req.body.password) {
+				resData = {
+					error: 'Senha incorreta'
+				};
+			}
 
-			clearedString += '</ul>';
+			res.render('static/password-protected', resData);
 
 		} else {
 
-			clearedString = 'Nenhum';
+			var emptied = loadedEvents.slice(0);
+			loadedEvents = [];
+
+			res.render('static/cache-cleared', {
+				time: new Date().toString(),
+				events: emptied
+			});
 
 		}
 
-		loadedEvents = [];
-		res.send('<h1>Cache da agenda liberado</h1><p>' + new Date().toString() + '</p><h2>Eventos que estavam em cache:</h2>' + clearedString);
-
 	});
 
-	app.get('/atualizar', function(req, res) {
+	app.all('/agenda/atualizar', function(req, res) {
 
-		loadedEvents = [];
-		loadData(function() {
-			res.send('<h1>Dados atualizados</h1><p>' + new Date().toString() + '</p>');
-		}, true);
+		if(config.password && (!req.body.password || req.body.password !== config.password)) {
+
+			var resData = {};
+
+			if(req.body.password) {
+				resData = {
+					error: 'Senha incorreta'
+				};
+			}
+
+			res.render('static/password-protected', resData);
+
+		} else {
+
+			loadedEvents = [];
+			loadData(function() {
+
+				res.render('static/data-success', {time: new Date().toString() });
+
+			}, true);
+		}
 
 	});
 

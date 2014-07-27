@@ -14,6 +14,8 @@
 	},
 	"dependencies": {
 		"express": "latest",
+		"body-parser": "latest",
+		"jade": "latest",
 		"compression": "latest",
 		"async": "latest",
 		"dotenv": "latest",

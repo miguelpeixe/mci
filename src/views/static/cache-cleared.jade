@@ -1,0 +1,19 @@
+extends layout
+
+block header
+	h1 Cache da agenda liberado
+
+block content
+
+	p= time
+
+	if events && events.length
+
+		h3 Eventos removidos do cache:
+		ul#events
+			for event in events
+				li #{event.name}
+
+	else
+
+		p Nenhum evento encontrado no cache.
