@@ -1,0 +1,7 @@
+article#about
+	header.main-header.clearfix
+		h1 Na rede
+	section.main-content
+		ul
+			li(ng-repeat="item in items" class="{{item.media_provider}} {{item.media_type}}")
+				img(src="{{item.thumb}}")

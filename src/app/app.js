@@ -5,6 +5,7 @@
  */
 
 require('./events');
+require('./social');
 
 /*
  * App
@@ -12,7 +13,8 @@ require('./events');
 
 angular.module('mci', [
 	'ui.router',
-	'mci.events'
+	'mci.events',
+	'mci.social'
 ])
 
 .config([
@@ -126,7 +128,7 @@ angular.module('mci', [
 			},
 			{
 				title: 'Na rede',
-				href: '/',
+				href: '/na-rede/',
 				icon: $sce.trustAsHtml('&#127748;')
 			},
 			{

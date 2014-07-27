@@ -15,6 +15,7 @@
 	"dependencies": {
 		"express": "latest",
 		"compression": "latest",
+		"async": "latest",
 		"dotenv": "latest",
 		"request": "latest",
 		"underscore": "latest",
