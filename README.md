@@ -2,7 +2,17 @@
 
 Visualização de eventos cadastrados no [Mapas Culturais](https://github.com/hacklabr/mapasculturais), desenvolvido para a plataforma [SP Cultura](http://spcultura.prefeitura.sp.gov.br/) da [Secretaria Municipal de Cultura de São Paulo](http://www.prefeitura.sp.gov.br/cidade/secretarias/cultura/).
 
-Projeto esenvolvido para o [Mês da Cultura Independente](http://culturaindependente.org/).
+Projeto desenvolvido para o [Mês da Cultura Independente](http://culturaindependente.org/).
+
+---
+
+## Recursos
+
+ - Visualização de eventos a partir de um projeto
+ - Interface adaptada a partir de geolocalização
+ - Filtros por data, linguagem, espaço e busca textual
+ - [Sistema *Na rede*](#configurando-o-na-rede) indexa participação multimídia nas redes sociais
+ - *(em breve)* Notícias a partir de feed xml
 
 ---
 
