@@ -37,7 +37,7 @@ Agora acesse: [http://localhost:8000](http://localhost:8000)
 
 ### Configuração básica
 
-Para alterar a URL da api (padrão é `http://mapasculturais.hacklab.com.br/api`) ou o ID do projeto a ser visualizado altere as seguintes variáveis de ambiente:
+Para alterar a URL da api (padrão é `http://spcultura.prefeitura.sp.gov.br/api`) ou o ID do projeto a ser visualizado altere as seguintes variáveis de ambiente:
 
 ```
 $ export MCI_API_URL=<NOVA URL>
