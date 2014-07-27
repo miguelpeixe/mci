@@ -8,11 +8,11 @@ module.exports = [
 
 		var today = moment('2014-05-18 10:10', 'YYYY-MM-DD HH:mm');
 
-		var options = $window.options;
+		var options = $window.mci.options;
 
-		var events = $window.events;
+		var events = $window.mci.events;
 
-		var spaces = $window.spaces;
+		var spaces = $window.mci.spaces;
 
 		var occurrences = [];
 

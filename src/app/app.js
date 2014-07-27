@@ -5,6 +5,7 @@
  */
 
 require('./events');
+require('./news');
 require('./social');
 
 /*
@@ -14,6 +15,7 @@ require('./social');
 angular.module('mci', [
 	'ui.router',
 	'mci.events',
+	'mci.news',
 	'mci.social'
 ])
 
@@ -123,7 +125,7 @@ angular.module('mci', [
 			},
 			{
 				title: 'Notícias',
-				href: '/',
+				href: '/noticias/',
 				icon: $sce.trustAsHtml('&#128196;')
 			},
 			{
@@ -156,9 +158,7 @@ angular.module('mci', [
 
 $(document).ready(function() {
 	$.get('/api/data', function(data) {
-		window.options = data.options;
-		window.events = data.events;
-		window.spaces = data.spaces;
+		window.mci = data;
 		angular.bootstrap(document, ['mci']);
 	}, 'json');
 });

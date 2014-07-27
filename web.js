@@ -51,6 +51,10 @@ function init() {
 	app.get('/api/data', function(req, res) {
 
 		var data = {
+			config: {
+				wpUrl: config.wpUrl,
+				hashtag: config.hashtag
+			},
 			options: options,
 			events: require('./dist/data/events.json'),
 			spaces: require('./dist/data/spaces.json')
