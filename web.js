@@ -157,36 +157,40 @@ function init() {
 	 * Update social data each 10 minutes
 	 */
 
-	var social = [];
-	loadSocial(function(data) {
-		social = data;
-	});
-	setInterval(function() {
+	if(config.hashtag) {
+
+		var social = [];
 		loadSocial(function(data) {
 			social = data;
 		});
-	}, 1000 * 60 * 10);
-
-	app.get('/api/social', function(req, res) {
-
-		var perPage = req.query.perPage || 20;
-		var page = req.query.page || 1;
-		var offset = (page-1) * perPage;
-
-		if(offset > social.length) {
-			res.status(404).send('Not found');
-		} else {
-			res.send({
-				pagination: {
-					currentPage: parseInt(page),
-					perPage: parseInt(perPage),
-					totalPages: Math.floor(social.length/perPage)
-				},
-				data: social.slice(offset, offset+perPage)
+		setInterval(function() {
+			loadSocial(function(data) {
+				social = data;
 			});
-		}
+		}, 1000 * 60 * 10);
 
-	});
+		app.get('/api/social', function(req, res) {
+
+			var perPage = req.query.perPage || 20;
+			var page = req.query.page || 1;
+			var offset = (page-1) * perPage;
+
+			if(offset > social.length) {
+				res.status(404).send('Not found');
+			} else {
+				res.send({
+					pagination: {
+						currentPage: parseInt(page),
+						perPage: parseInt(perPage),
+						totalPages: Math.floor(social.length/perPage)
+					},
+					data: social.slice(offset, offset+perPage)
+				});
+			}
+
+		});
+
+	}
 
 	app.get('/*', function(req, res) {
 		res.sendfile('dist/views/index.html');
