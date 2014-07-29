@@ -1,17 +1,14 @@
+.ui-view
+	.ui-view
 section#news
 	header.main-header.clearfix
 		h1 Notícias
 
 		nav
-
 			.filters-container
-
-				.filter-item.text-filter(ng-class="{filled:eventSearch.$}")
-
-					a.clear-filter(href="javascript:void(0)" ng-click="eventSearch.$ = ''" title="Limpar busca" ng-show="eventSearch.$") &#10060;
-
-					input(type="text" ng-model="eventSearch.$" placeholder="Digite uma busca...")
-
+				.filter-item.text-filter(ng-class="{filled:search}")
+					a.clear-filter(href="javascript:void(0)" ng-click="search = ''" title="Limpar busca" ng-show="search") &#10060;
+					input(type="text" ng-model="search" placeholder="Digite uma busca...")
 
 	section.main-content.news-list
 		article.clearfix(ng-repeat="item in items")
