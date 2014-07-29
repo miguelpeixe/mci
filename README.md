@@ -12,7 +12,7 @@ Projeto desenvolvido para o [Mês da Cultura Independente](http://culturaindepen
  - Interface adaptada a partir de geolocalização
  - Filtros por data, linguagem, espaço e busca textual
  - [Sistema *Na rede*](#configurando-o-na-rede) indexa participação multimídia nas redes sociais
- - *(em breve)* Notícias a partir de feed xml
+ - [Notícias conectadas](#configurando-as-noticias) com blog WordPress
 
 ---
 
@@ -86,6 +86,17 @@ $ export MCI_HASHTAG=<SUA BUSCA>
 ```
 
 Para concluir as alterações, reinicie o servidor.
+
+### Configurando as notícias
+
+Você deve instalar e ativar o plugin [WP REST API](https://wordpress.org/plugins/json-rest-api/) para que o sistema possa fazer requisições à base de dados do seu WordPress.
+
+Agora definimos a url do blog:
+```
+$ export MCI_WP_URL=http://exemplo.com/wordpress
+```
+
+Reinicie o servidor.
 
 ## Deploy
 
