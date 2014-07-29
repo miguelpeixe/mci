@@ -12,7 +12,7 @@ Projeto desenvolvido para o [Mês da Cultura Independente](http://culturaindepen
  - Interface adaptada a partir de geolocalização
  - Filtros por data, linguagem, espaço e busca textual
  - [Sistema *Na rede*](#configurando-o-na-rede) indexa participação multimídia nas redes sociais
- - [Notícias conectadas](#configurando-as-noticias) com blog WordPress
+ - [Notícias conectadas](#configurando-as-not%C3%ADcias) com blog WordPress
 
 ---
 
