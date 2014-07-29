@@ -1,6 +1,36 @@
 section#news
 	header.main-header.clearfix
 		h1 Notícias
-	section.main-content
-		article(ng-repeat="item in items")
-			h2 {{item.title}}
+
+		nav
+
+			.filters-container
+
+				.filter-item.text-filter(ng-class="{filled:eventSearch.$}")
+
+					a.clear-filter(href="javascript:void(0)" ng-click="eventSearch.$ = ''" title="Limpar busca" ng-show="eventSearch.$") &#10060;
+
+					input(type="text" ng-model="eventSearch.$" placeholder="Digite uma busca...")
+
+
+	section.main-content.news-list
+		article.clearfix(ng-repeat="item in items")
+			.image(ng-show="item.featured_image" style="background-image:url({{item.featured_image.attachment_meta.sizes.large.url}})")
+			.left
+				section.post-meta
+					p.date
+						span.entypo &#128340;
+						| {{getDate(item)}}
+			.right
+				header.post-header
+					h2
+						a(href="/noticias/{{item.ID}}/") {{item.title}}
+				section.post-content(ng-bind-html="getExcerpt(item)")
+
+		nav#pagination.clearfix(ng-hide="firstPage && lastPage")
+			a.prev(ng-click="prevPage()" ng-hide="firstPage" href="javascript:void(0);")
+				| página anterior
+				.entypo &#59233;
+			a.next(ng-click="nextPage()" ng-hide="lastPage" href="javascript:void(0);")
+				| próxima página
+				.entypo &#59234;

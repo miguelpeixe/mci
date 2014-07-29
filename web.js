@@ -1,4 +1,5 @@
 var fs = require('fs'),
+	url = require('url'),
 	express = require('express'),
 	bodyParser = require('body-parser'),
 	request = require('request'),
@@ -47,6 +48,17 @@ function init() {
 	if(fs.existsSync('options.js')) {
 		options = require('./options');
 	}
+
+	app.all('/api/reqHeader', function(req, res) {
+		var url = req.body.url;
+		delete req.body.url;
+		request({
+			url: url,
+			qs: req.body
+		}, function(req, response, body) {
+			res.send(response.headers);
+		});
+	});
 
 	app.get('/api/data', function(req, res) {
 

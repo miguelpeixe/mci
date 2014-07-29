@@ -19,7 +19,21 @@ angular.module('mci.news', [
 					'NewsData': [
 						'NewsService',
 						function(News) {
-							return News.get(20);
+							return News.get(10);
+						}
+					]
+				}
+			}).
+			state('newsSingle', {
+				url: '/noticias/:postId/',
+				controller: 'NewsSingleController',
+				templateUrl: '/views/news/single.html',
+				resolve: {
+					'PostData': [
+						'$stateParams',
+						'NewsService',
+						function($stateParams, News) {
+							return News.getPost($stateParams.postId);
 						}
 					]
 				}
@@ -28,4 +42,5 @@ angular.module('mci.news', [
 	}
 ])
 .factory('NewsService', require('./NewsService'))
-.controller('NewsController', require('./NewsController'));
+.controller('NewsController', require('./NewsController'))
+.controller('NewsSingleController', require('./NewsSingleController'));
