@@ -36,11 +36,223 @@
 @media screen and (max-width: 1200px) {
 
 	#masthead {
-		display: none;
+		width: 100%;
+		height: auto;
+		display: block;
+		position: static;
+		background: url(../img/bg4.jpg) fixed top center no-repeat;
+		float: none;
+		border-bottom: 1px solid rgba(0,0,0,0.2);
+		padding: 20px 0 0;
+		h1 {
+			img {
+				width: 150px;
+				margin: 0 auto;
+			}
+		}
+		h2 {
+			display: none;
+		}
+		#mastnav {
+			margin: 0;
+			padding: 0;
+			background: @bg;
+			ul {
+				margin: 0;
+				padding: 0;
+				display: table;
+				width: 100%;
+				border: 0;
+				li {
+					display: table-cell;
+					width: 1%;
+					height: auto;
+					float: none;
+					margin: 0;
+					border-bottom: 0;
+					a {
+						padding: 10px 0;
+					}
+					.entypo {
+						font-size: 60px;
+						line-height: 40px;
+						margin-bottom: 10px;
+					}
+					.label {
+						display: block;
+						font-family: "Axis";
+						text-transform: uppercase;
+						font-size: 12px;
+					}
+				}
+			}
+			.currentHover {
+				display: none;
+			}
+		}
 	}
 
 	#content {
 		margin-left: 40px;
 	}
 
+}
+
+@media screen and (max-width: 1000px) {
+	.main-header {
+		h1 {
+			float: none;
+		}
+		nav {
+			float: none;
+		}
+	}
+}
+
+@media screen and (max-width: 820px) {
+	.main-header {
+		padding: 30px 30px 0;
+		nav {
+			.filters-container {
+				float: none;
+				border: 0;
+			}
+			.filter-item {
+				float: none;
+				width: 100%;
+				margin: 0 0 10px;
+				border: 1px solid rgba(0,0,0,0.2);
+				input[type=text] {
+					width: 100%;
+				}
+			}
+			.date-filter-content:before {
+				content: 'Selecione uma data';
+				float: left;
+				font-size: 13px;
+				line-height: 38px;
+				margin-right: 10px;
+			}
+			.filled {
+				.date-filter-content:before {
+					display: none;
+				}
+			}
+			.close {
+				position: absolute;
+				top: 40px;
+				right: 40px;
+				margin: 0;
+				padding: 0;
+			}
+		}
+	}
+	#event-list {
+		.event-list {
+			li {
+				height: auto;
+				overflow: visible;
+				font-size: 120%;
+				&:hover {
+					article {
+						border: 0;
+						.box-shadow(0 0 0 0);
+						padding: 30px;
+					}
+				}
+				article {
+					padding: 30px;
+				}
+				header {
+					width: 100%;
+					float: none;
+					margin: 0 0 20px;
+					.image {
+						display: none;
+					}
+					.main-info {
+						width: 100%;
+						float: none;
+						margin: 0;
+						padding: 0;
+						h3 {
+							white-space: normal;
+							overflow: visible;
+							text-overflow: clip;
+							padding-left: 0 !important;
+						}
+						.description {
+							display: block;
+							padding-left: 0 !important;
+						}
+					}
+				}
+				.occurrences {
+					width: auto;
+					float: none;
+					margin-left: 0;
+					.occurrence {
+						margin-bottom: 10px;
+						p {
+							white-space: normal;
+							overflow: visible;
+							text-overflow: clip;
+						}
+						.date-info {
+							.date {
+								display: block;
+							}
+						}
+					}
+				}
+			}
+		}
+		#highlight-event {
+			margin: -40px 0 40px -40px;
+			h2 {
+				left: 30px;
+			}
+			.space h3 {
+				position: absolute;
+				top: 60px;
+				left: 30px;
+				right: auto;
+			}
+			.highlight-content {
+				width: auto;
+				margin: -120px 10px 0;
+				float: none;
+				h3 {
+					font-size: 22px;
+				}
+			}
+		}
+		#linguagens {
+			display: none;
+		}
+		#spaces {
+			margin: 0 0 0 -40px;
+			padding: 40px 30px;
+		}
+	}
+	#social {
+		.items {
+			margin: -40px -40px 0;
+			li {
+				width: 50%;
+				padding: 0;
+				margin: 0;
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 600px) {
+	#social {
+		.items {
+			li {
+				width: 100%;
+			}
+		}
+	}
 }

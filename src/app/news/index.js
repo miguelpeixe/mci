@@ -1,10 +1,7 @@
 'use strict';
 
 angular.module('mci.news', [
-	'ui.router',
-	'infinite-scroll',
-	'wu.masonry',
-	'ngDialog'
+	'ui.router'
 ])
 .config([
 	'$stateProvider',

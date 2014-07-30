@@ -5,5 +5,7 @@ section#social
 		ul.items(masonry infinite-scroll="nextPage()" infinite-scroll-disabled="lastPage")
 			li.masonry-brick(ng-repeat="item in items" class="{{item.media_provider}} {{item.media_type}}")
 				.item-content
-					img(src="{{item.thumb}}")
+					img(src="{{getThumb(item)}}")
+					p.media-type(ng-bind-html="getMediaIcon(item)")
+					p.author {{item.author}}
 		p.end(ng-show="lastPage") Isso é tudo!

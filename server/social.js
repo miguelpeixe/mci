@@ -5,7 +5,7 @@ var fs = require('fs'),
 	async = require('async'),
 	_ = require('underscore'),
 	moment = require('moment'),
-	config = require('./config');
+	config = require('../config');
 
 module.exports = function(cb) {
 

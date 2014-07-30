@@ -4,7 +4,7 @@ var fs = require('fs'),
 	bodyParser = require('body-parser'),
 	request = require('request'),
 	_ = require('underscore'),
-	config = require('./config'),
+	config = require('../config'),
 	loadData = require('./data'),
 	loadSocial = require('./social');
 
@@ -45,8 +45,8 @@ function init() {
 
 	var options = {};
 
-	if(fs.existsSync('options.js')) {
-		options = require('./options');
+	if(fs.existsSync('../options.js')) {
+		options = require('../options');
 	}
 
 	app.all('/api/reqHeader', function(req, res) {

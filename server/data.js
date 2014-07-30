@@ -4,7 +4,7 @@ var fs = require('fs'),
 	request = require('request'),
 	_ = require('underscore'),
 	moment = require('moment'),
-	config = require('./config');
+	config = require('../config');
 
 module.exports = function(cb, silent) {
 

@@ -10,7 +10,7 @@
 	"scripts": {
 		"install": "./node_modules/.bin/napa",
 		"postinstall": "mkdir -p dist/data && ./node_modules/grunt-cli/bin/grunt build",
-		"start": "node web.js"
+		"start": "node app.js"
 	},
 	"dependencies": {
 		"express": "latest",

@@ -6,24 +6,26 @@ nav
 
 			a.clear-filter(href="javascript:void(0)" ng-click="datepicker.clear()" title="Limpar filtro por data" ng-show="eventSearch.startDate") &#10060;
 
-			.date-start.datepicker-container
+			.date-filter-content
 
-				a.button(ng-click="datepicker.start.toggle()" href="javascript:void(0);")
-					span.entypo &#128197;
-					span.the-date(ng-show="eventSearch.startDate") {{datepicker.start.view}} 
-					
-				span.until(ng-show="eventSearch.startDate") até
+				.date-start.datepicker-container
 
-				.datepicker(pickadate ng-model="eventSearch.startDate" ng-show="datepicker.start.opened" min-date="datepicker.start.minDate" max-date="datepicker.start.maxDate" default-date="datepicker.start.minDate" prev-label="'anterior'" next-label="'próximo'")
+					a.button(ng-click="datepicker.start.toggle()" href="javascript:void(0);")
+						span.entypo &#128197;
+						span.the-date(ng-show="eventSearch.startDate") {{datepicker.start.view}} 
+						
+					span.until(ng-show="eventSearch.startDate") até
 
-			.date-end.datepicker-container(ng-show="eventSearch.startDate")
+					.datepicker(pickadate ng-model="eventSearch.startDate" ng-show="datepicker.start.opened" min-date="datepicker.start.minDate" max-date="datepicker.start.maxDate" default-date="datepicker.start.minDate" prev-label="'anterior'" next-label="'próximo'")
 
-				a.button(ng-click="datepicker.end.toggle()" href="javascript:void(0);")
-					span.entypo &#128197;
-					span.the-date(ng-show="eventSearch.endDate") {{datepicker.end.view}}
-					span.the-date(ng-hide="eventSearch.endDate") {{datepicker.start.view}}
+				.date-end.datepicker-container(ng-show="eventSearch.startDate")
 
-				.datepicker(pickadate ng-model="eventSearch.endDate" ng-show="datepicker.end.opened" min-date="datepicker.end.minDate" max-date="datepicker.end.maxDate" default-date="eventSearch.startDate" prev-label="'anterior'" next-label="'próximo'")
+					a.button(ng-click="datepicker.end.toggle()" href="javascript:void(0);")
+						span.entypo &#128197;
+						span.the-date(ng-show="eventSearch.endDate") {{datepicker.end.view}}
+						span.the-date(ng-hide="eventSearch.endDate") {{datepicker.start.view}}
+
+					.datepicker(pickadate ng-model="eventSearch.endDate" ng-show="datepicker.end.opened" min-date="datepicker.end.minDate" max-date="datepicker.end.maxDate" default-date="eventSearch.startDate" prev-label="'anterior'" next-label="'próximo'")
 
 		.filter-item.list-filter(ng-class="{filled:eventSearch.terms}" ng-hide="tag")
 			a.clear-filter(href="javascript:void(0)" ng-click="eventSearch.terms = ''" title="Limpar filtro por linguagem" ng-show="eventSearch.terms") &#10060;
