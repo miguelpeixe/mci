@@ -5,7 +5,9 @@ section#social
 		ul.items(masonry)
 			li.masonry-brick(ng-repeat="item in items" class="{{item.media_provider}} {{item.media_type}}")
 				.item-content
-					img(src="{{getThumb(item)}}")
-					p.media-type(ng-bind-html="getMediaIcon(item)")
+					.media(ng-bind-html="getMedia(item)")
+					p.media-type(ng-bind-html="getMediaIcon(item)" ng-class="{icon: item.media_provider == 'youtube'}")
 					p.author {{item.author}}
+					p.link
+						a(href="{{item.original_url}}" target="_blank") Ver original
 		p.end(ng-show="lastPage") Isso é tudo!

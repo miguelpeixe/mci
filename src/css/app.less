@@ -1013,11 +1013,27 @@ body {
 					padding: 10px;
 					.border-radius(32.5px);
 					text-align: center;
+					&.icon {
+						font-family: "entypo";
+					}
 				}
 				.author {
 					color: #999;
 					text-align: center;
 					font-style: italic;
+				}
+				.link {
+					text-align:center;
+					font-size: 12px;
+					margin: -10px 0 20px;
+					text-transform: lowercase;
+					a {
+						color: @blue;
+						text-decoration: none;
+						&:hover {
+							color: #222;
+						}
+					}
 				}
 			}
 		}

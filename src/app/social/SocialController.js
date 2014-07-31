@@ -8,15 +8,17 @@ module.exports = [
 
 		$scope.items = SocialData.data;
 
-		console.log($scope.items);
+		$scope.getMedia = function(item) {
 
-		$scope.getThumb = function(item) {
+			var media = '';
 
 			if(item.media_provider == 'youtube') {
-				return item.thumb;
+				media = '<iframe src="' + item.content + '" width="100%" height="300" frameborder="0" />';
+			} else {
+				media = '<img src="' + item.content + '" />';
 			}
 
-			return item.content;
+			return $sce.trustAsHtml(media);
 
 		};
 
@@ -26,7 +28,7 @@ module.exports = [
 
 			switch(item.media_provider) {
 				case 'youtube':
-					icon = '&#62220;';
+					icon = '&#127916;';
 					break;
 				case 'instagram':
 					icon = '&#62253;';
