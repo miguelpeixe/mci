@@ -14,7 +14,7 @@ angular.module('mci.events', [
 		$stateProvider
 			.state('events', {
 				url: '/agenda/',
-				controller: 'EventListController',
+				controller: 'EventIndexController',
 				templateUrl: '/views/events/list.html'
 			})
 			.state('events.filter', {
@@ -38,6 +38,7 @@ angular.module('mci.events', [
 	}
 ])
 .factory('EventService', require('./EventService'))
-.controller('EventListController', require('./EventListController'))
+.controller('EventController', require('./EventController'))
+.controller('EventIndexController', require('./EventIndexController'))
 .controller('EventSingleController', require('./EventSingleController'))
 .controller('MapController', require('./MapController'));

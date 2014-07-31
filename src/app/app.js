@@ -4,6 +4,7 @@
  * Modules
  */
 
+require('./home');
 require('./events');
 require('./news');
 require('./social');
@@ -14,6 +15,7 @@ require('./social');
 
 angular.module('mci', [
 	'ui.router',
+	'mci.home',
 	'mci.events',
 	'mci.news',
 	'mci.social'
@@ -30,10 +32,6 @@ angular.module('mci', [
 		$locationProvider.hashPrefix('!');
 
 		$stateProvider
-			.state('home', {
-				url: '/',
-				templateUrl: '/views/pages/home.html'
-			})
 			.state('about', {
 				url: '/sobre/',
 				templateUrl: '/views/pages/about.html'

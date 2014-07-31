@@ -1,8 +1,8 @@
 section#social
 	header.main-header.clearfix
 		h1 Na rede
-	section.main-content
-		ul.items(masonry infinite-scroll="nextPage()" infinite-scroll-disabled="lastPage")
+	section.main-content(infinite-scroll="nextPage()" infinite-scroll-disabled="lastPage")
+		ul.items(masonry)
 			li.masonry-brick(ng-repeat="item in items" class="{{item.media_provider}} {{item.media_type}}")
 				.item-content
 					img(src="{{getThumb(item)}}")

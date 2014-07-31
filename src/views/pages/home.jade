@@ -1,15 +1,26 @@
 section#home
-	section#news
-		article#featured.feat(style="background-image:url(http://lorempixel.com/900/450)")
+	section#news.clearfix(ng-controller="NewsController" ng-show="news")
+		article#featured.feat(style="background-image:url({{getFeaturedImage(news.first)}})")
 			header
-				h2 In vel mi purus. Donec fringilla eros ut fringilla malesuada.
-		article#second.feat(style="background-image:url(http://lorempixel.com/500/500)")
+				h2
+					a(href="/noticias/{{news.first.ID}}/") {{news.first.title}}
+		article#second.feat(style="background-image:url({{getFeaturedImage(news.second)}})")
 			header
-				h2 Donec fringilla eros ut fringilla.
-	section#events(ng-controller="EventListController")
-		header
-			h2 Agenda
-			h3 Próximos eventos
-		ul.event-list
-			li(ng-repeat="event in service.getFutureEvents(3)")
+				h2
+					a(href="/noticias/{{news.second.ID}}/") {{news.second.title}}
+	//
+		section#events
+			header
+				h2 Agenda
+				h3 Próximos eventos
+			ul.event-list
+				li(ng-repeat="event in homeEvents")
+					include ../events/partials/event-list-item
+
+	section#event-list
+		header.section-header
+			h2 Próximos eventos
+			p {{allEvents.length}} eventos em {{allSpaces.length}} espaços
+		ul.event-list(ng-controller="EventController")
+			li.clearfix(ng-repeat="event in homeEvents" ng-click="accessEvent(event)")
 				include ../events/partials/event-list-item

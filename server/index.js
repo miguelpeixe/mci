@@ -36,12 +36,12 @@ function init() {
 	app.use(require('prerender-node'));
 	app.use(require('compression')());
 	app.set('view engine', 'jade');
-	app.set('views', __dirname + '/src/views/');
+	app.set('views', __dirname + '/../src/views/');
 
 	app.use(bodyParser.urlencoded({ extended: false }));
 	app.use(bodyParser.json());
 
-	app.use('/', express.static(__dirname + '/dist'));
+	app.use('/', express.static(__dirname + '/../dist'));
 
 	var options = {};
 
@@ -68,8 +68,8 @@ function init() {
 				hashtag: config.hashtag
 			},
 			options: options,
-			events: require('./dist/data/events.json'),
-			spaces: require('./dist/data/spaces.json')
+			events: require('../dist/data/events.json'),
+			spaces: require('../dist/data/spaces.json')
 		};
 
 		res.send(data);

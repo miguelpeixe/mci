@@ -12,7 +12,7 @@ angular.module('mci.news', [
 		$stateProvider
 			.state('news', {
 				url: '/noticias/',
-				controller: 'NewsController',
+				controller: 'NewsIndexController',
 				templateUrl: '/views/news/index.html',
 				resolve: {
 					'NewsData': [
@@ -104,4 +104,5 @@ angular.module('mci.news', [
 ])
 .factory('NewsService', require('./NewsService'))
 .controller('NewsController', require('./NewsController'))
+.controller('NewsIndexController', require('./NewsIndexController'))
 .controller('NewsSingleController', require('./NewsSingleController'));
