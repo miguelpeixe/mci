@@ -1,4 +1,10 @@
-article#news
+article#news.single-post(ng-controller="NewsController")
 	header.main-header.clearfix
 		h1 {{post.title}}
-	section.main-content(ng-bind-html="getContent(post)")
+	section.main-content
+
+		p.date
+			span.entypo &#128340;
+			| {{getDate(post)}}
+
+		.post(ng-bind-html="getContent(post)")

@@ -28,7 +28,6 @@ module.exports = [
 
 		$scope.getOccurrences = function(e) {
 			var occurrences = e.occurrences;
-			// TO FIX
 			if($scope.$parent.eventSearch && $scope.$parent.eventSearch.startDate) {
 				occurrences = e.filteredOccurrences;
 			} else if($scope.isFutureEvents || $scope.$parent.isFutureEvents) {

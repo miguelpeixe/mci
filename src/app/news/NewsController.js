@@ -10,7 +10,7 @@ module.exports = [
 		};
 
 		$scope.getDate = function(post) {
-			return moment(post.date).format('LLLL');
+			return moment(post.date).calendar();
 		};
 
 		$scope.getFeaturedImage = function(post) {
