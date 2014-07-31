@@ -1,5 +1,8 @@
 article#news.single-post(ng-controller="NewsController")
-	header.main-header.clearfix
+	header.main-header.clearfix(ng-class="{'with-image': getFeaturedImage(post)}")
+		.image(ng-show="getFeaturedImage(post)" style="background-image:url({{getFeaturedImage(post)}})")
+		h2
+			a(href="/noticias/") Notícias
 		h1 {{post.title}}
 	section.main-content
 

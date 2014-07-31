@@ -8,19 +8,10 @@ section#home
 			header
 				h2
 					a(href="/noticias/{{news.second.ID}}/") {{news.second.title}}
-	//
-		section#events
-			header
-				h2 Agenda
-				h3 Próximos eventos
-			ul.event-list
-				li(ng-repeat="event in homeEvents")
-					include ../events/partials/event-list-item
-
 	section#event-list
 		header.section-header
 			h2 Próximos eventos
 			p {{allEvents.length}} eventos em {{allSpaces.length}} espaços
-		ul.event-list
+		ul.event-list(ng-controller="EventController")
 			li.clearfix(ng-repeat="event in homeEvents" ng-click="accessEvent(event)")
 				include ../events/partials/event-list-item

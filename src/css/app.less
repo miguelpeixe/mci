@@ -262,9 +262,30 @@ body {
 	border-bottom: 1px solid rgba(0,0,0,0.2);
 	position: relative;
 	z-index: 9;
+	&.with-image {
+		.image {
+			width: 100%;
+			padding-right: 80px;
+			height: 400px;
+			margin:  -40px -40px 40px;
+			background-size:cover;
+			background-position:center;
+		}
+	}
+	h2 {
+		font-size: 16px;
+		line-height: 20px;
+		a {
+			color: #999;
+			text-decoration: none;
+			&:hover {
+				color: #222;
+			}
+		}
+	}
 	h1 {
-		font-size: 40px;
-		line-height: 100%;
+		font-size: 36px;
+		line-height: 40px;
 		margin: 0 40px 40px 0;
 		float: left;
 		.tag {
@@ -853,21 +874,6 @@ body {
 
 #single-event {
 	.main-header {
-		&.with-image {
-			.image {
-				width: 100%;
-				padding-right: 80px;
-				height: 400px;
-				margin: -40px;
-				background-size:cover;
-				background-position:center;
-			}
-			h1 {
-				background: @bg;
-				padding: 40px;
-				margin: -40px 10% 0 -40px;
-			}
-		}
 		.next-occurrence {
 			margin: 0 0 40px;
 			color: #666;

@@ -1,6 +1,8 @@
 section#list-event(ng-class="{tag: tag}")
 	header.list-header.main-header.clearfix
 		.clearfix
+			h2(ng-show="tag")
+				a(href="/agenda/") Agenda
 			h1
 				span(ng-hide="tag") Agenda
 				span.tag(ng-show="tag") {{tag}}
@@ -11,7 +13,7 @@ section#list-event(ng-class="{tag: tag}")
 		section.event-results(ng-show="isEventFiltering() || tag")
 
 			ul.event-list(ng-show="filteredEvents.length")
-				li.clearfix(ng-repeat="event in (filteredEvents = (events | filter:eventFilter:strict)) | offset: eventNav.perPage * eventNav.curPage | limitTo: eventNav.perPage" ng-click="accessEvent(event)")
+				li.clearfix(ng-repeat="event in (filteredEvents = (events | filter:eventFilter:strict)) | offset: eventNav.perPage * eventNav.curPage | limitTo: eventNav.perPage" ng-controller="EventController" ng-click="accessEvent(event)")
 					include partials/event-list-item
 
 			p.not-found(ng-hide="filteredEvents.length") Nenhum evento foi encontrado

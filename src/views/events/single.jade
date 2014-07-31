@@ -2,6 +2,8 @@ section#single-event(ng-controller="EventController")
 	header.event-header.main-header.clearfix(ng-class="{'with-image': event['@files:avatar'].url}")
 		.clearfix
 			.image(style="background-image:url({{event['@files:avatar'].url}});")
+			h2
+				a(href="/agenda/") Agenda
 			h1 {{event.name}}
 		.next-occurrence.clearfix(ng-show="featOccur || event.occurrences.length == 1")
 
