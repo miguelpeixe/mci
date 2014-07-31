@@ -13,6 +13,8 @@ module.exports = [
 
 			$scope.space = Event.getOccurrenceSpace(occur);
 
+			$scope.routeTo = $scope.space.location.latitude + ',' + $scope.space.location.longitude;
+
 			$scope.markers = [
 				[
 					parseFloat($scope.space.location.latitude),
@@ -71,6 +73,7 @@ module.exports = [
 
 		$scope.locateUser = function(mapId) {
 			Event.initUserLocation().then(function(coords) {
+				$scope.routeFrom = coords.latitude + ',' + coords.longitude;
 				if(coords) {
 					var marker = [
 						coords.latitude,

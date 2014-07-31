@@ -46,6 +46,7 @@ angular.module('mci.home', [
 			};
 		}
 
+		$scope.isFutureEvents = true;
 		$scope.homeEvents = Event.getFutureEvents(5);
 
 		$scope.allEvents = Event.getEvents();

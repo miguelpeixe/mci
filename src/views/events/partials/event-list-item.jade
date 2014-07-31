@@ -1,4 +1,4 @@
-article.event-list-item
+article.event-list-item(ng-controller="EventController")
 	.clearfix
 		header(ng-class="{'no-image':!event['@files:avatar']}")
 			.image(style="background-image:url({{event['@files:avatar'].url}});")
@@ -8,13 +8,13 @@ article.event-list-item
 				p.description(ng-show="event.shortDescription") {{event.shortDescription}}
 		section.occurrences
 			.occurrence.clearfix(ng-repeat="occur in getOccurrences(event)")
-				.date-info
-					p.fromNow
+				.date-info(ng-class="{'showing-from-now': showFromNow(occur)}")
+					p.fromNow(ng-show="showFromNow(occur)")
 						span.entypo &#128340;
 						span(fromnow date="occur.timestamp")
-					p.date
+					p.date(ng-hide="showFromNow(occur)")
 						span.entypo &#128197;
-						| {{occur.startsOn}} {{occur.startsAt}}
+						| {{getFormattedDate(occur, 'DD/MM, [às] HH:mm')}}
 				p.space(ng-controller="MapController" ng-click="openDialog($event, occur);")
 					span.entypo &#59172;
 					| {{occur.spaceName}}

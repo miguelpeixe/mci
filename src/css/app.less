@@ -723,11 +723,6 @@ body {
 							overflow: visible;
 							text-overflow: clip;
 						}
-						.date-info {
-							.date {
-								display: block;
-							}
-						}
 					}
 				}
 			}
@@ -806,9 +801,6 @@ body {
 					.date-info {
 						width: 50%;
 						float: left;
-						.date {
-							display: none;
-						}
 					}
 					p.space {
 						width: 50%;
@@ -1321,11 +1313,28 @@ body.ngdialog-open {
  */
 
 .ngdialog h2 {
+	max-width: 40%;
 	font-size: 20px;
-	margin: 0 0 20px;
+	margin: 0 20px 20px 0;
+	float: left;
 }
 
 .ngdialog .leaflet-container {
 	width: 100%;
 	height: 400px;
+}
+
+.ngdialog .tools {
+	p {
+		float: left;
+		margin-right: 20px;
+		a {
+			text-transform: lowercase;
+			color: #999;
+			text-decoration: none;
+			&:hover {
+				color: #222;
+			}
+		}
+	}
 }

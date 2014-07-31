@@ -98,7 +98,6 @@ module.exports = [
 						return tag.description;
 					}
 				}
-				return false;
 			},
 			getEventsByDateRange: function(from, to, src) {
 				to = to || from;
@@ -172,8 +171,11 @@ module.exports = [
 
 				var i = 0;
 
+				var now = Math.round(+new Date()/1000);
+				now = today.unix();
+
 				return _.filter(src, function(e) {
-					if(e.occurrences[e.occurrences.length-1].moment.isAfter(today) && i < amount) {
+					if(e.occurrences[e.occurrences.length-1].timestamp > now && i < amount) {
 						i++;
 						return true;
 					}

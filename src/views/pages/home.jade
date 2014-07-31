@@ -21,6 +21,6 @@ section#home
 		header.section-header
 			h2 Próximos eventos
 			p {{allEvents.length}} eventos em {{allSpaces.length}} espaços
-		ul.event-list(ng-controller="EventController")
+		ul.event-list
 			li.clearfix(ng-repeat="event in homeEvents" ng-click="accessEvent(event)")
 				include ../events/partials/event-list-item

@@ -1,4 +1,11 @@
 h2 {{space.name}}
-p.locate-user
-	a(href="javascript:void(0);" ng-click="locateUser('dialog-map')") Minha localização
+.tools
+	p.locate-user
+		a(href="javascript:void(0);" ng-click="locateUser('dialog-map')")
+			span.entypo &#127919;
+			| Minha localização
+	p.route
+		a(href="https://www.google.com/maps/dir/{{routeFrom}}/{{routeTo}}/" target="_blank")
+			span.entypo &#10146;
+			| Como chegar
 leaflet#dialog-map(defaults="map.defaults" markers="map.markers" paths="map.paths" center="map.center")

@@ -1,4 +1,4 @@
-section#single-event
+section#single-event(ng-controller="EventController")
 	header.event-header.main-header.clearfix(ng-class="{'with-image': event['@files:avatar'].url}")
 		.clearfix
 			.image(style="background-image:url({{event['@files:avatar'].url}});")
@@ -13,7 +13,7 @@ section#single-event
 					p.past-event(ng-hide="featOccur.isFuture") Este evento já aconteceu
 					p.date
 						span.entypo &#128197;
-						| {{featOccur.startsOn}} {{featOccur.startsAt}}
+						| {{getFormattedDate(featOccur)}}
 				p.space
 					span.entypo &#59172;
 					| {{featOccur.spaceName}}
@@ -24,7 +24,7 @@ section#single-event
 					p.toggle-map(ng-click="map.toggle()") {{map.toggleLabel}}
 
 		p.past-event(ng-hide="featOccur") Este evento já aconteceu
-	aside#event-sidebar
+	aside#event-sidebar(ng-show="event.occurrences.length>1 || event.terms.tag")
 		#event-agenda.event-occurrences(ng-show="event.occurrences.length>1")
 			h2 Agenda
 			ul
@@ -35,7 +35,7 @@ section#single-event
 							span(fromnow date="occur.timestamp")
 						p.date
 							span.entypo &#128197;
-							| {{occur.startsOn}} {{occur.startsAt}}
+							| {{getFormattedDate(occur)}}
 					p.space(ng-controller="MapController" ng-click="openDialog($event, occur)")
 						span.entypo &#59172;
 						| {{occur.spaceName}}
@@ -45,6 +45,12 @@ section#single-event
 				h3
 					a(href="javascript:void(0)" ng-click="accessTag(tag)") {{tag}}
 				p {{service.getTagDescription(tag)}}
+
+			p.all-tags
+				| Tags: 
+				span(ng-repeat="tag in event.terms.tag" ng-hide="service.getTagDescription(tag)")
+					a(href="javascript:void(0);" ng-click="accessTag(tag)") {{tag}}
+					| {{$last ? '' : ', '}}
 
 	section#event-description.event-content.main-content
 		p(ng-show="description") {{description}}
