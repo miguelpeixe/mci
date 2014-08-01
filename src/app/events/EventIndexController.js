@@ -16,20 +16,20 @@ module.exports = [
 
 		$scope.spaces = Event.getSpaces();
 
+		// update space data
+		_.each($scope.spaces, function(space) {
+			space.events = angular.copy(_.filter($scope.events, function(e) {
+				return _.find(e.occurrences, function(occur) {
+					return occur.spaceId == space.id;
+				});
+			}));
+		});
+
 		$scope.linguagens = Event.getTaxTerms('linguagem');
-
-		var occurrences = Event.getOccurrences();
-
-		// Change state to single event
-		$scope.accessEvent = function(e) {
-			$state.go('eventsSingle', {eventId: e.id});
-		}
 
 		/*
 		 * Init search (filter) vals with state params
 		 */
-
-		$scope.tag = $state.params.tag;
 
 		$scope.eventSearch = {
 			$: $state.params.search || '',
@@ -42,6 +42,62 @@ module.exports = [
 		$scope.eventFilter = {
 			$: $scope.eventSearch.$,
 			terms: $scope.eventSearch.terms
+		};
+
+		$scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+
+			if(fromParams.page == toParams.page) {
+				$scope.eventNav.curPage = 0;
+				$scope.eventNav.offset = 0;
+			}
+
+			if(toParams.tag && toParams.space !== fromParams.space) {
+				$scope.tag = toParams.tag;
+				$scope.events = _.filter(Event.getEvents(), function(e) { return e.terms.tag && e.terms.tag.indexOf($state.params.tag) !== -1; });
+			} else {
+				$scope.tag = false;
+			}
+
+			if(toParams.space && toParams.space !== fromParams.space) {
+				$scope.space = _.find(Event.getSpaces(), function(space) { return space.id == toParams.space; });
+				$scope.events = _.filter(Event.getEvents(), function(e) {
+					e.filteredOccurrences = [];
+					_.each(e.occurrences, function(occur) {
+						var space = Event.getOccurrenceSpace(occur);
+						if(space && space.id == $state.params.space) {
+							e.filteredOccurrences.push(occur);
+						}
+					});
+					return e.filteredOccurrences.length;
+				});
+			} else if(!toParams.space) {
+				$scope.space = false;
+			}
+
+			if(!parseInt(toParams.past) && Event.isHappening() && !toParams.startDate) {
+				$scope.isFutureEvents = true;
+			} else {
+				$scope.isFutureEvents = false;
+			}
+
+			if(!toParams.space && !toParams.tag && (!toParams.past && Event.isHappening())) {
+				$scope.events = Event.getEvents();
+			}
+
+		});
+
+		$scope.toggleFutureEvents = function() {
+
+			if($scope.isFutureEvents) {
+				$state.go('events.filter', _.extend($stateParams, {
+					past: 1,
+				}));
+			} else {
+				$state.go('events.filter', _.extend($stateParams, {
+					past: 0,
+				}));
+			}
+
 		};
 
 		/*
@@ -94,7 +150,7 @@ module.exports = [
 		 * Space nav
 		 */
 
-		$scope.spaceNav = nav('filteredSpaces', 8);
+		$scope.spaceNav = nav('filteredSpaces', 6);
 
 		$scope.$watch('spaceSearch', function() {
 			$scope.spaceNav.curPage = 0;
@@ -107,7 +163,6 @@ module.exports = [
 
 		$scope.eventNav = nav('filteredEvents', 12, '#event-list');
 
-		// Not working
 		if($state.params.page) {
 			$scope.eventNav.curPage = $state.params.page-1;
 			$scope.eventNav.offset = $scope.eventNav.perPage * $scope.eventNav.curPage;
@@ -121,14 +176,6 @@ module.exports = [
 			}
 		});
 
-		// clear pagination when search changes
-		$scope.$watch('eventSearch', function(newVal, oldVal) {
-			if(oldVal !== newVal) {
-				$scope.eventNav.curPage = 0;
-				$scope.eventNav.offset = 0;
-			}
-		}, true);
-
 		// update terms filter and state
 		$scope.$watch('eventSearch.terms', function(terms, prevTerms) {
 			$scope.eventFilter.terms = terms;
@@ -141,10 +188,6 @@ module.exports = [
 
 		// update text search filter and clear pagination (parent object watch doesnt get search text changes)
 		$scope.$watch('eventSearch.$', function(text, oldText) {
-			if(oldText !== text) {
-				$scope.eventNav.curPage = 0;
-				$scope.eventNav.offset = 0;
-			}
 			$scope.eventFilter.$ = text;
 		});
 
@@ -163,105 +206,10 @@ module.exports = [
 				$scope.eventSearch.terms ||
 				$scope.eventSearch.startDate ||
 				$scope.eventSearch.endDate ||
-				$scope.eventSearch.isFuture
+				$scope.eventSearch.isFuture ||
+				$scope.space ||
+				$scope.tag
 			);
-		};
-
-		$scope.isFutureEvents = false;
-
-		var baseEvents;
-
-		$scope.futureEvents = function(init) {
-			// clear navigation
-			if(typeof init == 'undefined') {
-				$scope.eventNav.curPage = 0;
-				$scope.eventNav.offset = 0;
-			}
-			// get events
-			$scope.events = Event.getFutureEvents(null, baseEvents);
-			$scope.isFutureEvents = true;
-
-			// update space data
-			_.each($scope.spaces, function(space) {
-				space.events = angular.copy(_.filter($scope.events, function(e) {
-					return _.find(e.occurrences, function(occur) {
-						return occur.spaceId == space.id;
-					});
-				}));
-			});
-		};
-
-		$scope.tagEvents = function(init) {
-
-			if(typeof init == 'undefined') {
-				$scope.eventNav.curPage = 0;
-				$scope.eventNav.offset = 0;
-			}
-
-			$scope.events = _.filter(Event.getEvents(), function(e) { return e.terms.tag && e.terms.tag.indexOf($state.params.tag) !== -1; });
-			baseEvents = $scope.events.slice(0);
-			$scope.isFutureEvents = false;
-
-			// update space data
-			_.each($scope.spaces, function(space) {
-				space.events = angular.copy(_.filter($scope.events, function(e) {
-					return _.find(e.occurrences, function(occur) {
-						return occur.spaceId == space.id;
-					});
-				}));
-			});
-
-		}
-
-		$scope.allEvents = function(init) {
-			// clear navigation
-			if(typeof init == 'undefined') {
-				$scope.eventNav.curPage = 0;
-				$scope.eventNav.offset = 0;
-			}
-			// get events
-			$scope.events = Event.getEvents();
-			$scope.isFutureEvents = false;
-
-			// update space data
-			_.each($scope.spaces, function(space) {
-				space.events = angular.copy(_.filter($scope.events, function(e) {
-					return _.find(e.occurrences, function(occur) {
-						return occur.spaceId == space.id;
-					});
-				}));
-			});
-		};
-
-		// Init events
-		var initEvents = function() {
-			if($state.params.tag)
-				$scope.tagEvents(true);
-			else if(!parseInt($state.params.past) && Event.isHappening())
-				$scope.futureEvents(true);
-			else
-				$scope.allEvents(true);
-		}
-		initEvents();
-
-		$scope.toggleFutureEvents = function() {
-
-			if(!$scope.isFutureEvents) {
-				$scope.futureEvents();
-				$state.go('events.filter', _.extend($stateParams, {
-					past: 0,
-				}));
-			} else {
-				if($state.params.tag) {
-					$scope.tagEvents();
-				} else {
-					$scope.allEvents();
-				}
-				$state.go('events.filter', _.extend($stateParams, {
-					past: 1,
-				}));
-			}
-
 		};
 
 		// notworking
@@ -274,6 +222,7 @@ module.exports = [
 		 * Datepicker
 		 */
 
+		var occurrences = Event.getOccurrences();
 		$scope.datepicker = {
 			format: 'dd/MM/yyyy',
 			clear: function() {
@@ -308,39 +257,18 @@ module.exports = [
 			}
 		};
 
-		//tests
-		// $scope.datepicker.start.minDate = '2014-05-15';
-		// $scope.datepicker.start.maxDate = '2014-06-23';
-		// $scope.datepicker.end.maxDate = '2014-06-23';
-
 		$scope.$watch('eventSearch.startDate', function(date, prevDate) {
 			$scope.datepicker.start.toggle(true);
 			$scope.datepicker.start.view = moment(date).format('DD/MM');
 			if($scope.eventSearch.endDate && date > $scope.eventSearch.endDate) {
 				$scope.eventSearch.endDate = '';
 			}
-
 			$scope.datepicker.end.setMinDate();
 			if(date || prevDate) {
 				$state.go('events.filter', _.extend($stateParams, {
 					startDate: date
 				}));
 			}
-
-			// reset pagination
-			if(date !== prevDate) {
-				$scope.eventNav.curPage = 0;
-				$scope.eventNav.offset = 0;
-			}
-
-			if(date || prevDate) {
-				if(date) {
-					$scope.events = Event.getEventsByDateRange($scope.eventSearch.startDate, $scope.eventSearch.endDate || null, baseEvents);
-				} else {
-					initEvents();
-				}
-			}
-
 		});
 
 		$scope.$watch('eventSearch.endDate', function(date, prevDate) {
@@ -351,43 +279,7 @@ module.exports = [
 					endDate: date
 				}));
 			}
-
-			// reset pagination
-			if(date !== prevDate) {
-				$scope.eventNav.curPage = 0;
-				$scope.eventNav.offset = 0;
-			}
-
-			if(date || prevDate) {
-				if($scope.eventSearch.startDate) {
-					$scope.events = Event.getEventsByDateRange($scope.eventSearch.startDate, $scope.eventSearch.endDate || null);
-				} else {
-					initEvents();
-				}
-			}
-
 		});
-
-		$scope.getOccurrences = function(e) {
-			var occurrences = e.occurrences;
-			if($scope.eventSearch.startDate) {
-				occurrences = e.filteredOccurrences;
-			} else if($scope.isFutureEvents) {
-				occurrences = _.filter(e.occurrences, function(occur) {
-					return occur.isFuture;
-				});
-			} else {
-				occurrences = e.occurrences;
-			}
-			occurrences = _.sortBy(occurrences, function(occur) {
-				if(occur.isFuture) {
-					return -occur.timestamp;
-				} else {
-					return occur.timestamp;
-				}
-			});
-			return occurrences;
-		};
 
 		/*
 		 * Featured event
@@ -395,72 +287,84 @@ module.exports = [
 
 		$scope.featuredEvent = function(geocode) {
 
-			var getRandomCloseSpace = function() {
+			var amount = 3;
+
+			var getCloseSpaces = function(amount) {
 
 				var orderedSpaces = _.sortBy($scope.spaces, function(s) { return s._distance; });
 
 				orderedSpaces = _.filter(orderedSpaces, function(s) { return s.events.length && Event.getFutureEvents(null, s.events); });
 
 				if(orderedSpaces.length)
-					return orderedSpaces[_.random(0, 2)] || orderedSpaces[0];
-				
+					return orderedSpaces.slice(0, amount);
+
 				return false;
 
 			};
 
-			var closestSpace = false;
-			var featuredEvent = false;
+			var closestSpaces = false;
+			var occurrences;
+			var featured = false;
 
 			if(geocode) {
-				var closestSpace = getRandomCloseSpace();
+				var closestSpaces = getCloseSpaces(amount);
 			}
 
 			// geolocation is broken or couldnt find close space
-			if(!closestSpace || !closestSpace._distance || closestSpace._distance > 10 * 1000) {
+			if(!closestSpaces.length || !closestSpaces[0]._distance || closestSpaces[0]._distance > 10 * 1000) {
 
-				var occurrences = _.filter(Event.getOccurrences(), function(occur) { return occur.isFuture; });
-				var occurrence;
+				occurrences = _.filter(Event.getOccurrences(), function(occur) { return occur.isFuture; });
+
 				var label;
 				var type;
 
 				if(!occurrences.length) {
-					occurrences = Event.getOccurrences();
-					occurrence = occurrences[_.random(0, occurrences.length-1)];
+					occurrences = Event.getOccurrences().slice(0, amount);
 					label = 'Destaque';
 					type = 'old';
 				} else {
-					occurrence = occurrences[_.random(0,3)] || occurrences[0];
+					occurrences = occurrences.slice(0, amount);
 					label = 'Acontecendo agora';
 					type = 'far';
 				}
 
-				featuredEvent = {
-					type: type,
+				featured = {
 					label: label,
-					event: Event.getOccurrenceEvent(occurrence),
-					occurrence: occurrence,
-					space: Event.getOccurrenceSpace(occurrence)
+					type: type,
+					events: []
 				};
+
+				_.each(occurrences, function(occur) {
+					featured.events.push({
+						event: Event.getOccurrenceEvent(occur),
+						occurrence: occur,
+						space: Event.getOccurrenceSpace(occur)
+					});
+				});
 
 			} else {
 
-				var occurrences = _.filter(Event.getOccurrences(), function(occur) {
-					return occur.spaceId == closestSpace.id && occur.isFuture;
-				});
+				occurrences = _.filter(Event.getOccurrences(), function(occur) {
+					return occur.spaceId == closestSpaces[_.random(0, amount-1)].id && occur.isFuture;
+				}).slice(0, amount);
 
-				var occurrence = occurrences[_.random(0, 3)] || occurrences[0];
-
-				featuredEvent = {
+				featured = {
 					type: 'near',
 					label: 'Agora perto de você',
-					event: Event.getOccurrenceEvent(occurrence),
-					occurrence: occurrence,
-					space: closestSpace
+					events: []
 				};
+
+				_.each(occurrences, function(occur) {
+					featured.events.push({
+						event: Event.getOccurrenceEvent(occur),
+						occurrence: occur,
+						space: Event.getOccurrenceSpace(occur)
+					});
+				});
 
 			}
 
-			return featuredEvent;
+			return featured;
 
 		};
 
@@ -476,6 +380,40 @@ module.exports = [
 				space.kmDistance = Math.round(d/10)/100;
 			});
 			$scope.featured = $scope.featuredEvent(true);
+		});
+
+		$scope.openFeatured = function(event, featEvent) {
+			if(featEvent != $scope.openedFeatured) {
+
+				$scope.featured.image = '';
+				if(featEvent.event['@files:avatar']) {
+					$scope.featured.image = featEvent.event['@files:avatar'].url;
+				}
+
+				if(event) {
+					event.stopPropagation();
+					event.preventDefault();
+				}
+
+				$scope.openedFeatured = featEvent;
+
+				$interval.cancel(featuredInterval);
+				featuredInterval = $interval(function() {
+					var toOpen = $scope.featured.events[$scope.featured.events.indexOf($scope.openedFeatured)+1] || $scope.featured.events[0];
+					$scope.openFeatured(false, toOpen);
+				}, 8000);
+
+			}
+		};
+
+		var featuredInterval = $interval(function() {
+			var toOpen = $scope.featured.events[$scope.featured.events.indexOf($scope.openedFeatured)+1] || $scope.featured.events[0];
+			$scope.openFeatured(false, toOpen);
+		}, 8000);
+
+		$scope.$watch('featured', function(featured) {
+			if(featured && featured.events.length)
+				$scope.openFeatured(null, featured.events[0]);
 		});
 
 	}

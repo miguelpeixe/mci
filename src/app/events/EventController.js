@@ -14,6 +14,10 @@ module.exports = [
 			$state.go('eventsSingle', {eventId: e.id});
 		}
 
+		$scope.accessSpace = function(spaceId) {
+			$state.go('events.filter', {space: spaceId});
+		}
+
 		// Limit fromNow to show from now to 4h
 		var today = Event.getToday();
 		var todayUnix = today.unix();
@@ -24,25 +28,6 @@ module.exports = [
 
 		$scope.getFormattedDate = function(occurrence) {
 			return occurrence.moment.calendar(today);
-		};
-
-		$scope.getOccurrences = function(e) {
-			var occurrences = e.occurrences;
-			if($scope.$parent.eventSearch && $scope.$parent.eventSearch.startDate) {
-				occurrences = e.filteredOccurrences;
-			} else if($scope.isFutureEvents || $scope.$parent.isFutureEvents) {
-				occurrences = _.filter(e.occurrences, function(occur) {
-					return occur.isFuture;
-				});
-			}
-			occurrences = _.sortBy(occurrences, function(occur) {
-				if(occur.isFuture) {
-					return -occur.timestamp;
-				} else {
-					return occur.timestamp;
-				}
-			});
-			return occurrences;
 		};
 
 	}

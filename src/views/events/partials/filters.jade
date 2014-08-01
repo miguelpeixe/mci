@@ -27,7 +27,7 @@ nav
 
 					.datepicker(pickadate ng-model="eventSearch.endDate" ng-show="datepicker.end.opened" min-date="datepicker.end.minDate" max-date="datepicker.end.maxDate" default-date="eventSearch.startDate" prev-label="'anterior'" next-label="'próximo'")
 
-		.filter-item.list-filter(ng-class="{filled:eventSearch.terms}" ng-hide="tag")
+		.filter-item.list-filter(ng-class="{filled:eventSearch.terms}" ng-hide="tag || space")
 			a.clear-filter(href="javascript:void(0)" ng-click="eventSearch.terms = ''" title="Limpar filtro por linguagem" ng-show="eventSearch.terms") &#10060;
 			ul.linguagem-list
 				li.label(ng-hide="eventSearch.terms" ng-class="{active:!eventSearch.terms}") Selecione uma linguagem
@@ -40,7 +40,7 @@ nav
 
 			input(type="text" ng-model="eventSearch.$" placeholder="Digite uma busca...")
 
-		.filter-item.tick-filter(ng-show="(isEventFiltering() || tag) && !eventSearch.startDate && service.isHappening()" ng-class="{enabled:isFutureEvents}" ng-click="toggleFutureEvents()") Eventos futuros
+		.filter-item.tick-filter(ng-show="(isEventFiltering() || tag || space) && !eventSearch.startDate && service.isHappening()" ng-class="{enabled:isFutureEvents}" ng-click="toggleFutureEvents()") Eventos futuros
 
 
 

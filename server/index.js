@@ -8,6 +8,8 @@ var fs = require('fs'),
 	loadData = require('./data'),
 	loadSocial = require('./social');
 
+var dev = true;
+
 /*
  * Load data
  */
@@ -27,9 +29,11 @@ function init() {
 	/*
 	 * Download data each 10 minutes
 	 */
-	setInterval(function() {
-		loadData(null, true);
-	}, 1000 * 60 * 10);
+	if(!dev) {
+		setInterval(function() {
+			loadData(null, true);
+		}, 1000 * 60 * 10);
+	}
 
 	var app = express();
 
@@ -207,11 +211,13 @@ function init() {
 		loadSocial(function(data) {
 			social = data;
 		});
-		setInterval(function() {
-			loadSocial(function(data) {
-				social = data;
-			});
-		}, 1000 * 60 * 10);
+		if(!dev) {
+			setInterval(function() {
+				loadSocial(function(data) {
+					social = data;
+				});
+			}, 1000 * 60 * 10);
+		}
 
 		app.get('/api/social', function(req, res) {
 

@@ -1,22 +1,26 @@
-article#highlight-event(ng-show="featured")
+section#highlight-event.clearfix(ng-show="featured")
 	h2 {{featured.label}}
-	.image(style="background-image:url(http://lorempixum.com/1920/500/)")
-	.highlight-content
-		header
-			h3
-				a(href="/agenda/{{featured.event.id}}/") {{featured.event.name}}
-		section.meta.clearfix
-			p.time(ng-show="service.isHappening()")
-				span.entypo &#128340;
-				span(fromnow date="featured.occurrence.timestamp")
-			p.date(ng-hide="service.isHappening()")
-				span.entypo &#128340;
-				| {{featured.occurrence.startsOn}} {{featured.occurrence.startsAt}}
-			p.distance(ng-show="featured.type == 'near'")
-				span.entypo &#128197;
-				strong {{featured.space.kmDistance}} km 
-				| de você
-		section.content
-			p.description {{featured.event.shortDescription}}
-	aside.space(ng-show="featured.space")
-		h3(ng-controller="MapController" ng-click="openDialog($event, featured.occurrence)") {{featured.space.name}}
+	.image(style="background-image:url({{featured.image}})")
+	.highlight-items
+		article.highlight-item(ng-repeat="featEvent in featured.events" ng-click="openFeatured($event, featEvent)" ng-class="{featured:featEvent==openedFeatured}")
+			.highlight-content
+				section.meta
+					.clearfix
+						p.time(ng-show="service.isHappening()")
+							span.entypo &#128340;
+							span(fromnow date="featEvent.occurrence.timestamp")
+						p.date(ng-hide="service.isHappening()")
+							span.entypo &#128340;
+							| {{featEvent.occurrence.startsOn}} {{featEvent.occurrence.startsAt}}
+					p.space(ng-controller="MapController" ng-click="openDialog($event, featEvent.occurrence)")
+						span.entypo &#59172;
+						| {{featEvent.space.name}} 
+						span(ng-show="featured.type == 'near'")
+							| (
+							strong {{featEvent.space.kmDistance}} km 
+							| de você)
+				header
+					h3
+						a(href="/agenda/{{featEvent.event.id}}/") {{featEvent.event.name}}
+				section.content
+					p.description {{featEvent.event.shortDescription}}
