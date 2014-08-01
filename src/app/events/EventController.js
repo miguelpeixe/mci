@@ -18,6 +18,14 @@ module.exports = [
 			$state.go('events.filter', {space: spaceId, past: 1}, {inherit: false});
 		}
 
+		$scope.accessLinguagem = function(tag) {
+			$state.go('events.filter', {linguagem: linguagem, past: 1}, {inherit: false});
+		}
+
+		$scope.accessTag = function(tag) {
+			$state.go('events.filter', {tag: tag, past: 1}, {inherit: false});
+		}
+
 		// Limit fromNow to show from now to 4h
 		var today = Event.getToday();
 		var todayUnix = today.unix();

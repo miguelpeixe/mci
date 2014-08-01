@@ -31,13 +31,13 @@ section#list-event(ng-class="{tag: tag}")
 
 		.below.clearfix
 
-			#spaces.event-section
+			#spaces.box-section
 
-				header.event-section-header.spaces-header.clearfix
+				header.box-section-header.spaces-header.clearfix
 					h2 Espaços
 
-				section.event-section-content.spaces-content
-				
+				section.box-section-content.spaces-content
+
 					input(type="text" ng-model="spaceSearch.name" placeholder="Busque por um espaço...")
 
 					ul.space-list
@@ -68,24 +68,24 @@ section#list-event(ng-class="{tag: tag}")
 							| próxima página
 							.entypo &#59234;
 
-			#linguagens.event-section(ng-show="linguagens")
+			#linguagens.box-section(ng-controller="EventController" ng-show="linguagens")
 
-				header.event-section-header.linguagens-header.clearfix
+				header.box-section-header.linguagens-header.clearfix
 					h2 Linguagens
 
-				section.event-section-content.linguagens-content
+				section.box-section-content.linguagens-content
 
 					ul.linguagem-list.clearfix
 						li(ng-repeat="linguagem in linguagens")
-							a(href="javascript:void(0);" ng-click="eventSearch.terms = linguagem") {{linguagem}}
+							a(href="javascript:void(0);" ng-click="accessLinguagem(linguagem)") {{linguagem}}
 
-			#tags.event-section(ng-show="tags")
+			#tags.box-section(ng-controller="EventController" ng-show="tags")
 
-				header.event-section-header.tags-header.clearfix
+				header.box-section-header.tags-header.clearfix
 					h2 Tags
 
-				section.event-section-content.tags-content
+				section.box-section-content.tags-content
 
 					ul.tag-list.clearfix
 						li(ng-repeat="tag in tags" ng-show="tag")
-							a(href="javascript:void(0);") {{tag}}
+							a(href="javascript:void(0);" ng-click="accessTag(tag)") {{tag}}
