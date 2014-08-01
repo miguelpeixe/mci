@@ -8,7 +8,7 @@ var fs = require('fs'),
 	loadData = require('./data'),
 	loadSocial = require('./social');
 
-var dev = true;
+var dev = false;
 
 /*
  * Load data
