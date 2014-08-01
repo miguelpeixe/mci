@@ -2,7 +2,60 @@
 
 angular.module('mci.events')
 
-.filter('futureEvent', [
+.filter('tagEvents', [
+	'EventService',
+	function(Event) {
+		return function(input, tag) {
+			if(tag) {
+				return _.filter(input, function(e) {
+					return e.terms.tag && e.terms.tag.indexOf(tag) !== -1;
+				});
+			}
+			return input;
+		}
+	}
+])
+
+.filter('spaceEvents', [
+	'EventService',
+	function(Event) {
+		return function(input, space) {
+			if(space && space.id) {
+				return _.filter(input, function(e) {
+					var occurrences = _.filter(e.occurrences, function(occur) {
+						var occurSpace = Event.getOccurrenceSpace(occur);
+						if(occurSpace && occurSpace.id == space.id) {
+							return true;
+						}
+						return false;
+					});
+					return occurrences.length;
+				});
+			}
+			return input;
+		}
+	}
+])
+
+.filter('spaceOccurrences', [
+	'EventService',
+	function(Event) {
+		return function(input, space) {
+			if(space && space.id) {
+				return _.filter(input, function(occur) {
+					var occurSpace = Event.getOccurrenceSpace(occur);
+					if(occurSpace && occurSpace.id == space.id) {
+						return true;
+					}
+					return false;
+				});
+			}
+			return input;
+		}
+	}
+])
+
+.filter('futureEvents', [
 	'EventService',
 	function(Event) {
 		return function(input, future) {
@@ -21,7 +74,7 @@ angular.module('mci.events')
 	}
 ])
 
-.filter('futureOccurrence', [
+.filter('futureOccurrences', [
 	'EventService',
 	function(Event) {
 		return function(input, future) {
@@ -36,7 +89,7 @@ angular.module('mci.events')
 	}
 ])
 
-.filter('eventDate', [
+.filter('byDateEvents', [
 	'EventService',
 	function(Event) {
 		return function(input, from, to) {
@@ -57,7 +110,7 @@ angular.module('mci.events')
 	}
 ])
 
-.filter('occurrenceDate', [
+.filter('byDateOccurrences', [
 	'EventService',
 	function(Event) {
 		return function(input, from, to) {

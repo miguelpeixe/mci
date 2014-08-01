@@ -1,4 +1,5 @@
 section#list-event(ng-class="{tag: tag}")
+	.ui-view
 	header.list-header.main-header.clearfix
 		.clearfix
 			h2(ng-show="tag || space")
@@ -13,7 +14,7 @@ section#list-event(ng-class="{tag: tag}")
 		section.event-results(ng-show="isEventFiltering() || tag || space")
 
 			ul.event-list(ng-show="filteredEvents.length")
-				li.clearfix(ng-repeat="event in (filteredEvents = (events | filter:eventFilter:strict | futureEvent:isFutureEvents | eventDate:eventSearch.startDate:eventSearch.endDate)) | offset:eventNav.perPage * eventNav.curPage | limitTo:eventNav.perPage" ng-controller="EventController" ng-click="accessEvent(event)")
+				li.clearfix(ng-repeat="event in (filteredEvents = (events | filter:eventFilter:strict | tagEvents:tag | spaceEvents:space | futureEvents:isFutureEvents | byDateEvents:eventSearch.startDate:eventSearch.endDate)) | offset:eventNav.perPage * eventNav.curPage | limitTo:eventNav.perPage" ng-controller="EventController" ng-click="accessEvent(event)")
 					include partials/event-list-item
 
 			p.not-found(ng-hide="filteredEvents.length") Nenhum evento foi encontrado

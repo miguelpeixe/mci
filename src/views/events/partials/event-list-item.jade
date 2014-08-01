@@ -7,7 +7,7 @@ article.event-list-item
 					a(href="/agenda/{{event.id}}/") {{event.name}}
 				p.description(ng-show="event.shortDescription") {{event.shortDescription}}
 		section.occurrences
-			.occurrence.clearfix(ng-repeat="occur in event.occurrences | occurrenceDate:eventSearch.startDate:eventSearch.endDate")
+			.occurrence.clearfix(ng-repeat="occur in event.occurrences | spaceOccurrences:space | byDateOccurrences:eventSearch.startDate:eventSearch.endDate")
 				.date-info(ng-class="{'showing-from-now': showFromNow(occur)}")
 					p.fromNow(ng-show="showFromNow(occur)")
 						span.entypo &#128340;

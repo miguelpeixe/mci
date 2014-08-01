@@ -76,7 +76,7 @@ module.exports = [
 		 * Space nav
 		 */
 
-		$scope.spaceNav = nav('filteredSpaces', 6);
+		$scope.spaceNav = nav('filteredSpaces', 4);
 
 		$scope.$watch('spaceSearch', function() {
 			$scope.spaceNav.curPage = 0;
@@ -205,25 +205,14 @@ module.exports = [
 				$scope.eventNav.offset = 0;
 			}
 
-			if(toParams.tag && toParams.space !== fromParams.space) {
+			if(toParams.tag && toParams.tag !== fromParams.tag) {
 				$scope.tag = toParams.tag;
-				$scope.events = _.filter(Event.getEvents(), function(e) { return e.terms.tag && e.terms.tag.indexOf($state.params.tag) !== -1; });
-			} else {
+			} else if(!toParams.tag) {
 				$scope.tag = false;
 			}
 
 			if(toParams.space && toParams.space !== fromParams.space) {
 				$scope.space = _.find(Event.getSpaces(), function(space) { return space.id == toParams.space; });
-				$scope.events = _.filter(Event.getEvents(), function(e) {
-					var occurrences = _.filter(e.occurrences, function(occur) {
-						var space = Event.getOccurrenceSpace(occur);
-						if(space && space.id == $state.params.space) {
-							return true;
-						}
-						return false;
-					});
-					return occurrences.length;
-				});
 			} else if(!toParams.space) {
 				$scope.space = false;
 			}
