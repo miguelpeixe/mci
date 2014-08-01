@@ -21,6 +21,7 @@ module.exports = [
 				data: query,
 				dataType: 'jsonp',
 				jsonp: '_jsonp',
+				cache: true,
 				success: function(data, text, xhr) {
 					/*
 					 * Since JSONP doesnt handle response headers, a server-side hack
