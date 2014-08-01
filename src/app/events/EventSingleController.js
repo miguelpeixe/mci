@@ -48,7 +48,7 @@ module.exports = [
 		});
 
 		$scope.accessTag = function(tag) {
-			$state.go('events.filter', {tag: tag});
+			$state.go('events.filter', {tag: tag}, {inherit: false});
 		}
 
 		$scope.mapOptions = {

@@ -15,7 +15,7 @@ module.exports = [
 		}
 
 		$scope.accessSpace = function(spaceId) {
-			$state.go('events.filter', {space: spaceId});
+			$state.go('events.filter', {space: spaceId, past: 1}, {inherit: false});
 		}
 
 		// Limit fromNow to show from now to 4h

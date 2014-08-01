@@ -10,7 +10,7 @@ section#list-event(ng-class="{tag: tag}")
 		p(ng-show="tag") {{service.getTagDescription(tag)}}
 
 	section#event-list.main-content
-		section.event-results(ng-show="isEventFiltering()")
+		section.event-results(ng-show="isEventFiltering() || tag || space")
 
 			ul.event-list(ng-show="filteredEvents.length")
 				li.clearfix(ng-repeat="event in (filteredEvents = (events | filter:eventFilter:strict | futureEvent:isFutureEvents | eventDate:eventSearch.startDate:eventSearch.endDate)) | offset:eventNav.perPage * eventNav.curPage | limitTo:eventNav.perPage" ng-controller="EventController" ng-click="accessEvent(event)")
