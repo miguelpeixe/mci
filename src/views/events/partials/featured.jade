@@ -1,7 +1,7 @@
 section#highlight-event.clearfix(ng-show="featured")
 	h2 {{featured.label}}
 	.image(style="background-image:url({{featured.image}})")
-	.highlight-items
+	.highlight-items(ng-controller="EventController")
 		article.highlight-item(ng-repeat="featEvent in featured.events" ng-click="openFeatured($event, featEvent)" ng-class="{featured:featEvent==openedFeatured}")
 			.highlight-content
 				section.meta
@@ -11,7 +11,7 @@ section#highlight-event.clearfix(ng-show="featured")
 							span(fromnow date="featEvent.occurrence.timestamp")
 						p.date(ng-hide="service.isHappening()")
 							span.entypo &#128340;
-							| {{featEvent.occurrence.startsOn}} {{featEvent.occurrence.startsAt}}
+							| {{getFormattedDate(featEvent.occurrence)}}
 					p.space(ng-controller="MapController" ng-click="openDialog($event, featEvent.occurrence)")
 						span.entypo &#59172;
 						| {{featEvent.space.name}} 

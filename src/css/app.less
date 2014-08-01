@@ -775,7 +775,18 @@ body {
 				}
 			}
 			p {
-				font-size: 14px;
+				text-transform: lowercase;
+				font-size: 13px;
+				float: left;
+				color: #999;
+				margin-right: 10px;
+				a {
+					text-decoration: none;
+					color: #999;
+					&:hover {
+						color: @blue;
+					}
+				}
 			}
 			border-bottom: 1px solid rgba(0,0,0,0.1);
 		}

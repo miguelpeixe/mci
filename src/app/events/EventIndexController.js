@@ -73,17 +73,6 @@ module.exports = [
 		};
 
 		/*
-		 * Space nav
-		 */
-
-		$scope.spaceNav = nav('filteredSpaces', 4);
-
-		$scope.$watch('spaceSearch', function() {
-			$scope.spaceNav.curPage = 0;
-			$scope.spaceNav.offset = 0;
-		});
-
-		/*
 		 * Event nav
 		 */
 
@@ -271,14 +260,14 @@ module.exports = [
 				orderedSpaces = _.filter(orderedSpaces, function(s) { return s.events.length && Event.getFutureEvents(null, s.events); });
 
 				if(orderedSpaces.length)
-					return orderedSpaces.slice(0, amount);
+					return orderedSpaces;
 
 				return false;
 
 			};
 
 			var closestSpaces = false;
-			var occurrences;
+			var occurrences = [];
 			var featured = false;
 
 			if(geocode) {
@@ -294,11 +283,11 @@ module.exports = [
 				var type;
 
 				if(!occurrences.length) {
-					occurrences = Event.getOccurrences().slice(0, amount);
+					occurrences = _.sample(Event.getOccurrences(), amount);
 					label = 'Destaque';
 					type = 'old';
 				} else {
-					occurrences = occurrences.slice(0, amount);
+					occurrences = _.sample(occurrences.slice(0, 10), amount);
 					label = 'Acontecendo agora';
 					type = 'far';
 				}
@@ -319,9 +308,19 @@ module.exports = [
 
 			} else {
 
-				occurrences = _.filter(Event.getOccurrences(), function(occur) {
-					return occur.spaceId == closestSpaces[_.random(0, amount-1)].id && occur.isFuture;
-				}).slice(0, amount);
+				var i = 0;
+				_.each(closestSpaces, function(space) {
+					_.each(Event.getOccurrences(), function(occur) {
+						if(i >= 10)
+							return false;
+						if(occur.spaceId == space.id && occur.isFuture) {
+							occurrences.push(occur);
+							i++;
+						}
+					});
+				});
+
+				occurrences = _.sample(occurrences, amount);
 
 				featured = {
 					type: 'near',
@@ -389,6 +388,17 @@ module.exports = [
 		$scope.$watch('featured', function(featured) {
 			if(featured && featured.events.length)
 				$scope.openFeatured(null, featured.events[0]);
+		});
+
+		/*
+		 * Space nav
+		 */
+
+		$scope.spaceNav = nav('filteredSpaces', 4);
+
+		$scope.$watch('spaceSearch', function() {
+			$scope.spaceNav.curPage = 0;
+			$scope.spaceNav.offset = 0;
 		});
 
 	}

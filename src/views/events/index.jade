@@ -50,9 +50,20 @@ section#list-event(ng-class="{tag: tag}")
 						header
 							h3
 								a(href="javascript:void(0);" ng-click="accessSpace(space.id)") {{space.name}}
-							p.distance(ng-show="space._distance && space._distance < 60000")
-								strong {{space.kmDistance}} km 
-								| de você
+							.clearfix
+								p.distance(ng-show="space._distance && space._distance < 60000")
+									span.entypo &#127919;
+									strong {{space.kmDistance}} km 
+									| de você
+								div(ng-controller="MapController" ng-init="initData(space)")
+									p.map(ng-click="openDialog($event, space)")
+										a(href="javascript:void(0);")
+											span.entypo &#59172;
+											| Mapa
+									p.route
+										a(href="https://www.google.com/maps/dir/{{routeFrom}}/{{routeTo}}/" target="_blank")
+											span.entypo &#10146;
+											| Como chegar
 			nav#pagination.clearfix
 				a.prev(ng-click="spaceNav.prevPage()" ng-show="spaceNav.hasPrevPage()" href="javascript:void(0);")
 					| página anterior

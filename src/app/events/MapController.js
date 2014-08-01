@@ -7,13 +7,21 @@ module.exports = [
 	'$scope',
 	function(ngDialog, leafletData, Event, $scope) {
 
+		$scope.initData = function(space) {
+
+			$scope.routeTo = $scope.space.location.latitude + ',' + $scope.space.location.longitude;
+
+		}
+
 		$scope.initMap = function(occur, options) {
 
 			options = options || {};
 
-			$scope.space = Event.getOccurrenceSpace(occur);
-
-			$scope.routeTo = $scope.space.location.latitude + ',' + $scope.space.location.longitude;
+			if(!occur.spaceId) {
+				$scope.space = occur;
+			} else {
+				$scope.space = Event.getOccurrenceSpace(occur);
+			}
 
 			$scope.markers = [
 				[
