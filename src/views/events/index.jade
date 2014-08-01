@@ -29,45 +29,63 @@ section#list-event(ng-class="{tag: tag}")
 
 		include partials/featured
 
-		#linguagens
+		.below.clearfix
 
-			header.linguagens-header.clearfix
-				h2 Navegue pelas linguagens
+			#spaces.event-section
 
-			ul.linguagem-list.clearfix
-				li(ng-repeat="linguagem in linguagens")
-					a(href="javascript:void(0);" ng-click="eventSearch.terms = linguagem") {{linguagem}}
+				header.event-section-header.spaces-header.clearfix
+					h2 Espaços
 
-		#spaces
+				section.event-section-content.spaces-content
+				
+					input(type="text" ng-model="spaceSearch.name" placeholder="Busque por um espaço...")
 
-			header.spaces-header.clearfix
-				h2 Navegue pelos espaços
-				input(type="text" ng-model="spaceSearch.name" placeholder="Busque por um espaço...")
+					ul.space-list
+						li(ng-repeat="space in (filteredSpaces = (spaces | filter:spaceSearch:strict)) | orderBy: '_distance' | offset: spaceNav.perPage * spaceNav.curPage | limitTo: spaceNav.perPage")
+							article.space(ng-controller="EventController")
+								header
+									h3
+										a(href="javascript:void(0);" ng-click="accessSpace(space.id)") {{space.name}}
+									.clearfix
+										p.distance(ng-show="space._distance && space._distance < 60000")
+											span.entypo &#127919;
+											strong {{space.kmDistance}} km 
+											| de você
+										div(ng-controller="MapController" ng-init="initData(space)")
+											p.map(ng-click="openDialog($event, space)")
+												a(href="javascript:void(0);")
+													span.entypo &#59172;
+													| Mapa
+											p.route
+												a(href="https://www.google.com/maps/dir/{{routeFrom}}/{{routeTo}}/" target="_blank")
+													span.entypo &#10146;
+													| Como chegar
+					nav#pagination.clearfix
+						a.prev(ng-click="spaceNav.prevPage()" ng-show="spaceNav.hasPrevPage()" href="javascript:void(0);")
+							| página anterior
+							.entypo &#59233;
+						a.next(ng-click="spaceNav.nextPage()" ng-show="spaceNav.hasNextPage()" href="javascript:void(0);")
+							| próxima página
+							.entypo &#59234;
 
-			ul.space-list
-				li(ng-repeat="space in (filteredSpaces = (spaces | filter:spaceSearch:strict)) | orderBy: '_distance' | offset: spaceNav.perPage * spaceNav.curPage | limitTo: spaceNav.perPage")
-					article.space(ng-controller="EventController")
-						header
-							h3
-								a(href="javascript:void(0);" ng-click="accessSpace(space.id)") {{space.name}}
-							.clearfix
-								p.distance(ng-show="space._distance && space._distance < 60000")
-									span.entypo &#127919;
-									strong {{space.kmDistance}} km 
-									| de você
-								div(ng-controller="MapController" ng-init="initData(space)")
-									p.map(ng-click="openDialog($event, space)")
-										a(href="javascript:void(0);")
-											span.entypo &#59172;
-											| Mapa
-									p.route
-										a(href="https://www.google.com/maps/dir/{{routeFrom}}/{{routeTo}}/" target="_blank")
-											span.entypo &#10146;
-											| Como chegar
-			nav#pagination.clearfix
-				a.prev(ng-click="spaceNav.prevPage()" ng-show="spaceNav.hasPrevPage()" href="javascript:void(0);")
-					| página anterior
-					.entypo &#59233;
-				a.next(ng-click="spaceNav.nextPage()" ng-show="spaceNav.hasNextPage()" href="javascript:void(0);")
-					| próxima página
-					.entypo &#59234;
+			#linguagens.event-section(ng-show="linguagens")
+
+				header.event-section-header.linguagens-header.clearfix
+					h2 Linguagens
+
+				section.event-section-content.linguagens-content
+
+					ul.linguagem-list.clearfix
+						li(ng-repeat="linguagem in linguagens")
+							a(href="javascript:void(0);" ng-click="eventSearch.terms = linguagem") {{linguagem}}
+
+			#tags.event-section(ng-show="tags")
+
+				header.event-section-header.tags-header.clearfix
+					h2 Tags
+
+				section.event-section-content.tags-content
+
+					ul.tag-list.clearfix
+						li(ng-repeat="tag in tags" ng-show="tag")
+							a(href="javascript:void(0);") {{tag}}

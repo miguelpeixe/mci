@@ -25,6 +25,7 @@ module.exports = [
 		});
 
 		$scope.linguagens = Event.getTaxTerms('linguagem');
+		$scope.tags = Event.getTaxTerms('tag');
 
 		/*
 		 * NAVIGATION
@@ -394,7 +395,7 @@ module.exports = [
 		 * Space nav
 		 */
 
-		$scope.spaceNav = nav('filteredSpaces', 4);
+		$scope.spaceNav = nav('filteredSpaces', 6);
 
 		$scope.$watch('spaceSearch', function() {
 			$scope.spaceNav.curPage = 0;
