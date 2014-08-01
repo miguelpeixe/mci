@@ -54,6 +54,8 @@
 html,
 body {
 	font-family: "Open Sans", "Helvetica", sans-serif;
+	width: 100%;
+	height: 100%;
 }
 
 h1,
@@ -71,9 +73,7 @@ a {
 	.transition(all .2s linear);
 }
 
-body,html {
-	width: 100%;
-	height: 100%;
+body {
 	background: @bg;
 }
 
@@ -197,59 +197,88 @@ body {
 #home {
 	min-height: 100%;
 	article {
-		background-size: cover;
-		.box-sizing(border-box);
 		&.feat {
-			header {
-				padding: 20px 20px 10px;
-				position: absolute;
-				bottom: 0;
-				left: 30%;
-				right: 10%;
-				background: @bg;
-				text-align: right;
-				h2,
-				h3 {
+		}
+	}
+	#news {
+		margin: -40px 0 40px -40px;
+		background: #fff;
+		padding: 40px 0 0 40px;
+		article {
+			float: left;
+			.box-sizing(border-box);
+			margin-bottom: 40px;
+			.image {
+				background-size: cover;
+				.box-sizing(border-box);
+				height: 300px;
+				margin: 0 0 20px;
+			}
+			.post-content {
+				margin-right: 20%;
+				h2 { 
 					color: #333;
-					display: inline;
-					padding: 2px;
-					line-height: 150%;
+					font-size: 36px;
+					line-height: 40px;
+					margin: 0 0 10px;
+					a {
+						text-decoration: none;
+					}
+				}
+				p {
+					color: #666;
+				}
+			}
+			&#featured {
+				width: 70%;
+				padding-right: 40px;
+			}
+			&#second {
+				width: 30%;
+				.post-content {
+					h2 {
+						font-size: 20px;
+						line-height: 20px;
+					}
+				}
+			}
+		}
+		.more-news {
+			font-family: "Axis";
+			text-transform: uppercase;
+			color: @blue;
+			border: 1px solid rgba(0,0,0,0.1);
+			padding: 10px 15px;
+			font-size: 13px;
+			display: inline-block;
+			text-decoration: none;
+			&:hover {
+				color: #222;
+			}
+		}
+	}
+	#intro {
+		margin: 0 0 40px;
+		.box-section {
+			width: 33.3%;
+			padding-right: 40px;
+			float: left;
+			.box-sizing(border-box);
+			.box-section-content {
+				p {
+					font-size: 16px;
+					color: #444;
+					font-weight: 600;
+					line-height: 24px;
 				}
 			}
 		}
 	}
-	#news {
-		height: 50%;
-		margin: 0 0 40px;
-		article {
-			float: left;
-			position: relative;
-			header h2 {
-				font-size: 16px;
-			}
-			&#featured {
-				width: 70%;
-				height: 100%;
-				min-height: 300px;
-				border-right: 40px solid @bg;
-			}
-			&#second {
-				width: 30%;
-				min-height: 300px;
-				height: 100%;
-			}
-		}
-	}
-	.section-header {
-		margin: 0 0 40px;
-		h2 {
-			font-size: 20px;
-			line-height: 40px;
-		}
-	}
+
 	#event-list {
-		.section-header {
-			margin: 0 0 80px;
+		padding-right: 40px;
+		.event-list {
+			margin: 0;
 		}
 	}
 }
@@ -570,6 +599,20 @@ body {
 			width: 100%;
 			.box-sizing(border-box);
 		}
+		.box-section-button {
+			display: block;
+			border: 1px solid rgba(0,0,0,0.1);
+			padding: 10px 15px;
+			text-align: center;
+			text-decoration: none;
+			color: @blue;
+			font-family: "Axis";
+			font-size: 13px;
+			text-transform: uppercase;
+			&:hover {
+				color: #222;
+			}
+		}
 	}
 }
 
@@ -594,13 +637,11 @@ body {
 		float: none;
 		position: relative;
 		margin-bottom: 40px;
-		border-bottom: 1px solid rgba(0,0,0,0.2);
-		padding-bottom: 40px;
 		h2 {
 			font-size: 16px;
 			position: absolute;
 			top: 20px;
-			left: 20px;
+			left: 40px;
 			background: @pink;
 			color: @bg;
 			padding: 4px 8px;
@@ -619,10 +660,12 @@ body {
 			margin: 0;
 			float: left;
 			.box-sizing(border-box);
-			opacity: 0.8;
 			cursor: pointer;
 			.highlight-content {
 				position: relative;
+				background: #fff;
+				padding: 0 40px 40px;
+				border-top: 1px solid #fff;
 				&:before {
 					content: '';
 					.transform(rotate(45deg));
@@ -660,9 +703,8 @@ body {
 					font-size: 14px;
 					color: #666;
 					margin: 0 0 20px;
-					border-top: 1px solid rgba(0,0,0,0.2);
 					border-bottom: 1px solid rgba(0,0,0,0.2);
-					padding: 10px 0;
+					padding: 30px 0 10px;
 					&:before {
 						content: '';
 						.transform(rotate(45deg));
@@ -702,13 +744,10 @@ body {
 					line-height: 22px;
 				}
 			}
-			&:hover {
-				opacity: 1;
-			}
 			&.featured {
-				opacity: 1;
 				cursor: auto;
 				.highlight-content {
+					border-top: 1px solid rgba(0,0,0,0.2);
 					&:before {
 						content: '';
 						width: 30px;
@@ -727,7 +766,6 @@ body {
 							height: 20px;
 							top: -10px;
 							margin-left: -10px;
-							border: 1px solid rgba(0,0,0,0.2);
 						}
 					}
 				}

@@ -47,12 +47,6 @@ function init() {
 
 	app.use('/', express.static(__dirname + '/../dist'));
 
-	var options = {};
-
-	if(fs.existsSync('../options.js')) {
-		options = require('../options');
-	}
-
 	app.all('/api/reqHeader', function(req, res) {
 		var url = req.body.url;
 		delete req.body.url;
@@ -63,6 +57,8 @@ function init() {
 			res.send(response.headers);
 		});
 	});
+
+	var options = fs.existsSync('./options.json') ? JSON.parse(fs.readFileSync('./options.json', 'utf8')) : {};
 
 	app.get('/api/data', function(req, res) {
 

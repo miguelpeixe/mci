@@ -1,17 +1,50 @@
 section#home
 	section#news.clearfix(ng-controller="NewsController" ng-show="news")
-		article#featured.feat(style="background-image:url({{getFeaturedImage(news.first)}})")
-			header
-				h2
-					a(href="/noticias/{{news.first.ID}}/") {{news.first.title}}
-		article#second.feat(style="background-image:url({{getFeaturedImage(news.second)}})")
-			header
-				h2
-					a(href="/noticias/{{news.second.ID}}/") {{news.second.title}}
-	section#event-list
-		header.section-header
+
+		article#featured.feat
+			.image(style="background-image:url({{getFeaturedImage(news.first)}})")
+			.post-content
+				header
+					h2
+						a(href="/noticias/{{news.first.ID}}/") {{news.first.title}}
+				section.excerpt(ng-bind-html="getExcerpt(news.first)")
+
+		article#second.feat
+			.image(style="background-image:url({{getFeaturedImage(news.second)}})")
+			.post-content
+				header
+					h2
+						a(href="/noticias/{{news.second.ID}}/") {{news.second.title}}
+
+		a.more-news(href="/noticias") Todas as notícias
+
+	section#intro.clearfix
+
+		section.box-section
+			header.box-section-header
+				h2 Programação
+			section.box-section-content
+				p Veja todos os {{allEvents.length}} eventos distribuido em {{allSpaces.length}} espaços
+				a.box-section-button(href="/agenda/") Programação completa
+
+		section.box-section
+			header.box-section-header
+				h2 #MCI2014
+			section.box-section-content
+				p Participe da cobertura colaborativa utilizando a hashtag #mci2014
+				a.box-section-button(href="/na-rede/") Veja a cobertura
+
+		section.box-section
+			header.box-section-header
+				h2 Cultura Independente
+			section.box-section-content
+				p Saiba mais sobre o maior evento de cultura independente do país
+				a.box-section-button(href="/sobre/") Sobre o evento
+
+	section#event-list.box-section
+		header.box-section-header
 			h2 Próximos eventos
-			p {{allEvents.length}} eventos em {{allSpaces.length}} espaços
-		ul.event-list(ng-controller="EventController")
-			li.clearfix(ng-repeat="event in homeEvents" ng-click="accessEvent(event)")
-				include ../events/partials/event-list-item
+		section.box-section-content
+			ul.event-list(ng-controller="EventController")
+				li.clearfix(ng-repeat="event in homeEvents" ng-click="accessEvent(event)")
+					include ../events/partials/event-list-item
