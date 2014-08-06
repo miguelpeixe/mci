@@ -6,7 +6,7 @@ var fs = require('fs'),
 	moment = require('moment'),
 	config = require('../config');
 
-module.exports = function(cb, silent) {
+module.exports = function(cb) {
 
 	var storeDir = 'dist/data';
 
@@ -23,15 +23,16 @@ module.exports = function(cb, silent) {
 		}
 	};
 
-	if(!silent)
-		console.log('Baixando eventos...');
-
 	request(_.extend(defaultReq, eventsReq), function(err, res, body) {
 		if(err) {
 			console.log(err);
 		} else {
 
 			var events = JSON.parse(body);
+
+			if(!events.length)
+				throw new Error('This project has no events');
+
 			var eventIds = [];
 
 			_.each(events, function(event) {
@@ -47,9 +48,6 @@ module.exports = function(cb, silent) {
 					'@order': '_startsAt'
 				}
 			};
-
-			if(!silent)
-				console.log('Baixando ocorrências dos eventos...');
 
 			var occursReqUrl = config.apiUrl + '/eventOccurrence/find?@select=id,eventId,rule&event=in(' + eventIds + ')&@order=_startsAt';
 
@@ -68,6 +66,7 @@ module.exports = function(cb, silent) {
 					_.each(occurrences, function(occurrence) {
 
 						// Store space id for following spaces request
+
 						spaceIds.push(occurrence.rule.spaceId);
 
 						// Find event
@@ -102,9 +101,6 @@ module.exports = function(cb, silent) {
 						}
 					};
 
-					if(!silent)
-						console.log('Baixando espaços das ocorrências...');
-
 					request(_.extend(defaultReq, spacesReq), function(err, res, body) {
 
 						if(err) {
@@ -114,30 +110,15 @@ module.exports = function(cb, silent) {
 							var spaces = JSON.parse(body);
 
 							fs.writeFile(storeDir + '/events.json', JSON.stringify(events), function(err) {
-								if(err) {
-									console.log(err);
-								} else {
-									if(!silent)
-										console.log('Eventos atualizados');
-								}
+								if(err) console.log(err);
 							});
 
 							fs.writeFile(storeDir + '/occurrences.json', JSON.stringify(occurrences), function(err) {
-								if(err) {
-									console.log(err);
-								} else {
-									if(!silent)
-										console.log('Ocorrências atualizadas');
-								}
+								if(err) console.log(err);
 							});
 
 							fs.writeFile(storeDir + '/spaces.json', JSON.stringify(spaces), function(err) {
-								if(err) {
-									console.log(err);
-								} else {
-									if(!silent)
-										console.log('Espaços atualizados');
-								}
+								if(err) console.log(err);
 							});
 
 							if(typeof cb == 'function')

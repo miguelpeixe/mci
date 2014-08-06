@@ -19,11 +19,7 @@ moment.locale('pt-br', {
 		nextDay: '[amanhã às] LT',
 		nextWeek: 'dddd [às] LT',
 		lastDay: '[ontem às] LT',
-		lastWeek: function () {
-			return (this.day() === 0 || this.day() === 6) ?
-				'[último] dddd [às] LT' : // Saturday + Sunday
-				'[última] dddd [às] LT'; // Monday - Friday
-		},
+		lastWeek: 'L [às] LT',
 		sameElse: 'L [às] LT'
 	},
 })

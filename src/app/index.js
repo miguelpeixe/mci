@@ -83,7 +83,7 @@ angular.module('mci', [
 			template: '{{fromNow}}',
 			link: function(scope, element, attrs) {
 
-				var today = moment('2014-05-18 10:10', 'YYYY-MM-DD HH:mm');
+				var today = moment();
 
 				var date = moment(scope.date*1000);
 

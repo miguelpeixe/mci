@@ -15,6 +15,7 @@ var dev = false;
  */
 
 if(!fs.existsSync('dist/data/events.json')) {
+	console.log('Downloading data...');
 	loadData(init);
 } else {
 	init();
@@ -31,7 +32,7 @@ function init() {
 	 */
 	if(!dev) {
 		setInterval(function() {
-			loadData(null, true);
+			loadData();
 		}, 1000 * 60 * 10);
 	}
 
@@ -227,7 +228,7 @@ function init() {
 
 				res.render('static/data-success', {time: new Date().toString() });
 
-			}, true);
+			});
 		}
 
 	});

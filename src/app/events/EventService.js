@@ -6,7 +6,7 @@ module.exports = [
 	'$window',
 	function($http, $q, $window) {
 
-		var today = moment('2014-05-18 10:10', 'YYYY-MM-DD HH:mm');
+		var today = moment();
 
 		var options = $window.mci.options;
 
