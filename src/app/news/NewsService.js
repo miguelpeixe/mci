@@ -7,8 +7,6 @@ module.exports = [
 	'$window',
 	function($rootScope, $http, $q, $window) {
 
-		var url = $window.mci.config.wpUrl + '/wp-json/posts';
-
 		var load = function(query, cb) {
 
 			query = query || { page: 1, filter: { posts_per_page: 10 }};

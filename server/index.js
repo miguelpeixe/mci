@@ -47,18 +47,14 @@ function init() {
 
 	app.use('/', express.static(__dirname + '/../dist'));
 
-	app.all('/api/reqHeader', function(req, res) {
-		var url = req.body.url;
-		delete req.body.url;
-		request({
-			url: url,
-			qs: req.body
-		}, function(req, response, body) {
-			res.send(response.headers);
-		});
-	});
+	/*
+	 * News (Connected to WP JSON API PLUGIN)
+	 */
 
 	app.get('/api/news', function(req, res) {
+
+		if(!config.wpUrl)
+			res.status(404).send('WordPress API not defined');
 
 		request({
 			url: config.wpUrl + '/wp-json/posts',
@@ -74,6 +70,9 @@ function init() {
 
 	app.get('/api/news/:postId', function(req, res) {
 
+		if(!config.wpUrl)
+			res.status(404).send('WordPress API not defined');
+
 		request({
 			url: config.wpUrl + '/wp-json/posts/' + req.params.postId,
 			qs: req.body
@@ -85,6 +84,10 @@ function init() {
 		});
 
 	});
+
+	/*
+	 * Main data
+	 */
 
 	var options = fs.existsSync('./options.json') ? JSON.parse(fs.readFileSync('./options.json', 'utf8')) : {};
 
@@ -103,6 +106,10 @@ function init() {
 		res.send(data);
 
 	});
+
+	/*
+	 * Single events data
+	 */
 
 	var loadedEvents = [];
 
