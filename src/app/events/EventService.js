@@ -171,8 +171,7 @@ module.exports = [
 
 				var i = 0;
 
-				var now = Math.round(+new Date()/1000);
-				now = today.unix();
+				var now = today.unix();
 
 				return _.filter(src, function(e) {
 					if(e.occurrences[e.occurrences.length-1].timestamp > now && i < amount) {

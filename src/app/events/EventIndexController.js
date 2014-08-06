@@ -258,7 +258,7 @@ module.exports = [
 
 				var orderedSpaces = _.sortBy($scope.spaces, function(s) { return s._distance; });
 
-				orderedSpaces = _.filter(orderedSpaces, function(s) { return s.events.length && Event.getFutureEvents(null, s.events); });
+				orderedSpaces = _.filter(orderedSpaces, function(s) { return s.events.length && Event.getFutureEvents(null, s.events).length; });
 
 				if(orderedSpaces.length)
 					return orderedSpaces;
