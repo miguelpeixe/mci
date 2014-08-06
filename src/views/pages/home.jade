@@ -24,7 +24,7 @@ section#home
 			header.box-section-header
 				h2 Programação
 			section.box-section-content
-				p Veja todos os {{allEvents.length}} eventos distribuido em {{allSpaces.length}} espaços
+				p Veja todos os {{allEvents.length}} eventos distribuidos em {{allSpaces.length}} espaços
 				a.box-section-button(href="/agenda/") Programação completa
 
 		section.box-section
@@ -41,7 +41,7 @@ section#home
 				p Saiba mais sobre o maior evento de cultura independente do país
 				a.box-section-button(href="/sobre/") Sobre o evento
 
-	section#event-list.box-section
+	section#event-list.box-section(ng-show="homeEvents.length")
 		header.box-section-header
 			h2 Próximos eventos
 		section.box-section-content
