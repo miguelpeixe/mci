@@ -82,7 +82,7 @@ angular.module('mci.events')
 				var now = Event.getToday().unix();
 				return _.sortBy(_.filter(input, function(occurrence) {
 					return occurrence.timestamp > now;
-				}), function(occur) { return -occur.timestamp; });
+				}), function(occur) { return occur.timestamp; });
 			}
 			return _.sortBy(input, function(occur) { return occur.timestamp; });
 		};
