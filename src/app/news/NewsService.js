@@ -121,12 +121,14 @@ module.exports = [
 
 				var deferred = $q.defer();
 
+				var loadId = Loading.add();
 				$.ajax({
 					url: '/api/news/' + postId,
 					dataType: 'json',
 					cache: true,
 					success: function(data, text, xhr) {
 
+						Loading.remove(loadId);
 						deferred.resolve(data);
 
 					}
