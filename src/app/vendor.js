@@ -19,7 +19,7 @@ moment.locale('pt-br', {
 		nextDay: '[amanhã às] LT',
 		nextWeek: 'dddd [às] LT',
 		lastDay: '[ontem às] LT',
-		lastWeek: 'L [às] LT',
-		sameElse: 'L [às] LT'
+		lastWeek: 'DD/MM [às] LT',
+		sameElse: 'DD/MM [às] LT'
 	},
 })
