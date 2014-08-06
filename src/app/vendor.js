@@ -11,9 +11,9 @@ require('angular-dialog/js/ngDialog');
 require('angular-infiniteScroll/build/ng-infinite-scroll');
 
 window.moment = require('moment');
-require('moment/lang/pt-br');
-moment.lang('pt-br');
-moment.lang('pt-br', {
+require('moment/locale/pt-br');
+moment.locale('pt-br');
+moment.locale('pt-br', {
 	calendar : {
 		sameDay: '[hoje às] LT',
 		nextDay: '[amanhã às] LT',
