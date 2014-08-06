@@ -19,4 +19,7 @@ html(lang='pt-BR')
 				| 2014
 		section#content(ui-view, autoscroll='true')
 
+	#loading(loading-status-message='loading-status-message', ng-class='{active: loads.length}')
+		.loading-message(translate='translate') Loading
+
 include includes/foot
