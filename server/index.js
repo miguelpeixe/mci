@@ -58,6 +58,34 @@ function init() {
 		});
 	});
 
+	app.get('/api/news', function(req, res) {
+
+		request({
+			url: config.wpUrl + '/wp-json/posts',
+			qs: req.body
+		}, function(req, response, body) {
+			for(var key in response.headers) {
+				res.setHeader(key, response.headers[key]);
+			}
+			res.send(body);
+		});
+
+	});
+
+	app.get('/api/news/:postId', function(req, res) {
+
+		request({
+			url: config.wpUrl + '/wp-json/posts/' + req.params.postId,
+			qs: req.body
+		}, function(req, response, body) {
+			for(var key in response.headers) {
+				res.setHeader(key, response.headers[key]);
+			}
+			res.send(body);
+		});
+
+	});
+
 	var options = fs.existsSync('./options.json') ? JSON.parse(fs.readFileSync('./options.json', 'utf8')) : {};
 
 	app.get('/api/data', function(req, res) {

@@ -14,25 +14,17 @@ module.exports = [
 			query = query || { page: 1, filter: { posts_per_page: 10 }};
 
 			/*
-			 * Using jQuery ajax because angular jsonp callback contains illegal characters for WP API
+			 * Using jQuery ajax because angular doesnt handle nested query string
 			 */
 			$.ajax({
-				url: url,
+				url: '/api/news',
 				data: query,
-				dataType: 'jsonp',
-				jsonp: '_jsonp',
+				dataType: 'json',
 				cache: true,
 				success: function(data, text, xhr) {
-					/*
-					 * Since JSONP doesnt handle response headers, a server-side hack
-					 * The pagination data is given as header (thats why we need it)
-					 */
-					$.post('/api/reqHeader', _.extend(query, { url: url }), function(headers) {
-						// We left angular scope, need to call digest
-						$rootScope.$apply(function() {
-							cb(data, headers['x-wp-total'], headers['x-wp-totalpages']);
-						});
-					}, 'json');
+
+					cb(data, xhr.getResponseHeader('x-wp-total'), xhr.getResponseHeader('x-wp-totalpages'));
+
 				}
 			});
 
@@ -125,12 +117,10 @@ module.exports = [
 				var deferred = $q.defer();
 
 				$.ajax({
-					url: url + '/' + postId,
-					dataType: 'jsonp',
-					jsonp: '_jsonp',
+					url: '/api/news/' + postId,
+					dataType: 'json',
+					cache: true,
 					success: function(data, text, xhr) {
-
-						console.log(data);
 
 						deferred.resolve(data);
 
