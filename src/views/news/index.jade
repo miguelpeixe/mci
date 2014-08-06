@@ -26,7 +26,7 @@ section#news
 						a(href="/noticias/{{post.ID}}/") {{post.title}}
 				section.post-content(ng-bind-html="getExcerpt(post)")
 
-		nav#pagination.clearfix(ng-hide="firstPage && lastPage")
+		nav#pagination.clearfix(ng-hide="(firstPage && lastPage) || !items.length")
 			a.prev(ng-click="prevPage()" ng-hide="firstPage" href="javascript:void(0);")
 				| página anterior
 				.entypo &#59233;

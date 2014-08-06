@@ -59,8 +59,8 @@ function init() {
 
 		request({
 			url: config.wpUrl + '/wp-json/posts',
-			qs: req.body
-		}, function(req, response, body) {
+			qs: req.query
+		}, function(request, response, body) {
 			for(var key in response.headers) {
 				res.setHeader(key, response.headers[key]);
 			}
@@ -77,7 +77,7 @@ function init() {
 		request({
 			url: config.wpUrl + '/wp-json/posts/' + req.params.postId,
 			qs: req.body
-		}, function(req, response, body) {
+		}, function(request, response, body) {
 			for(var key in response.headers) {
 				res.setHeader(key, response.headers[key]);
 			}

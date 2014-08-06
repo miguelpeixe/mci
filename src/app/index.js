@@ -247,8 +247,10 @@ angular.module('mci', [
 ]);
 
 $(document).ready(function() {
+	$('#loading').addClass('active');
 	$.get('/api/data', function(data) {
 		window.mci = data;
+		$('#loading').removeClass('active');
 		angular.bootstrap(document, ['mci']);
 	}, 'json');
 });

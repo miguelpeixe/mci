@@ -1589,35 +1589,31 @@ body.ngdialog-open {
 	text-transform: uppercase;
 	font-weight: 200;
 	text-align: center;
-	transition: background .5s ease-in-out;
+	.transition(background .5s ease-in-out);
 	overflow: hidden;
-	&.active {
-		background: rgba(0,0,0,0.8);
-		top: 52px;
-		bottom: 0;
-		opacity: 1;
-		transition: background .2s ease-in-out;
-		.loading-message {
-			opacity: 1;
-			transition: opacity .2s ease-in-out;
-		}
-	}
 	.loading-message {
 		position: absolute;
 		top: 50%;
 		left: 50%;
 		padding: 40px;
 		background: #fff;
-		-webkit-transform: translateX(-50%) translateY(-50%);
-		-moz-transform: translateX(-50%) translateY(-50%);
-		-ms-transform: translateX(-50%) translateY(-50%);
-		transform: translateX(-50%) translateY(-50%);
-		transition: opacity .2s ease-in-out;
+		.transform(translateX(-50%) translateY(-50%));
+		.transition(opacity .2s ease-in-out);
 		opacity: 0;
 		&:before {
-			content: url('/img/loading.gif');
+			content: url('../img/loading.gif');
 			display: block;
-			margin-bottom: 40px;
 		}	
+	}
+	&.active {
+		background: rgba(255,255,255,0.8);
+		top: 0;
+		bottom: 0;
+		opacity: 1;
+		.transition(background .2s ease-in-out);
+		.loading-message {
+			opacity: 1;
+			.transition(opacity .2s ease-in-out);
+		}
 	}
 }

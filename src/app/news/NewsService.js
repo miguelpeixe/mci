@@ -5,7 +5,8 @@ module.exports = [
 	'$http',
 	'$q',
 	'$window',
-	function($rootScope, $http, $q, $window) {
+	'LoadingService',
+	function($rootScope, $http, $q, $window, Loading) {
 
 		var load = function(query, cb) {
 
@@ -14,6 +15,9 @@ module.exports = [
 			/*
 			 * Using jQuery ajax because angular doesnt handle nested query string
 			 */
+
+			var loadId = Loading.add();
+
 			$.ajax({
 				url: '/api/news',
 				data: query,
@@ -21,7 +25,10 @@ module.exports = [
 				cache: true,
 				success: function(data, text, xhr) {
 
-					cb(data, xhr.getResponseHeader('x-wp-total'), xhr.getResponseHeader('x-wp-totalpages'));
+					$rootScope.$apply(function() {
+						Loading.remove(loadId);
+						cb(data, xhr.getResponseHeader('x-wp-total'), xhr.getResponseHeader('x-wp-totalpages'));
+					});
 
 				}
 			});
