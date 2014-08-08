@@ -66,6 +66,32 @@ angular.module('mci', [
 
 	}
 ])
+
+/* 
+ * Track history and push navigation to Google Analytics
+ */
+.run([
+	'$rootScope',
+	'$location',
+	'$window',
+	function($rootScope, $location, $window) {
+
+		/*
+		 * Store nav history
+		 */
+		$window.mci.history = [];
+		$rootScope.$on('$stateChangeSuccess', function() {
+
+			if($window._gaq) {
+				$window._gaq.push(['_trackPageview', $location.path()]);
+			}
+			$window.mci.history.push($window.location.pathname);
+
+		});
+
+	}
+])
+
 .filter('offset', function() {
 	return function(input, start) {
 		start = parseInt(start, 10);
