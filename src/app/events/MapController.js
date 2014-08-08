@@ -9,7 +9,7 @@ module.exports = [
 
 		$scope.initData = function(space) {
 
-			$scope.routeTo = $scope.space.location.latitude + ',' + $scope.space.location.longitude;
+			$scope.routeTo = space.location.latitude + ',' + space.location.longitude;
 
 		}
 
@@ -22,6 +22,8 @@ module.exports = [
 			} else {
 				$scope.space = Event.getOccurrenceSpace(occur);
 			}
+
+			$scope.initData($scope.space);
 
 			$scope.markers = [
 				[
