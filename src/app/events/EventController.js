@@ -18,7 +18,7 @@ module.exports = [
 			$state.go('events.filter', {space: spaceId, past: 1}, {inherit: false});
 		}
 
-		$scope.accessLinguagem = function(tag) {
+		$scope.accessLinguagem = function(linguagem) {
 			$state.go('events.filter', {linguagem: linguagem, past: 1}, {inherit: false});
 		}
 

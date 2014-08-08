@@ -68,14 +68,14 @@ section#list-event(ng-class="{tag: tag}")
 							| próxima página
 							.entypo &#59234;
 
-			#linguagens.box-section(ng-controller="EventController" ng-show="linguagens")
+			#linguagens.box-section(ng-show="linguagens")
 
 				header.box-section-header.linguagens-header.clearfix
 					h2 Linguagens
 
 				section.box-section-content.linguagens-content
 
-					ul.linguagem-list.clearfix
+					ul.linguagem-list.clearfix(ng-controller="EventController")
 						li(ng-repeat="linguagem in linguagens")
 							a(href="javascript:void(0);" ng-click="accessLinguagem(linguagem)") {{linguagem}}
 
