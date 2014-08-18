@@ -31,7 +31,7 @@ section#single-event(ng-controller="EventController")
 			h2 Agenda
 			ul
 				li.clearfix(ng-repeat="occur in event.occurrences" ng-class="{future:occur.isFuture}")
-					.date-info
+					.date-info.clearfix
 						p.fromNow
 							span.entypo &#128340;
 							span(fromnow date="occur.timestamp")

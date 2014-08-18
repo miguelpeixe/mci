@@ -12,7 +12,8 @@ module.exports = function(grunt) {
 		uglify: {
 			build: {
 				options: {
-					mangle: false
+					mangle: true,
+					compress: true
 				},
 				files: {
 					'dist/vendor.js': 'dist/vendor.js',
@@ -22,6 +23,9 @@ module.exports = function(grunt) {
 		},
 		less: {
 			compile: {
+				options: {
+					compress: true
+				},
 				files: {
 					'dist/css/app.css': 'src/css/app.less',
 					'dist/css/responsive.css': 'src/css/responsive.less'

@@ -318,8 +318,8 @@ body {
 		margin: 0 40px 40px 0;
 		float: left;
 		.tag {
-			font-size: 28px;
-			line-height: 40px;
+			font-size: 22px;
+			line-height: 30px;
 			display: block;
 			width: 400px;
 		}
@@ -941,6 +941,11 @@ body {
 					.occurrence {
 						display:block;
 						margin-bottom: 10px;
+						padding-bottom: 10px;
+						border-bottom: 1px dashed #ccc;
+						&:last-child {
+							border: 0;
+						}
 						p {
 							white-space: normal;
 							overflow: visible;
@@ -1150,13 +1155,27 @@ body {
 		h2 {
 			font-size: 20px;
 			color: @pink;
+			margin-bottom: 20px;
 		}
 		ul {
 			li {
 				opacity: .5;
-				margin: 0;
+				margin: 0 0 20px;
+				border-bottom: 1px dashed #ccc;
 				&.future {
 					opacity: 1;
+				}
+				.date-info {
+					p {
+						width: 50%;
+						float:left;
+						&.date {
+							font-weight: 600;
+							.entypo {
+								font-weight: normal;
+							}
+						}
+					}
 				}
 				.space {
 					cursor: pointer;

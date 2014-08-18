@@ -8,7 +8,8 @@ section#list-event(ng-class="{tag: tag}")
 				span(ng-hide="tag || space") Agenda
 				span.tag(ng-show="tag || space") {{tag || space.name}}
 			include partials/filters
-		p(ng-show="tag") {{service.getTagDescription(tag)}}
+		.clearfix
+			p(ng-show="tag") {{service.getTagDescription(tag)}}
 
 	section#event-list.main-content
 		section.event-results(ng-show="isEventFiltering() || tag || space")
