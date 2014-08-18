@@ -361,8 +361,8 @@ module.exports = [
 			if(featEvent != $scope.openedFeatured) {
 
 				$scope.featured.image = '';
-				if(featEvent.event['@files:avatar']) {
-					$scope.featured.image = featEvent.event['@files:avatar'].url;
+				if(featEvent.event['@files:header']) {
+					$scope.featured.image = featEvent.event['@files:header'].url;
 				}
 
 				if(event) {

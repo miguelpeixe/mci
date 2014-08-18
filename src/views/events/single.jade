@@ -1,7 +1,7 @@
 section#single-event(ng-controller="EventController")
-	header.event-header.main-header.clearfix(ng-class="{'with-image': event['@files:avatar'].url}")
+	header.event-header.main-header.clearfix(ng-class="{'with-image': event['@files:header'].url}")
 		.clearfix
-			.image(style="background-image:url({{event['@files:avatar'].url}});")
+			.image(style="background-image:url({{event['@files:header'].url}});")
 			h2
 				a(href="/agenda/") Agenda
 			h1 {{event.name}}
