@@ -1080,19 +1080,32 @@ body {
 }
 
 #single-event {
-	.main-header {
+	#main-occurrence {
+		margin: 0 0 40px;
+		&.with-sidebar {
+			width: 60%;
+			float: left;
+			border-bottom: 1px solid rgba(0,0,0,0.2);
+		}
 		.next-occurrence {
-			margin: 0 0 40px;
+			margin: 0 0 20px;
 			color: #666;
 			p {
-				float: left;
+				display: inline-block;
 				font-size: 20px;
 				margin-right: 40px;
 				.entypo {
+					display: inline-block;
+					text-align: center;
+					width: 30px;
 					margin-right: 20px;
 					color: @pink;
 				}
 				&.space {
+					cursor: pointer;
+					&:hover {
+						color: @blue;
+					}
 					.address {
 						font-size: 12px;
 						line-height: 16px;
@@ -1110,9 +1123,9 @@ body {
 				}
 			}
 			.leaflet-container {
-				width: 100%;
 				height: 100px;
 				margin-top: 20px;
+				margin-right: 40px;
 				.transition(height .2s ease-in-out);
 				position: relative;
 				&.open {
@@ -1148,7 +1161,8 @@ body {
 	#event-sidebar {
 		float: right;
 		width: 30%;
-		margin: -40px 10% 40px 40px;
+		.box-sizing(border-box);
+		margin: -40px 10% 40px 0;
 		border-left: 1px solid rgba(0,0,0,0.2);
 		border-bottom: 1px solid rgba(0,0,0,0.2);
 		padding: 40px 0 40px 40px;
@@ -1156,6 +1170,12 @@ body {
 			font-size: 20px;
 			color: @pink;
 			margin-bottom: 20px;
+		}
+		h3 {
+			font-size: 24px;
+			a {
+				text-decoration: none;
+			}
 		}
 		ul {
 			li {
@@ -1187,8 +1207,14 @@ body {
 		}
 	}
 	.event-content {
+		width: 60%;
 		max-width: 900px;
-		margin: 0 0 40px;
+		&.with-sidebar {
+			margin: 0 0 40px;
+			.box-sizing(border-box);
+			padding-right: 40px;
+			float: left;
+		}
 	}
 	#gallery {
 		margin-right: 10%;

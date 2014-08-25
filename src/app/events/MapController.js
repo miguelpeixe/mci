@@ -74,10 +74,18 @@ module.exports = [
 
 			$scope.initMap(occur);
 
-			ngDialog.open({
-				template: '/views/events/map.html',
-				scope: $scope
-			});
+			if(isMobile()) {
+
+				window.location = 'https://www.google.com/maps/dir//' + $scope.routeTo + '/';
+
+			} else {
+
+				ngDialog.open({
+					template: '/views/events/map.html',
+					scope: $scope
+				});
+
+			}
 
 		};
 
