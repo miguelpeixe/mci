@@ -19,6 +19,11 @@ html(lang='pt-BR')
 				| 2014
 		section#content(ui-view, autoscroll='true')
 
+		footer#mastfoot
+			#by
+				h3 Realização
+				img(alt="Secretaria Municipal de Cultura de São Paulo" src="/img/logos/secult.jpg")
+
 		#loading(loading-status-message='loading-status-message', ng-class='{active: loads.length}')
 		.loading-message
 

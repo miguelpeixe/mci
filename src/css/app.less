@@ -194,6 +194,22 @@ body {
 	background-repeat: repeat-y;
 }
 
+#mastfoot {
+	margin-left: 231px;
+	background: #fff;
+	padding: 40px 0;
+	h3 {
+		font-size: 18px;
+	}
+	#by {
+		text-align: center;
+		img {
+			width: 100px;
+			height: auto;
+		}
+	}
+}
+
 #home {
 	min-height: 100%;
 	article {
@@ -1660,6 +1676,46 @@ body.ngdialog-open {
 		.loading-message {
 			opacity: 1;
 			.transition(opacity .2s ease-in-out);
+		}
+	}
+}
+
+#partners {
+	background: #fff;
+	margin: 40px -40px -40px;
+	padding: 40px 40px 0;
+	h3 {
+		text-align: center;
+		font-style: italic;
+		margin: 0 0 40px;
+		font-size: 18px;
+	}
+	ul {
+		margin: 0 0 40px;
+		padding: 0 0 20px;
+		border-bottom: 1px solid rgba(0,0,0,0.2);
+		&:first-child {
+			border-bottom: 0;
+		}
+	}
+	li {
+		width: 200px;
+		height: 100px;
+		float: left;
+		margin: 0 20px 20px 0;
+		background-size: contain;
+		background-position: center;
+		background-repeat: no-repeat;
+		text-indent: -9999px;
+		overflow: hidden;
+		display: table;
+		.text {
+			display: table-cell;
+			vertical-align: middle;
+			text-align: center;
+			font-size: 14px;
+			line-height: 22px;
+			text-indent: 0;
 		}
 	}
 }
