@@ -112,6 +112,9 @@
 @media screen and (max-width: 820px) {
 	.main-header {
 		padding: 30px 30px 0;
+		&.list-header {
+			margin-bottom: 0;
+		}
 		nav {
 			.filters-container {
 				float: none;
@@ -147,8 +150,44 @@
 			}
 		}
 	}
+
+	#content {
+		background-image: none;
+	}
+
+	#home {
+		#news {
+			article {
+				float: none;
+				&#featured,
+				&#second {
+					padding-right: 40px;
+					width: 100%;
+				}
+			}
+			.more-news {
+				display: block;
+				text-align: center;
+				margin: 0 40px 40px 0;
+			}
+		}
+		#intro {
+			margin: 0 0 0 -40px;
+			.box-section {
+				width: 100%;
+				float: none;
+				padding: 0;
+			}
+		}
+		#event-list {
+			padding-right: 0;
+			margin: 0 0 0 -40px;
+		}
+	}
+
 	#event-list {
 		.event-list {
+			margin: 0 0 0 -40px;
 			li {
 				height: auto;
 				overflow: visible;
@@ -205,34 +244,65 @@
 						}
 					}
 				}
+				&:hover {
+					.occurrences {
+						pointer-events: auto;
+						.occurrence {
+							display:block;
+							margin-bottom: 10px;
+							padding-bottom: 0;
+							border-bottom: 0;
+							&:last-child {
+								border: 0;
+							}
+							p {
+								white-space: normal;
+								overflow: visible;
+								text-overflow: clip;
+							}
+						}
+					}
+				}
 			}
 		}
+		.event-results #pagination {
+			margin: 0 0 0 -40px;
+			font-size: 16px;
+		}
 		#highlight-event {
-			margin: -40px 0 40px -40px;
+			margin: 0 0 0 -40px;
 			h2 {
-				left: 30px;
+				position: static;
+				margin: 0;
+				padding: 15px 40px;
 			}
-			.space h3 {
-				position: absolute;
-				top: 60px;
-				left: 30px;
-				right: auto;
+			.image {
+				display: none;
 			}
-			.highlight-content {
-				width: auto;
-				margin: -120px 10px 0;
+			.highlight-item {
+				width: 100%;
 				float: none;
-				h3 {
-					font-size: 22px;
+				padding: 0;
+				margin: 0;
+				border-bottom: 2px solid #eee;
+				.highlight-content {
+					&:before,
+					&:after,
+					.meta:before {
+						display: none !important;
+					}
 				}
 			}
 		}
 		#linguagens {
 			display: none;
 		}
-		#spaces {
+		#spaces,
+		#tags {
+			width: auto;
+			float: none;
 			margin: 0 0 0 -40px;
-			padding: 40px 30px;
+			padding: 0;
 		}
 	}
 	#social {
