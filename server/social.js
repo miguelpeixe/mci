@@ -5,6 +5,7 @@ var fs = require('fs'),
 	async = require('async'),
 	_ = require('underscore'),
 	moment = require('moment'),
+	tryJSON = require('../lib/tryParseJSON'),
 	config = require('../config');
 
 module.exports = function(cb) {
@@ -33,29 +34,33 @@ module.exports = function(cb) {
 
 			request(req, function(err, res, body) {
 
-				body = JSON.parse(body);
+				body = tryJSON(body);
 
 				var d = [];
 
-				_.each(body.data, function(item) {
+				if(body) {
 
-					d.push({
-						'media_provider': 'instagram',
-						'media_type': 'image',
-						'content': item['images']['standard_resolution']['url'],
-						'thumb': item['images']['thumbnail']['url'],
-						'author': item['user']['username'],
-						'width': item['images']['standard_resolution']['width'],
-						'height': item['images']['standard_resolution']['height'],
-						'original_url': item['link'],
-						'date_posted': moment(parseFloat(item['created_time'])*1000).unix()
+					_.each(body.data, function(item) {
+
+						d.push({
+							'media_provider': 'instagram',
+							'media_type': 'image',
+							'content': item['images']['standard_resolution']['url'],
+							'thumb': item['images']['thumbnail']['url'],
+							'author': item['user']['username'],
+							'width': item['images']['standard_resolution']['width'],
+							'height': item['images']['standard_resolution']['height'],
+							'original_url': item['link'],
+							'date_posted': moment(parseFloat(item['created_time'])*1000).unix()
+						});
+
 					});
 
-				});
+				}
 
 				data = data.concat(d);
 
-				if(body.pagination.next_max_tag_id) {
+				if(body && body.pagination.next_max_tag_id) {
 					req.qs.max_tag_id = body.pagination.next_max_tag_id;
 					get(cb);
 				} else {
@@ -95,29 +100,33 @@ module.exports = function(cb) {
 
 			request(req, function(err, res, body) {
 
-				body = JSON.parse(body);
+				body = tryJSON(body);
 
 				var d = [];
 
-				_.each(body.photos.photo, function(item) {
+				if(body) {
 
-					if(item.url_l) {
+					_.each(body.photos.photo, function(item) {
 
-						d.push({
-							'media_provider': 'flickr',
-							'media_type': 'image',
-							'content': item['url_l'],
-							'thumb': item['url_t'],
-							'author': item['owner_name'],
-							'width': item['width_l'],
-							'height': item['height_l'],
-							'original_url': 'http://www.flickr.com/photos/' + item['owner'] + '/' + item['id'],
-							'date_posted': moment(parseInt(item['dateupload']) * 1000).unix()
-						});
+						if(item.url_l) {
 
-					}
+							d.push({
+								'media_provider': 'flickr',
+								'media_type': 'image',
+								'content': item['url_l'],
+								'thumb': item['url_t'],
+								'author': item['owner_name'],
+								'width': item['width_l'],
+								'height': item['height_l'],
+								'original_url': 'http://www.flickr.com/photos/' + item['owner'] + '/' + item['id'],
+								'date_posted': moment(parseInt(item['dateupload']) * 1000).unix()
+							});
 
-				});
+						}
+
+					});
+
+				}
 
 				data = data.concat(d);
 
@@ -147,25 +156,29 @@ module.exports = function(cb) {
 
 			request(req, function(err, res, body) {
 
-				body = JSON.parse(body);
+				body = tryJSON(body);
 
 				var d = [];
 
-				_.each(body.feed.entry, function(item) {
+				if(body) {
 
-					data.push({
-						'media_provider': 'youtube',
-						'media_type': 'video',
-						'content': item['media$group']['media$content'][0]['url'],
-						'thumb': item['media$group']['media$thumbnail'][0]['url'],
-						'author': item['author'][0]['name']['$t'],
-						'width': item['media$group']['media$thumbnail'][0]['width'],
-						'height': item['media$group']['media$thumbnail'][0]['height'],
-						'original_url': item['link'][0]['href'],
-						'date_posted': moment(item['updated']['$t']).unix()
+					_.each(body.feed.entry, function(item) {
+
+						d.push({
+							'media_provider': 'youtube',
+							'media_type': 'video',
+							'content': item['media$group']['media$content'][0]['url'],
+							'thumb': item['media$group']['media$thumbnail'][0]['url'],
+							'author': item['author'][0]['name']['$t'],
+							'width': item['media$group']['media$thumbnail'][0]['width'],
+							'height': item['media$group']['media$thumbnail'][0]['height'],
+							'original_url': item['link'][0]['href'],
+							'date_posted': moment(item['updated']['$t']).unix()
+						});
+
 					});
 
-				});
+				}
 
 				data = data.concat(d);
 

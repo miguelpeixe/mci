@@ -4,6 +4,7 @@ var fs = require('fs'),
 	request = require('request'),
 	_ = require('underscore'),
 	moment = require('moment'),
+	tryJSON = require('../lib/tryParseJSON'),
 	config = require('../config');
 
 module.exports = function(cb) {
@@ -28,7 +29,10 @@ module.exports = function(cb) {
 			console.log(err);
 		} else {
 
-			var events = JSON.parse(body);
+			var events = tryJSON(body);
+
+			if(!events)
+				return false;
 
 			if(!events.length)
 				throw new Error('This project has no events');
@@ -59,7 +63,7 @@ module.exports = function(cb) {
 
 				} else {
 
-					var occurrences = JSON.parse(body);
+					var occurrences = tryJSON(body) || [];
 
 					var spaceIds = [];
 
@@ -107,7 +111,7 @@ module.exports = function(cb) {
 							console.log(err);
 						} else {
 
-							var spaces = JSON.parse(body);
+							var spaces = tryJSON(body) || [];
 
 							fs.writeFile(storeDir + '/events.json', JSON.stringify(events), function(err) {
 								if(err) console.log(err);
