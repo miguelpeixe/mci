@@ -5,6 +5,38 @@ section#single-event(ng-controller="EventController")
 			h2
 				a(href="/agenda/") Agenda
 			h1 {{event.name}}
+	.single-content(ng-class="{'with-sidebar': event.occurrences.length>1 || event.terms.tag.length}")
+		#main-occurrence
+			.next-occurrence.clearfix(ng-show="featOccur || event.occurrences.length == 1")
+
+				.clearfix
+					.date-info
+						p.fromNow(ng-show="featOccur.isFuture")
+							span.entypo &#128340;
+							span(fromnow date="featOccur.timestamp")
+						p.past-event(ng-hide="featOccur.isFuture") Este evento já aconteceu
+						p.date
+							span.entypo &#128197;
+							| {{getFormattedDate(featOccur)}}
+					p.space(ng-controller="MapController" ng-click="openDialog($event, featOccur)")
+						span.entypo &#59172;
+						| {{featOccur.spaceName}}
+						span.address {{featOccur.space.endereco}}
+
+				//.map(ng-controller="MapController" ng-init="initMap(featOccur, mapOptions)")
+				//	leaflet#main-map(defaults="map.defaults" markers="map.markers" paths="map.paths" center="map.center" ng-class="{open:map.open}")
+				//		p.toggle-map(ng-click="map.toggle()") {{map.toggleLabel}}
+
+			p.past-event(ng-hide="featOccur") Este evento já aconteceu
+
+		section#event-description.event-content.main-content(ng-class="{'with-sidebar': event.occurrences.length>1 || event.terms.tag.length}")
+			p(ng-show="description") {{description}}
+
+		section#gallery(ng-show="event['@files:gallery']")
+			h2 Galeria de fotos
+			ul(masonry)
+				li.masonry-brick(ng-repeat="photo in event['@files:gallery']")
+					img(ng-src="{{photo.url}}")
 	aside#event-sidebar(ng-show="event.occurrences.length>1 || event.terms.tag.length")
 		#event-agenda.event-occurrences(ng-show="event.occurrences.length>1")
 			h2 Agenda
@@ -32,34 +64,3 @@ section#single-event(ng-controller="EventController")
 				span(ng-repeat="tag in event.terms.tag" ng-hide="service.getTagDescription(tag)")
 					a(href="javascript:void(0);" ng-click="accessTag(tag)") {{tag}}
 					| {{$last ? '' : ', '}}
-	#main-occurrence(ng-class="{'with-sidebar': event.occurrences.length>1 || event.terms.tag.length}")
-		.next-occurrence.clearfix(ng-show="featOccur || event.occurrences.length == 1")
-
-			.clearfix
-				.date-info
-					p.fromNow(ng-show="featOccur.isFuture")
-						span.entypo &#128340;
-						span(fromnow date="featOccur.timestamp")
-					p.past-event(ng-hide="featOccur.isFuture") Este evento já aconteceu
-					p.date
-						span.entypo &#128197;
-						| {{getFormattedDate(featOccur)}}
-				p.space(ng-controller="MapController" ng-click="openDialog($event, featOccur)")
-					span.entypo &#59172;
-					| {{featOccur.spaceName}}
-					span.address {{featOccur.space.endereco}}
-
-			//.map(ng-controller="MapController" ng-init="initMap(featOccur, mapOptions)")
-			//	leaflet#main-map(defaults="map.defaults" markers="map.markers" paths="map.paths" center="map.center" ng-class="{open:map.open}")
-			//		p.toggle-map(ng-click="map.toggle()") {{map.toggleLabel}}
-
-		p.past-event(ng-hide="featOccur") Este evento já aconteceu
-
-	section#event-description.event-content.main-content(ng-class="{'with-sidebar': event.occurrences.length>1 || event.terms.tag.length}")
-		p(ng-show="description") {{description}}
-
-	section#gallery(ng-show="event['@files:gallery']")
-		h2 Galeria de fotos
-		ul(masonry)
-			li.masonry-brick(ng-repeat="photo in event['@files:gallery']")
-				img(ng-src="{{photo.url}}")

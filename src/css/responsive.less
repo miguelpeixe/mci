@@ -112,6 +112,10 @@
 @media screen and (max-width: 820px) {
 	.main-header {
 		padding: 30px 30px 0;
+		&.with-image .image {
+			margin: -30px -30px 20px;
+			height: 150px;
+		}
 		&.list-header {
 			margin-bottom: 0;
 		}
@@ -305,6 +309,34 @@
 			padding: 0;
 		}
 	}
+
+	#single-event {
+		#main-occurrence,
+		#main-occurrence.with-sidebar {
+			width: auto;
+			float: none;
+			margin: 0 0 20px -40px;
+			padding: 0 40px;
+		}
+		#event-sidebar {
+			float: none;
+			width: auto;
+			margin: 0 0 20px -40px;
+			padding: 0 40px;
+			border-left: 0;
+		}
+		.event-content {
+			margin: 0 0 20px -40px !important;
+			width: auto;
+			padding: 0 40px;
+			border-bottom: 1px solid rgba(0,0,0,0.2);
+		}
+		.single-content,
+		.single-content.with-sidebar {
+			width: 100%;
+		}
+	}
+
 	#social {
 		.items {
 			margin: -40px -40px 0;

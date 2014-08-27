@@ -293,8 +293,7 @@ body {
 	z-index: 9;
 	&.with-image {
 		.image {
-			width: 100%;
-			padding-right: 80px;
+			width: auto;
 			height: 400px;
 			margin:  -40px -40px 40px;
 			background-size:cover;
@@ -1083,9 +1082,6 @@ body {
 	#main-occurrence {
 		margin: 0 0 40px;
 		&.with-sidebar {
-			width: 60%;
-			float: left;
-			border-bottom: 1px solid rgba(0,0,0,0.2);
 		}
 		.next-occurrence {
 			margin: 0 0 20px;
@@ -1206,14 +1202,19 @@ body {
 			}
 		}
 	}
-	.event-content {
+	.single-content {
 		width: 60%;
 		max-width: 900px;
 		&.with-sidebar {
-			margin: 0 0 40px;
-			.box-sizing(border-box);
-			padding-right: 40px;
 			float: left;
+			.event-content {
+				margin: 0 0 40px;
+				.box-sizing(border-box);
+				padding-right: 40px;
+			}
+			#main-occurrence {
+				border-bottom: 1px solid rgba(0,0,0,0.2);
+			}
 		}
 	}
 	#gallery {
