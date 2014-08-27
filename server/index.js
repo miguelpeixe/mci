@@ -14,12 +14,13 @@ var dev = false;
  * Load data
  */
 
-if(!fs.existsSync('dist/data/events.json')) {
-	console.log('Downloading data...');
-	loadData(init);
-} else {
+var eventsData;
+
+console.log('Downloading data...');
+loadData(function(data) {
+	eventsData = data;
 	init();
-}
+});
 
 /*
  * Run app
@@ -32,7 +33,9 @@ function init() {
 	 */
 	if(!dev) {
 		setInterval(function() {
-			loadData();
+			loadData(function(data) {
+				eventsData = data;
+			});
 		}, 1000 * 60 * 10);
 	}
 
@@ -100,8 +103,8 @@ function init() {
 				hashtag: config.hashtag
 			},
 			options: options,
-			events: require('../dist/data/events.json'),
-			spaces: require('../dist/data/spaces.json')
+			events: eventsData.events,
+			spaces: eventsData.spaces
 		};
 
 		res.send(data);
@@ -224,8 +227,9 @@ function init() {
 		} else {
 
 			loadedEvents = [];
-			loadData(function() {
+			loadData(function(data) {
 
+				eventsData = data;
 				res.render('static/data-success', {time: new Date().toString() });
 
 			});

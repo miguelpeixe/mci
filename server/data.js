@@ -126,7 +126,11 @@ module.exports = function(cb) {
 							});
 
 							if(typeof cb == 'function')
-								cb();
+								cb({
+									events: events,
+									occurrences: occurrences,
+									spaces: spaces
+								});
 
 						}
 
