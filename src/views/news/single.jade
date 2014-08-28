@@ -3,7 +3,7 @@ article#news.single-post(ng-controller="NewsController")
 		.image(ng-show="getFeaturedImage(post)" style="background-image:url({{getFeaturedImage(post)}})")
 		h2
 			a(href="/noticias/") Notícias
-		h1 {{post.title}}
+		h1(ng-bind-html="getTitle(post)")
 	section.main-content
 
 		p.date
