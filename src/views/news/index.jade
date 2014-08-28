@@ -23,7 +23,7 @@ section#news
 			.right
 				header.post-header
 					h2
-						a(href="/noticias/{{post.ID}}/") {{post.title}}
+						a(href="/noticias/{{post.ID}}/" ng-bind-html="getTitle(post)")
 				section.post-content(ng-bind-html="getExcerpt(post)")
 
 		nav#pagination.clearfix(ng-hide="(firstPage && lastPage) || !items.length")

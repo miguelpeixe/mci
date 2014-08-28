@@ -6,7 +6,7 @@ section#home
 			.post-content
 				header
 					h2
-						a(href="/noticias/{{news.first.ID}}/") {{news.first.title}}
+						a(href="/noticias/{{news.first.ID}}/" ng-bind-html="getTitle(news.first)")
 				section.excerpt(ng-bind-html="getExcerpt(news.first)")
 
 		article#second.feat
@@ -14,7 +14,7 @@ section#home
 			.post-content
 				header
 					h2
-						a(href="/noticias/{{news.second.ID}}/") {{news.second.title}}
+						a(href="/noticias/{{news.second.ID}}/" ng-bind-html="getTitle(news.second)")
 
 		a.more-news(href="/noticias") Todas as notícias
 
@@ -25,7 +25,7 @@ section#home
 				h2 Programação
 			section.box-section-content
 				p Veja todos os {{allEvents.length}} eventos distribuidos em {{allSpaces.length}} espaços
-				a.box-section-button(href="/agenda/") Programação completa
+				a.box-section-button(href="/agenda/") Programação
 
 		section.box-section
 			header.box-section-header

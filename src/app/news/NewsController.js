@@ -5,6 +5,10 @@ module.exports = [
 	'$scope',
 	function($sce, $scope) {
 
+		$scope.getTitle = function(post) {
+			return $sce.trustAsHtml(post.title);
+		}
+
 		$scope.getExcerpt = function(post) {
 			return $sce.trustAsHtml(post.excerpt);
 		};
