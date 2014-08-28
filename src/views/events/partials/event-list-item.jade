@@ -15,6 +15,9 @@ article.event-list-item
 					p.date(ng-hide="showFromNow(occur)")
 						span.entypo &#128197;
 						| {{getFormattedDate(occur, 'DD/MM, [às] HH:mm')}}
+				p.price
+					span.entypo &#127915;
+					| {{occur.price}}
 				p.space(ng-controller="MapController" ng-click="openDialog($event, occur);")
 					span.entypo &#59172;
 					| {{occur.spaceName}}

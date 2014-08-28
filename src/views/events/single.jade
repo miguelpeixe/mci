@@ -18,6 +18,9 @@ section#single-event(ng-controller="EventController")
 						p.date
 							span.entypo &#128197;
 							| {{getFormattedDate(featOccur)}}
+						p.price
+							span.entypo &#127915;
+							| {{featOccur.price}}
 					p.space(ng-controller="MapController" ng-click="openDialog($event, featOccur)")
 						span.entypo &#59172;
 						| {{featOccur.spaceName}}
@@ -41,7 +44,7 @@ section#single-event(ng-controller="EventController")
 		#event-agenda.event-occurrences(ng-show="event.occurrences.length>1")
 			h2 Agenda
 			ul
-				li.clearfix(ng-repeat="occur in event.occurrences" ng-class="{future:occur.isFuture}")
+				li.clearfix(ng-repeat="occur in event.occurrences | occurrenceOrder" ng-class="{future:occur.isFuture}")
 					.date-info.clearfix
 						p.fromNow
 							span.entypo &#128340;
@@ -52,6 +55,9 @@ section#single-event(ng-controller="EventController")
 					p.space(ng-controller="MapController" ng-click="openDialog($event, occur)")
 						span.entypo &#59172;
 						| {{occur.spaceName}}
+					p.price
+						span.entypo &#127915;
+						| {{occur.price}}
 
 		#event-tags(ng-show="event.terms.tag")
 			.tag(ng-repeat="tag in event.terms.tag" ng-show="service.getTagDescription(tag)")

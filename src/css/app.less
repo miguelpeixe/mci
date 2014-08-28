@@ -1026,14 +1026,19 @@ body {
 			.occurrences {
 				width: 30%;
 				float: left;
+				margin-top: -10px;
 				.occurrence {
 					display: none;
 					&:first-child {
 						display: block;
 					}
+					.entypo {
+						width: 20px;
+						text-align: center;
+					}
 					p {
-						font-size: 14px;
-						margin: 0;
+						font-size: 12px;
+						margin: 0 0 2px;
 						white-space: nowrap;
 						overflow: hidden;
 						text-overflow: ellipsis;
@@ -1044,10 +1049,16 @@ body {
 					.date-info {
 						width: 50%;
 						float: left;
+						p {
+							.entypo {
+								font-weight: normal;
+							}
+							color: #333;
+							font-weight: 600;
+						}
 					}
 					p.space {
-						width: 50%;
-						float: left;
+						width: 100%;
 						&:hover {
 							color: @blue;
 						}
@@ -1193,7 +1204,15 @@ body {
 			li {
 				opacity: .5;
 				margin: 0 0 20px;
+				padding-bottom: 10px;
 				border-bottom: 1px dashed #ccc;
+				p {
+					margin: 0 0 10px;
+					.entypo {
+						width: 30px;
+						text-align: center;
+					}
+				}
 				&.future {
 					opacity: 1;
 				}

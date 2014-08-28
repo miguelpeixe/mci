@@ -77,9 +77,9 @@ angular.module('mci.events')
 .filter('futureOccurrences', [
 	'EventService',
 	function(Event) {
+		var now = Event.getToday().unix();
 		return function(input, future) {
 			if(future) {
-				var now = Event.getToday().unix();
 				return _.sortBy(_.filter(input, function(occurrence) {
 					return occurrence.timestamp > now;
 				}), function(occur) { return occur.timestamp; });
@@ -124,6 +124,27 @@ angular.module('mci.events')
 			} else {
 				return input;
 			}
+		}
+	}
+])
+
+.filter('occurrenceOrder', [
+	'EventService',
+	function(Event) {
+		
+		var today = Event.getToday().unix();
+
+		return function(input) {
+
+			input = _.sortBy(input, function(occur) {
+				if(!occur.isFuture)
+					return occur.timestamp*2;
+				else
+					return occur.timestamp;
+			});
+
+			return input;
+
 		}
 	}
 ]);
