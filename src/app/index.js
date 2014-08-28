@@ -37,6 +37,10 @@ angular.module('mci', [
 			.state('about', {
 				url: '/sobre/',
 				templateUrl: '/views/pages/about.html'
+			})
+			.state('press', {
+				url: '/imprensa/',
+				templateUrl: '/views/pages/press.html'
 			});
 
 		/*
@@ -161,7 +165,7 @@ angular.module('mci', [
 			},
 			{
 				title: 'Imprensa',
-				href: '/',
+				href: '/imprensa/',
 				icon: $sce.trustAsHtml('&#127908;')
 			},
 			{

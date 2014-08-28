@@ -1398,6 +1398,41 @@ body {
 	}
 }
 
+/*
+ * PRESS
+ */
+
+#press {
+	.download-item {
+		a {
+			display: block;
+			padding: 0 40px;
+			border: 1px solid rgba(0,0,0,0.2);
+			text-decoration: none;
+			background: #fff;
+			.box-sizing(border-box);
+			height: 115px;
+			display: table;
+			&:before {
+				content: '\1F4E5';
+				.entypo;
+				margin: -1px 40px 0 -41px;
+				padding: 0 40px;
+				line-height: 114px;
+				font-size: 100px;
+				background: @pink;
+				color: #fff;
+			}
+			span {
+				display: table-cell;
+				vertical-align: middle;
+				font-family: "Axis";
+				text-transform: uppercase;
+			}
+		}
+	}
+}
+
 
 /*
  * ngDialog
