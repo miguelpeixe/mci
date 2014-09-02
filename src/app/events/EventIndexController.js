@@ -325,7 +325,7 @@ module.exports = [
 
 				featured = {
 					type: 'near',
-					label: 'Agora perto de você',
+					label: 'Perto de você',
 					events: []
 				};
 
