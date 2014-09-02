@@ -201,7 +201,7 @@ module.exports = function(cb) {
 		
 		var data = _.flatten(results);
 
-		data = _.sortBy(data, function(item) { return item.date_posted; });
+		data = _.sortBy(data, function(item) { return -item.date_posted; });
 
 		fs.writeFile(storeDir + '/social.json', JSON.stringify(data), function(err) {
 			if(err) {
