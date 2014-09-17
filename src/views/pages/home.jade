@@ -48,3 +48,11 @@ section#home
 			ul.event-list(ng-controller="EventController")
 				li.clearfix(ng-repeat="event in homeEvents" ng-click="accessEvent(event)")
 					include ../events/partials/event-list-item
+
+	section#social
+		h3 Acompanhe pelas redes sociais
+		p
+			a(href="https://www.facebook.com/culturaindependente" target="_blank" title="Facebook" class="entypo-social fb") &#62222;
+		p
+			a(href="https://twitter.com/mcifest" target="_blank" title="Twitter" class="entypo-social tw") &#62217;
+		.clear

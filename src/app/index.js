@@ -11,12 +11,15 @@ require('./events');
 require('./news');
 require('./social');
 
+require('./facebook');
+
 /*
  * App
  */
 
 angular.module('mci', [
 	'ui.router',
+	'FacebookPluginDirectives',
 	'mci.home',
 	'mci.events',
 	'mci.news',

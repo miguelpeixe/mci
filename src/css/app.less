@@ -293,8 +293,35 @@ body {
 
 	#event-list {
 		padding-right: 40px;
+		margin: 0 0 40px;
 		.event-list {
 			margin: 0;
+		}
+	}
+
+	#social {
+		h3,
+		p {
+			float: left;
+			line-height: 40px;
+		}
+		h3 {
+			margin: 0 40px 0 0;
+		}
+		p {
+			margin: 0 10px 0 0;
+		}
+		a {
+			text-decoration: none;
+		}
+		.entypo-social {
+			font-size: 70px;
+			&.fb {
+				color: #3b5998;
+			}
+			&.tw {
+				color: #33ccff;
+			}
 		}
 	}
 }
@@ -328,7 +355,7 @@ body {
 		}
 	}
 	h1 {
-		font-size: 36px;
+		font-size: 34px;
 		line-height: 40px;
 		margin: 0 40px 40px 0;
 		float: left;
@@ -1234,6 +1261,12 @@ body {
 						color: @blue;
 					}
 				}
+			}
+		}
+		#social {
+			margin: 0 0 40px;
+			.fb-like {
+				display: block;
 			}
 		}
 	}

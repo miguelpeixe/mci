@@ -5,6 +5,7 @@ section#single-event(ng-controller="EventController")
 			h2
 				a(href="/agenda/") Agenda
 			h1 {{event.name}}
+
 	.single-content(ng-class="{'with-sidebar': event.occurrences.length>1 || event.terms.tag.length}")
 		#main-occurrence
 			.next-occurrence.clearfix(ng-show="featOccur || event.occurrences.length == 1")
@@ -40,7 +41,14 @@ section#single-event(ng-controller="EventController")
 			ul(masonry)
 				li.masonry-brick(ng-repeat="photo in event['@files:gallery']")
 					img(ng-src="{{photo.url}}")
-	aside#event-sidebar(ng-show="event.occurrences.length>1 || event.terms.tag.length")
+	aside#event-sidebar
+		#social
+		
+			.fb-like(data-layout="standard" data-action="like" data-show-faces="false" data-share="true" data-width="200")
+
+			a(href="https://twitter.com/share" class="twitter-share-button" data-via="mcifest") Tweet
+			script.
+				!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
 		#event-agenda.event-occurrences(ng-show="event.occurrences.length>1")
 			h2 Agenda
 			ul

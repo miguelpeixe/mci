@@ -36,8 +36,6 @@ module.exports = [
 		$scope.event = EventData;
 		$scope.description = $scope.getDescription($scope.event);
 
-		console.log($scope.event);
-
 		$scope.featOccur = $scope.getFeaturedOccurrence($scope.event);
 
 		if($scope.featOccur)
